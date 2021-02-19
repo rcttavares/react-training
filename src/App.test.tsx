@@ -1,9 +1,18 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { shallow } from 'enzyme';
 import App from './App';
+import Button from './components/button/Button';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('should render elements correctly', () => {
+  const wrapper = shallow(
+    <App />
+  );
+
+  expect(
+    wrapper.matchesElement(
+      <Button onClick={() => alert('Clicked!')}>
+        Click here!
+      </Button>
+    )
+  ).toBe(false)
 });
