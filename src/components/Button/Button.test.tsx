@@ -11,10 +11,10 @@ describe('Button', () => {
     );
 
     expect(
-        wrapper.matchesElement(
-            <CustomButton onClick={onClick} variant="contained" color="primary">
-            </CustomButton>
-        )
+      wrapper.matchesElement(
+        <CustomButton onClick={onClick} variant="contained" color="primary">
+        </CustomButton>
+      )
     ).toBe(false)
   });
 });
