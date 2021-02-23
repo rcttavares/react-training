@@ -1,18 +1,23 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
-import Button from './components/Button/Button';
+import DogDetails from './components/DogDetails/DogDetails';
 
-test('should render elements correctly', () => {
-  const wrapper = shallow(
-    <App />
-  );
+describe('App', () => {
+  it('should render elements correctly', () => {
+    const onBark = jest.fn();
+    const wrapper = shallow(
+      <App />
+    );
 
-  expect(
-    wrapper.matchesElement(
-      <Button onClick={() => alert('Clicked!')}>
-        Click here!
-      </Button>
-    )
-  ).toBe(false)
+    expect(
+      wrapper.matchesElement(
+        <DogDetails 
+          name="Buddy"
+          image="https://www.azpetshop.com.br/blog/wp-content/uploads/2018/06/french-bulldog-summer-smile-joy-160846-805x452.jpeg"
+          onBark={onBark}
+        />
+      )
+    ).toBeTruthy();
+  });
 });

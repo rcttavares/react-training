@@ -1,15 +1,17 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import CustomButton from '@material-ui/core/Button';
 
 interface Props {
-  children: ReactNode;
+  label: string;
   onClick?: () => void;
 }
 
-function Button({ children, onClick }: Props) {
+function Button(props: Props) {
+  const { label, onClick } = props;
+
   return (
     <CustomButton onClick={onClick} variant="contained" color="primary">
-      {children}
+      {label}
     </CustomButton>
   );
 }
