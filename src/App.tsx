@@ -1,13 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSnackbar } from 'notistack';
-//import Button from './components/Button/Button';
-import DogDetails from './components/DogDetails/DogDetails';
+import DogDetailsView from './components/dogDetails/DogDetailsView';
 
 function App() {
   const { enqueueSnackbar } = useSnackbar();
 
-  const onBark = useCallback(() => {
-    enqueueSnackbar("Woof! Uau!", {
+  const [count, setCount] = useState(0);
+
+  const scold = useCallback(() => {
+    setCount(count + 1)
+  },[count])
+
+  const bark = useCallback(() => {
+    enqueueSnackbar("Woof! Woof!", {
       anchorOrigin: {
         vertical: "top",
         horizontal: "center"
@@ -17,15 +22,14 @@ function App() {
 
   return (
     <>
-      {/* <div style={{ margin: 15 }}>
-        <Button label="Click here!" onClick={() => alert('Clicked!')} />
-      </div> */}
       <div style={{ margin: 15 }}>
-        <DogDetails 
+        <DogDetailsView 
           name="Buddy"
           image="https://www.azpetshop.com.br/blog/wp-content/uploads/2018/06/french-bulldog-summer-smile-joy-160846-805x452.jpeg"
-          onBark={onBark}
+          onScold={scold}
+          onBark={bark}
         />
+        <p>Scold: {count}</p>
       </div>
     </>
   );

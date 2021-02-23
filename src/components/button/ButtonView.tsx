@@ -6,7 +6,7 @@ interface Props {
   onClick?: () => void;
 }
 
-function Button(props: Props) {
+function ButtonView(props: Props) {
   const { label, onClick } = props;
 
   return (
@@ -16,4 +16,4 @@ function Button(props: Props) {
   );
 }
 
-export default Button;
+export default ButtonView;

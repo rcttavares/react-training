@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Button from './Button';
+import ButtonView from './ButtonView';
 import CustomButton from '@material-ui/core/Button';
 
-describe('Button', () => {
+describe('ButtonView', () => {
   it('should render children elements correctly', () => {
     const label = 'Label';
     const onClick = jest.fn();
     const wrapper = shallow(
-      <Button label={label} onClick={onClick} />
+      <ButtonView label={label} onClick={onClick} />
     );
 
     expect(

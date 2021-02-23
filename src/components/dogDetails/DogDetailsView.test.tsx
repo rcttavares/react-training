@@ -1,21 +1,22 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DogDetails from './DogDetails';
+import DogDetailsView from './DogDetailsView';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Button from '../Button/Button';
+import ButtonView from '../button/ButtonView';
 
-describe('DogDetails', () => {
+describe('DogDetailsView', () => {
   it('should render children elements correctly', () => {
     const name = 'Name';
     const image = 'Image';
     const label = 'Label';
+    const onScold = jest.fn();
     const onBark = jest.fn();
     const wrapper = shallow(
-      <DogDetails name={name} image={image} onBark={onBark} />
+      <DogDetailsView name={name} image={image} onScold={onScold} onBark={onBark} />
     );
 
     expect(
@@ -30,7 +31,8 @@ describe('DogDetails', () => {
             <img src={image} alt="Dog" />
           </CardActionArea>
           <CardActions>
-            <Button label={label} onClick={onBark} />
+            <ButtonView label={label} onClick={onScold} />
+            <ButtonView label={label} onClick={onBark} />
           </CardActions>
         </Card>
       )

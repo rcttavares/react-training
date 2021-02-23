@@ -1,21 +1,23 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
-import DogDetails from './components/DogDetails/DogDetails';
+import DogDetailsView from './components/dogDetails/DogDetailsView';
 
 describe('App', () => {
   it('should render elements correctly', () => {
-    const onBark = jest.fn();
+    const scold = jest.fn();
+    const bark = jest.fn();
     const wrapper = shallow(
       <App />
     );
 
     expect(
       wrapper.matchesElement(
-        <DogDetails 
+        <DogDetailsView 
           name="Buddy"
           image="https://www.azpetshop.com.br/blog/wp-content/uploads/2018/06/french-bulldog-summer-smile-joy-160846-805x452.jpeg"
-          onBark={onBark}
+          onScold={scold}
+          onBark={bark}
         />
       )
     ).toBeTruthy();
