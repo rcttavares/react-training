@@ -10,7 +10,7 @@ function ButtonView(props: Props) {
   const { label, onClick } = props;
 
   return (
-    <CustomButton onClick={onClick} variant="contained" color="primary">
+    <CustomButton onClick={onClick} type="submit" variant="contained" color="primary">
       {label}
     </CustomButton>
   );

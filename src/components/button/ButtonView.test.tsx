@@ -13,7 +13,7 @@ describe('ButtonView', () => {
 
     expect(
       wrapper.matchesElement(
-        <CustomButton onClick={onClick} variant="contained" color="primary">
+        <CustomButton onClick={onClick} type="submit" variant="contained" color="primary">
           {label}
         </CustomButton>
       )

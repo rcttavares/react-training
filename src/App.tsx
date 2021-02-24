@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import DogDetailsView from './components/dogDetails/DogDetailsView';
+import CreateBeerFormView from './components/createBeerForm/CreateBeerFormView';
 
 function App() {
   const { enqueueSnackbar } = useSnackbar();
@@ -22,14 +23,19 @@ function App() {
 
   return (
     <>
-      <div style={{ margin: 15 }}>
+      <div>
         <DogDetailsView 
           name="Buddy"
           image="https://www.azpetshop.com.br/blog/wp-content/uploads/2018/06/french-bulldog-summer-smile-joy-160846-805x452.jpeg"
           onScold={scold}
           onBark={bark}
-        />
-        <p>Scold: {count}</p>
+        >
+          <p>Scold: {count}</p>
+        </DogDetailsView>
+      </div>
+
+      <div style={{ marginTop: 20}}>
+        <CreateBeerFormView />
       </div>
     </>
   );

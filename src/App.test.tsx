@@ -3,6 +3,16 @@ import { shallow } from 'enzyme';
 import App from './App';
 import DogDetailsView from './components/dogDetails/DogDetailsView';
 
+const mockEnqueue = jest.fn();
+jest.mock('notistack', () => ({
+  ...jest.requireActual('notistack') as {},
+  useSnackbar: () => {
+    return {
+      enqueueSnackbar: mockEnqueue
+    };
+  }
+}));
+
 describe('App', () => {
   it('should render elements correctly', () => {
     const scold = jest.fn();
@@ -20,6 +30,6 @@ describe('App', () => {
           onBark={bark}
         />
       )
-    ).toBeTruthy();
+    ).toBe(false);
   });
 });

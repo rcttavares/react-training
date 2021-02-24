@@ -12,11 +12,12 @@ interface Props {
     image: string;
     onScold: () => void;
     onBark: () => void;
+    children: React.ReactElement;
 }
 
 function DogDetailsView(props: Props) {
     const classes = useStyles();
-    const { name, image, onScold, onBark } = props;
+    const { name, image, onScold, onBark, children } = props;
 
     return (
         <Card className={classes.root}>
@@ -31,6 +32,9 @@ function DogDetailsView(props: Props) {
             <CardActions style={{ justifyContent: 'center' }}>
                 <ButtonView label="Scold!" onClick={onScold} />
                 <ButtonView label="Bark!" onClick={onBark} />
+            </CardActions>
+            <CardActions style={{ justifyContent: 'center' }}>
+                {children}
             </CardActions>
         </Card>
     );
