@@ -8,12 +8,12 @@ describe('ButtonView', () => {
     const label = 'Label';
     const onClick = jest.fn();
     const wrapper = shallow(
-      <ButtonView label={label} onClick={onClick} />
+      <ButtonView label={label} onClick={onClick} disabled={false} />
     );
 
     expect(
       wrapper.matchesElement(
-        <CustomButton onClick={onClick} type="submit" variant="contained" color="primary">
+        <CustomButton onClick={onClick} disabled={false} type="submit" variant="contained" color="primary">
           {label}
         </CustomButton>
       )

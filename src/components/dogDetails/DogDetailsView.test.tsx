@@ -15,8 +15,9 @@ describe('DogDetailsView', () => {
     const label = 'Label';
     const onScold = jest.fn();
     const onBark = jest.fn();
+    const children = <div />;
     const wrapper = shallow(
-      <DogDetailsView name={name} image={image} onScold={onScold} onBark={onBark} />
+      <DogDetailsView name={name} image={image} onScold={onScold} onBark={onBark} children={children} />
     );
 
     expect(
@@ -33,6 +34,9 @@ describe('DogDetailsView', () => {
           <CardActions>
             <ButtonView label={label} onClick={onScold} />
             <ButtonView label={label} onClick={onBark} />
+          </CardActions>
+          <CardActions>
+            {children}
           </CardActions>
         </Card>
       )
