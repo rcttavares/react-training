@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { BeerForm } from './CreateBeerForm.types';
 import { useStyles } from './CreateBeerFormView.styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
@@ -10,24 +11,30 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import ButtonView from '../button/ButtonView';
 
+const emptyValues = {
+    beerName: '',
+    beerType: '',
+    hasCorn: false,
+    ingredients: ''
+}
+
 function CreateBeerFormView() {
     const classes = useStyles();
 
-    const [values, setValues] = useState({});
-    const [type, setType] = useState('');
+    const [values, setValues] = useState<BeerForm>(emptyValues);
 
-    const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = useCallback((event: React.ChangeEvent<any>) => {
         setValues({ ...values, [event.target.name]: event.target.value });
     },[values])
 
-    const handleType = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setType(event.target.value as string);
-    }
+    const handleCheckBox = useCallback((event: React.ChangeEvent<any>) => {
+        setValues({ ...values, [event.target.name]: !values.hasCorn });
+    },[values])
 
     const handleSubmit = (event: React.ChangeEvent<any>) => {
         event.preventDefault();
         console.log(values);
-        event.target.reset();
+        setValues(emptyValues);
     }
 
     return (
@@ -42,9 +49,12 @@ function CreateBeerFormView() {
                         name="beerName"
                         variant="outlined"
                         fullWidth
+                        value={values.beerName}
                         onChange={handleChange}
+                        required
                     />
                 </div>
+
                 <div className={classes.container}>
                     <FormControl variant="outlined" fullWidth>
                         <InputLabel id="beerTypeLabel">Beer type</InputLabel>
@@ -53,8 +63,9 @@ function CreateBeerFormView() {
                             labelId="beerTypeLabel"
                             id="beerType"
                             name="beerType"
-                            value={type}
-                            onChange={handleType}
+                            value={values.beerType}
+                            onChange={handleChange}
+                            required
                         >
                             <MenuItem value={1}>Ale</MenuItem>
                             <MenuItem value={2}>Lager</MenuItem>
@@ -63,6 +74,7 @@ function CreateBeerFormView() {
                         </Select>
                     </FormControl>
                 </div>
+
                 <div className={classes.container}>
                     <FormControlLabel
                         control={<Checkbox color="primary" />}
@@ -70,9 +82,11 @@ function CreateBeerFormView() {
                         id="hasCorn"
                         name="hasCorn"
                         labelPlacement="end"
-                        //onChange={handleChange}
+                        checked={values.hasCorn}
+                        onChange={handleCheckBox}
                     />
                 </div>
+
                 <div className={classes.container}>
                     <TextField
                         label="Ingredients"
@@ -82,11 +96,14 @@ function CreateBeerFormView() {
                         fullWidth
                         multiline
                         rows={3}
+                        value={values.ingredients}
                         onChange={handleChange}
+                        required
                     />
                 </div>
+
                 <div className={classes.button}>
-                    <ButtonView label="Submit" />
+                    <ButtonView label="Submit" disabled={!values.beerName || !values.beerType || !values.ingredients} />
                 </div>
             </form>
         </Paper>

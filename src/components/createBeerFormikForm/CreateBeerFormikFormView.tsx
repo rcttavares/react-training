@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik } from 'formik';
+import * as yup from 'yup';
 import { BeerForm } from './CreateBeerFormikForm.types';
 import { useStyles } from './CreateBeerFormikFormView.styles';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -19,6 +20,12 @@ const emptyValues = {
     ingredients: ''
 }
 
+const validationSchema = yup.object().shape({
+    beerName: yup.string().required(),
+    beerType: yup.string().required(),
+    ingredients: yup.string().required()
+})
+
 function CreateBeerFormikFormView() {
     const classes = useStyles();
 
@@ -33,9 +40,10 @@ function CreateBeerFormikFormView() {
 
             <Formik
                 initialValues={emptyValues}
+                validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ values, handleSubmit, handleChange, setFieldValue }) => (
+                {({ values, isValid, dirty, handleSubmit, handleChange, setFieldValue }) => (
                     <form onSubmit={handleSubmit}>
                         <div className={classes.container}>
                             <TextField
@@ -95,7 +103,7 @@ function CreateBeerFormikFormView() {
                         </div>
 
                         <div className={classes.button}>
-                            <ButtonView label="Submit" />
+                            <ButtonView label="Submit" disabled={!(isValid && dirty)} />
                         </div>
                     </form>
                 )}
