@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import DogDetailsView from './components/dogDetails/DogDetailsView';
 import CreateBeerFormView from './components/createBeerForm/CreateBeerFormView';
+import CreateBeerFormikFormView from './components/createBeerFormikForm/CreateBeerFormikFormView';
 
 function App() {
   const { enqueueSnackbar } = useSnackbar();
@@ -36,6 +37,10 @@ function App() {
 
       <div style={{ marginTop: 20}}>
         <CreateBeerFormView />
+      </div>
+
+      <div style={{ marginTop: 20}}>
+        <CreateBeerFormikFormView />
       </div>
     </>
   );

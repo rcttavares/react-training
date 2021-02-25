@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useStyles } from './CreateBeerFormView.styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,25 +13,21 @@ import ButtonView from '../button/ButtonView';
 function CreateBeerFormView() {
     const classes = useStyles();
 
-    const [values, setValues] = React.useState({});
-    const [beerType, setBeerType] = React.useState('');
+    const [values, setValues] = useState({});
+    const [type, setType] = useState('');
 
-    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [event.target.name] : event.target.value });
-    }
+    const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setValues({ ...values, [event.target.name]: event.target.value });
+    },[values])
 
     const handleType = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setBeerType(event.target.value as string);
+        setType(event.target.value as string);
     }
 
-    // const handleCheckbox = (event: React.ChangeEvent<any>) => {
-    //     setValues(event.target.checked);
-    // }
-
-    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.ChangeEvent<any>) => {
         event.preventDefault();
-        event.target.reset();
         console.log(values);
+        event.target.reset();
     }
 
     return (
@@ -46,7 +42,7 @@ function CreateBeerFormView() {
                         name="beerName"
                         variant="outlined"
                         fullWidth
-                        onChange={handleInput}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className={classes.container}>
@@ -56,7 +52,8 @@ function CreateBeerFormView() {
                             label="Beer type"
                             labelId="beerTypeLabel"
                             id="beerType"
-                            value={beerType}
+                            name="beerType"
+                            value={type}
                             onChange={handleType}
                         >
                             <MenuItem value={1}>Ale</MenuItem>
@@ -71,8 +68,9 @@ function CreateBeerFormView() {
                         control={<Checkbox color="primary" />}
                         label="Has corn"
                         id="hasCorn"
+                        name="hasCorn"
                         labelPlacement="end"
-                        //onChange={handleCheckbox}
+                        //onChange={handleChange}
                     />
                 </div>
                 <div className={classes.container}>
@@ -84,7 +82,7 @@ function CreateBeerFormView() {
                         fullWidth
                         multiline
                         rows={3}
-                        onChange={handleInput}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className={classes.button}>
