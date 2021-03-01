@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import ButtonView from '../button/ButtonView';
 
@@ -20,20 +21,25 @@ function DogDetailsView(props: Props) {
     const { name, image, onScold, onBark, children } = props;
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.card}>
             <CardActionArea>
-                <CardContent style={{ padding: 10 }}>
+                <CardContent className={classes.cardContent}>
                     <Typography variant="h5" component="h2">
                         {name}
                     </Typography>
                 </CardContent>
-                <img src={image} alt="Dog" style={{ width: 'inherit' }} />
+                <CardMedia
+                    component="img"
+                    image={image}
+                    alt="Dog"
+                    title="Dog"
+                />
             </CardActionArea>
-            <CardActions style={{ justifyContent: 'center' }}>
+            <CardActions className={classes.cardActions}>
                 <ButtonView label="Scold!" onClick={onScold} />
                 <ButtonView label="Bark!" onClick={onBark} />
             </CardActions>
-            <CardActions style={{ justifyContent: 'center' }}>
+            <CardActions className={classes.cardActions}>
                 {children}
             </CardActions>
         </Card>
