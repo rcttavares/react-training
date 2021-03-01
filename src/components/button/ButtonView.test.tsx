@@ -4,7 +4,7 @@ import ButtonView from './ButtonView';
 import CustomButton from '@material-ui/core/Button';
 
 describe('ButtonView', () => {
-  it('should render children elements correctly', () => {
+  it('should render correctly', () => {
     const label = 'Label';
     const onClick = jest.fn();
     const wrapper = shallow(
@@ -17,6 +17,6 @@ describe('ButtonView', () => {
           {label}
         </CustomButton>
       )
-    ).toBe(true)
+    ).toBeTruthy();
   });
 });
