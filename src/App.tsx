@@ -1,6 +1,6 @@
 import React from 'react';
 import DogDetails from './components/dogDetails/DogDetails';
-import CreateBeerFormView from './components/createBeerForm/CreateBeerFormView';
+import CreateBeerForm from './components/createBeerForm/CreateBeerForm';
 import CreateBeerFormikFormView from './components/createBeerFormikForm/CreateBeerFormikFormView';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       </div>
 
       <div style={{ marginTop: 20}}>
-        <CreateBeerFormView />
+        <CreateBeerForm />
       </div>
 
       <div style={{ marginTop: 20}}>

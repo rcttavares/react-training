@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from 'react';
-import { BeerForm } from './CreateBeerForm.types';
+import React from 'react';
 import { useStyles } from './CreateBeerFormView.styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
@@ -11,61 +10,45 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import ButtonView from '../button/ButtonView';
 
-const emptyValues = {
-    beerName: '',
-    beerType: '',
-    hasCorn: false,
-    ingredients: ''
+interface Props {
+    beerName: string;
+    beerType: string;
+    hasCorn: boolean;
+    ingredients: string;
+    onChangeInput: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    onChangeSelect: (event: React.ChangeEvent<{ value: unknown }>) => void;
+    onChangeCheckbox: (event: React.ChangeEvent<any>) => void;
+    onSubmit: (event: React.FormEvent) => void;
 }
 
-function CreateBeerFormView() {
+function CreateBeerFormView(props: Props) {
     const classes = useStyles();
-
-    const [values, setValues] = useState<BeerForm>(emptyValues);
-
-    const handleChange = useCallback((event: React.ChangeEvent<any>) => {
-        setValues({ ...values, [event.target.name]: event.target.value });
-    },[values])
-
-    const handleCheckBox = useCallback((event: React.ChangeEvent<any>) => {
-        setValues({ ...values, [event.target.name]: !values.hasCorn });
-    },[values])
-
-    const handleSubmit = (event: React.ChangeEvent<any>) => {
-        event.preventDefault();
-        console.log(values);
-        setValues(emptyValues);
-    }
+    const { beerName, beerType, hasCorn, ingredients, onSubmit, onChangeInput, onChangeSelect, onChangeCheckbox } = props;
 
     return (
         <Paper className={classes.paper}>
             <h1 className={classes.title}>Beer Form</h1>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={onSubmit}>
                 <div className={classes.container}>
                     <TextField
                         label="Beer name"
-                        id="beerName"
                         name="beerName"
                         variant="outlined"
                         fullWidth
-                        value={values.beerName}
-                        onChange={handleChange}
-                        required
+                        value={beerName}
+                        onChange={onChangeInput}
                     />
                 </div>
 
                 <div className={classes.container}>
                     <FormControl variant="outlined" fullWidth>
-                        <InputLabel id="beerTypeLabel">Beer type</InputLabel>
+                        <InputLabel>Beer type</InputLabel>
                         <Select
                             label="Beer type"
-                            labelId="beerTypeLabel"
-                            id="beerType"
                             name="beerType"
-                            value={values.beerType}
-                            onChange={handleChange}
-                            required
+                            value={beerType}
+                            onChange={onChangeSelect}
                         >
                             <MenuItem value={1}>Ale</MenuItem>
                             <MenuItem value={2}>Lager</MenuItem>
@@ -79,31 +62,27 @@ function CreateBeerFormView() {
                     <FormControlLabel
                         control={<Checkbox color="primary" />}
                         label="Has corn"
-                        id="hasCorn"
                         name="hasCorn"
-                        labelPlacement="end"
-                        checked={values.hasCorn}
-                        onChange={handleCheckBox}
+                        checked={hasCorn}
+                        onChange={onChangeCheckbox}
                     />
                 </div>
 
                 <div className={classes.container}>
                     <TextField
                         label="Ingredients"
-                        id="ingredients"
                         name="ingredients"
                         variant="outlined"
                         fullWidth
                         multiline
                         rows={3}
-                        value={values.ingredients}
-                        onChange={handleChange}
-                        required
+                        value={ingredients}
+                        onChange={onChangeInput}
                     />
                 </div>
 
                 <div className={classes.button}>
-                    <ButtonView label="Submit" disabled={!values.beerName || !values.beerType || !values.ingredients} />
+                    <ButtonView label="Submit" disabled={!beerName || !beerType || !ingredients} />
                 </div>
             </form>
         </Paper>
