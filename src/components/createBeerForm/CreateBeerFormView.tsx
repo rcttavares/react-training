@@ -23,7 +23,7 @@ interface Props {
 
 function CreateBeerFormView(props: Props) {
     const classes = useStyles();
-    const { beerName, beerType, hasCorn, ingredients, onSubmit, onChangeInput, onChangeSelect, onChangeCheckbox } = props;
+    const { beerName, beerType, hasCorn, ingredients, onChangeInput, onChangeSelect, onChangeCheckbox, onSubmit } = props;
 
     return (
         <Paper className={classes.paper}>

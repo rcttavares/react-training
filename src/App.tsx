@@ -1,7 +1,7 @@
 import React from 'react';
 import DogDetails from './components/dogDetails/DogDetails';
 import CreateBeerForm from './components/createBeerForm/CreateBeerForm';
-import CreateBeerFormikFormView from './components/createBeerFormikForm/CreateBeerFormikFormView';
+import CreateBeerFormikForm from './components/createBeerFormikForm/CreateBeerFormikForm';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       </div>
 
       <div style={{ marginTop: 20}}>
-        <CreateBeerFormikFormView />
+        <CreateBeerFormikForm />
       </div>
     </>
   );

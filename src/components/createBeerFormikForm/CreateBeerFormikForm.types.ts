@@ -1,4 +1,4 @@
-export interface BeerForm {
+export interface BeerFormik {
     beerName: string;
     beerType: string;
     hasCorn: boolean;
