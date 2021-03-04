@@ -19,15 +19,15 @@ describe('DogDetailsView', () => {
   it('should render correctly', () => {
     const name = 'Name';
     const image = 'Image';
-    const onScold = jest.fn();
-    const onBark = jest.fn();
+    const onScoldMock = jest.fn();
+    const onBarkMock = jest.fn();
     const children = <p>Children</p>;
     const wrapper = shallow(
       <DogDetailsView 
         name={name}
         image={image}
-        onScold={onScold}
-        onBark={onBark}
+        onScold={onScoldMock}
+        onBark={onBarkMock}
         children={children}
       />
     );
@@ -44,8 +44,8 @@ describe('DogDetailsView', () => {
             <CardMedia component="img" image={image} alt="Dog" title="Dog" />
           </CardActionArea>
           <CardActions className="cardActions">
-            <ButtonView label="Scold!" onClick={onScold} />
-            <ButtonView label="Bark!" onClick={onBark} />
+            <ButtonView label="Scold!" onClick={onScoldMock} />
+            <ButtonView label="Bark!" onClick={onBarkMock} />
           </CardActions>
           <CardActions className="cardActions">
             {children}

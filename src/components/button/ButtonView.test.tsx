@@ -6,17 +6,21 @@ import CustomButton from '@material-ui/core/Button';
 describe('ButtonView', () => {
   it('should render correctly', () => {
     const label = 'Label';
-    const onClick = jest.fn();
+    const onClickMock = jest.fn();
     const wrapper = shallow(
-      <ButtonView label={label} onClick={onClick} disabled={false} />
+      <ButtonView 
+        label={label}
+        onClick={onClickMock}
+        disabled={false}
+      />
     );
 
     expect(
       wrapper.matchesElement(
-        <CustomButton onClick={onClick} disabled={false} type="submit" variant="contained" color="primary">
+        <CustomButton onClick={onClickMock} disabled={false} type="submit" variant="contained" color="primary">
           {label}
         </CustomButton>
       )
-    ).toBeTruthy();
+    ).toBe(true);
   });
 });

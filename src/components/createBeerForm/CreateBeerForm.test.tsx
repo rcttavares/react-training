@@ -62,12 +62,14 @@ describe('CreateBeerForm', () => {
 	});
 
     it('should submit form correctly', () => {
+		// Mock the native console.log
+		console.log = jest.fn();
+	
 		const event = {
-            preventDefault() {}
-        } as React.FormEvent;
+		  	preventDefault() {},
+		} as React.FormEvent;
 		const wrapper = shallow(<CreateBeerForm />);
-		wrapper.invoke('onSubmit')(event);
-        const mockOnSubmit = jest.fn();
-        expect(mockOnSubmit).toHaveBeenCalledTimes(0);
+		wrapper.invoke("onSubmit")(event);
+		expect(console.log).toHaveBeenCalled();
 	});
 });
