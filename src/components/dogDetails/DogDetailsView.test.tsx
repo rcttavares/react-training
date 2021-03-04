@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import DogDetailsView from './DogDetailsView';
 import { useStyles } from './DogDetailsView.styles';
+import { Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import ButtonView from '../button/ButtonView';
 
 jest.mock('./DogDetailsView.styles');
 
@@ -30,7 +32,26 @@ describe('DogDetailsView', () => {
       />
     );
 
-    //console.log(wrapper.debug());
-    expect(wrapper).toBeTruthy();
+    expect(
+      wrapper.matchesElement(
+        <Card className="card">
+          <CardActionArea>
+            <CardContent className="cardContent">
+              <Typography variant="h5" component="h2">
+                {name}
+              </Typography>
+            </CardContent>
+            <CardMedia component="img" image={image} alt="Dog" title="Dog" />
+          </CardActionArea>
+          <CardActions className="cardActions">
+            <ButtonView label="Scold!" onClick={onScold} />
+            <ButtonView label="Bark!" onClick={onBark} />
+          </CardActions>
+          <CardActions className="cardActions">
+            {children}
+          </CardActions>
+        </Card>
+      )
+    ).toBe(true);
   });
 });
