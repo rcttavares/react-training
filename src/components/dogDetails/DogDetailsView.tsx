@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStyles } from './DogDetailsView.styles';
-import { Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
 import ButtonView from '../button/ButtonView';
 
 interface Props {
@@ -17,14 +17,12 @@ function DogDetailsView(props: Props) {
 
     return (
         <Card className={classes.card}>
-            <CardActionArea>
-                <CardContent className={classes.cardContent}>
-                    <Typography variant="h5" component="h2">
-                        {name}
-                    </Typography>
-                </CardContent>
-                <CardMedia component="img" image={image} alt="Dog" title="Dog" />
-            </CardActionArea>
+            <CardContent className={classes.cardContent}>
+                <Typography variant="h5" component="h2">
+                    {name}
+                </Typography>
+            </CardContent>
+            <CardMedia className={classes.cardMedia} component="img" image={image} alt="Dog" title="Dog" />
             <CardActions className={classes.cardActions}>
                 <ButtonView label="Scold!" onClick={onScold} />
                 <ButtonView label="Bark!" onClick={onBark} />
