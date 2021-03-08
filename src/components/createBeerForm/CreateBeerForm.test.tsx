@@ -62,7 +62,6 @@ describe('CreateBeerForm', () => {
 	});
 
     it('should submit form correctly', () => {
-		// Mock the native console.log
 		console.log = jest.fn();
 	
 		const event = {

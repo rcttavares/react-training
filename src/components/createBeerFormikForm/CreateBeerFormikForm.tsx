@@ -10,9 +10,8 @@ const emptyValues = {
 }
 
 function CreateBeerFormikForm() {
-    const handleSubmit = useCallback((values: BeerFormik, { resetForm }: any) => {
+    const handleSubmit = useCallback((values: BeerFormik) => {
         console.log(values);
-        resetForm();
     },[])
 
     return (

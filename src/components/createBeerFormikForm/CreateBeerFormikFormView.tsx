@@ -3,26 +3,19 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { BeerFormik } from './CreateBeerFormikForm.types';
 import { useStyles } from './CreateBeerFormikFormView.styles';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core';
 import ButtonView from '../button/ButtonView';
-
-interface Props {
-    initialValues: BeerFormik;
-    onSubmit: (values: BeerFormik, { resetForm }: any) => void;
-}
 
 const validationSchema = yup.object().shape({
     beerName: yup.string().required(),
     beerType: yup.string().required(),
     ingredients: yup.string().required()
 })
+
+interface Props {
+    initialValues: BeerFormik;
+    onSubmit: (values: BeerFormik) => void;
+}
 
 function CreateBeerFormikFormView(props: Props) {
     const classes = useStyles();
@@ -91,7 +84,10 @@ function CreateBeerFormikFormView(props: Props) {
                         </div>
 
                         <div className={classes.button}>
-                            <ButtonView label="Submit" disabled={!(isValid && dirty)} />
+                            <ButtonView 
+                                label="Submit"
+                                disabled={!(isValid && dirty)}
+                            />
                         </div>
                     </form>
                 )}
