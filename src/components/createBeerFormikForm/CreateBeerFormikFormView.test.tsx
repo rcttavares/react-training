@@ -18,20 +18,26 @@ describe('CreateBeerFormikFormView', () => {
     });
   });
 
-  it('should render correctly the Formik', () => {
-    const emptyValues = {
-      beerName: '',
-      beerType: '',
-      hasCorn: false,
-      ingredients: ''
-    };
-
-    const onSubmitMock = jest.fn();
-
+  it('should render correctly', () => {
     const wrapper = shallow(
       <CreateBeerFormikFormView
-        initialValues={emptyValues}
-        onSubmit={onSubmitMock}
+        initialValues={{ beerName: '', beerType: '', hasCorn: false, ingredients: '' }}
+        onSubmit={jest.fn()}
+      />
+    );
+
+    expect(
+      wrapper.find('h1').matchesElement(
+        <h1 className="title">Beer Formik</h1>
+      )
+    ).toBe(true);
+  });
+
+  it('should render correctly the Formik', () => {
+    const wrapper = shallow(
+      <CreateBeerFormikFormView
+        initialValues={{ beerName: '', beerType: '', hasCorn: false, ingredients: '' }}
+        onSubmit={jest.fn()}
       />
     );
 
@@ -50,12 +56,14 @@ describe('CreateBeerFormikFormView', () => {
     };
 
     const formikProps = {
+      // Formik State
       values: { beerName: '', beerType: '', hasCorn: false, ingredients: '' },
       errors: error,
       touched: touch,
       isSubmitting: false,
       isValidating: false,
       submitCount: 1,
+      // Formik Helpers
       setStatus: jest.fn(),
       setErrors: jest.fn(),
       setSubmitting: jest.fn(),
@@ -69,6 +77,7 @@ describe('CreateBeerFormikFormView', () => {
       resetForm: jest.fn(),
       submitForm: jest.fn(),
       setFormikState: jest.fn(),
+      // Formik Handlers
       handleSubmit: jest.fn(),
       handleReset: jest.fn(),
       handleBlur: jest.fn(),
@@ -76,11 +85,13 @@ describe('CreateBeerFormikFormView', () => {
       getFieldProps: jest.fn(),
       getFieldMeta: jest.fn(),
       getFieldHelpers: jest.fn(),
+      // Computed
       dirty: false,
       isValid: false,
       initialValues: { beerName: '', beerType: '', hasCorn: false, ingredients: '' },
-      initialErrors: { beerName: '', beerType: '', hasCorn: '', ingredients: 'teste' },
-      initialTouched: { beerName: false, beerType: false, hasCorn: false, ingredients: true },
+      initialErrors: error,
+      initialTouched: touch,
+      // Registered Field
       registerField: jest.fn(),
       unregisterField: jest.fn()
     };
@@ -141,5 +152,17 @@ describe('CreateBeerFormikFormView', () => {
         </form>
       )
     ).toBe(true);
+  });
+
+  it("should have submit button disabled", () => {
+    const wrapper = shallow(
+      <CreateBeerFormikFormView
+        initialValues={{ beerName: '', beerType: '', hasCorn: false, ingredients: '' }}
+        onSubmit={jest.fn()}
+      />
+    );
+
+    wrapper.find(Formik).dive().find(ButtonView);
+    expect(wrapper.prop("disabled")).toBe(undefined);
   });
 });
