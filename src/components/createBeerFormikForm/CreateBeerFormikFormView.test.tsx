@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Formik } from 'formik';
+import { Formik, FormikErrors, FormikHandlers, FormikState, FormikTouched, FormikValues } from 'formik';
 import * as yup from 'yup';
-import CreateBeerFormikFormView from './CreateBeerFormikForm';
+import CreateBeerFormikFormView from './CreateBeerFormikFormView';
 import { useStyles } from './CreateBeerFormikFormView.styles';
 import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core';
 import ButtonView from '../button/ButtonView';
@@ -35,6 +35,41 @@ describe('CreateBeerFormikFormView', () => {
     
     const onSubmitMock = jest.fn();
 
+    const error: FormikErrors<FormikValues> = {
+      beerName: '',
+      beerType: '',
+      hasCorn: '',
+      ingredients: 'teste'
+    }
+
+    const touch: FormikTouched<FormikValues> = {
+      beerName: false,
+      beerType: false,
+      hasCorn: false,
+      ingredients: true
+    }
+
+    const formikHandlers = {
+      getFieldHelpers: jest.fn(),
+      getFieldMeta: jest.fn(),
+      getFieldProps: jest.fn(),
+      handleBlur:  jest.fn(),
+      handleChange: jest.fn(),
+      handleReset: jest.fn(),
+      handleSubmit: jest.fn()
+    } as FormikHandlers
+
+    const propsFormik = {
+      onSubmit: jest.fn(),
+      handleChange: jest.fn(),
+      errors: error,
+      touched: touch,
+      values: { beerName: '', beerType: '', hasCorn: false, ingredients: '' },
+      isSubmitting: false,
+      isValidatting: false,
+      submitCount: 1
+    } as unknown as FormikState<FormikValues>
+
     const wrapper = shallow(
       <CreateBeerFormikFormView
         initialValues={emptyValues}
@@ -42,7 +77,8 @@ describe('CreateBeerFormikFormView', () => {
       />
     );
 
-    console.log(wrapper.debug())
+    const formWrapper = wrapper.renderProp('children')({ ...propsFormik, ...formikHandlers });
+    expect(formWrapper.find('#title').text()).toEqual('Beer Formik');
 
     expect(
       wrapper.matchesElement(
