@@ -1,10 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Formik, FormikErrors, FormikHandlers, FormikState, FormikTouched, FormikValues } from 'formik';
-import * as yup from 'yup';
+import { Formik, FormikErrors, FormikTouched, FormikValues } from 'formik';
 import CreateBeerFormikFormView from './CreateBeerFormikFormView';
 import { useStyles } from './CreateBeerFormikFormView.styles';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import ButtonView from '../button/ButtonView';
 
 jest.mock('./CreateBeerFormikFormView.styles');
@@ -19,56 +18,15 @@ describe('CreateBeerFormikFormView', () => {
     });
   });
 
-  it('should render correctly', () => {
-    const validationSchema = yup.object().shape({
-      beerName: yup.string().required(),
-      beerType: yup.string().required(),
-      ingredients: yup.string().required()
-    })
-
+  it('should render correctly the Formik', () => {
     const emptyValues = {
       beerName: '',
       beerType: '',
       hasCorn: false,
       ingredients: ''
-    }
-    
+    };
+
     const onSubmitMock = jest.fn();
-
-    const error: FormikErrors<FormikValues> = {
-      beerName: '',
-      beerType: '',
-      hasCorn: '',
-      ingredients: 'teste'
-    }
-
-    const touch: FormikTouched<FormikValues> = {
-      beerName: false,
-      beerType: false,
-      hasCorn: false,
-      ingredients: true
-    }
-
-    const formikHandlers = {
-      getFieldHelpers: jest.fn(),
-      getFieldMeta: jest.fn(),
-      getFieldProps: jest.fn(),
-      handleBlur:  jest.fn(),
-      handleChange: jest.fn(),
-      handleReset: jest.fn(),
-      handleSubmit: jest.fn()
-    } as FormikHandlers
-
-    const propsFormik = {
-      onSubmit: jest.fn(),
-      handleChange: jest.fn(),
-      errors: error,
-      touched: touch,
-      values: { beerName: '', beerType: '', hasCorn: false, ingredients: '' },
-      isSubmitting: false,
-      isValidatting: false,
-      submitCount: 1
-    } as unknown as FormikState<FormikValues>
 
     const wrapper = shallow(
       <CreateBeerFormikFormView
@@ -77,82 +35,110 @@ describe('CreateBeerFormikFormView', () => {
       />
     );
 
-    const formWrapper = wrapper.renderProp('children')({ ...propsFormik, ...formikHandlers });
-    expect(formWrapper.find('#title').text()).toEqual('Beer Formik');
+    const error: FormikErrors<FormikValues> = {
+      beerName: '',
+      beerType: '',
+      hasCorn: '',
+      ingredients: 'teste'
+    };
+
+    const touch: FormikTouched<FormikValues> = {
+      beerName: false,
+      beerType: false,
+      hasCorn: false,
+      ingredients: true
+    };
+
+    const formikProps = {
+      values: { beerName: '', beerType: '', hasCorn: false, ingredients: '' },
+      errors: error,
+      touched: touch,
+      isSubmitting: false,
+      isValidating: false,
+      submitCount: 1,
+      setStatus: jest.fn(),
+      setErrors: jest.fn(),
+      setSubmitting: jest.fn(),
+      setTouched: jest.fn(),
+      setValues: jest.fn(),
+      setFieldValue: jest.fn(),
+      setFieldError: jest.fn(),
+      setFieldTouched: jest.fn(),
+      validateForm: jest.fn(),
+      validateField: jest.fn(),
+      resetForm: jest.fn(),
+      submitForm: jest.fn(),
+      setFormikState: jest.fn(),
+      handleSubmit: jest.fn(),
+      handleReset: jest.fn(),
+      handleBlur: jest.fn(),
+      handleChange: jest.fn(),
+      getFieldProps: jest.fn(),
+      getFieldMeta: jest.fn(),
+      getFieldHelpers: jest.fn(),
+      dirty: false,
+      isValid: false,
+      initialValues: { beerName: '', beerType: '', hasCorn: false, ingredients: '' },
+      initialErrors: { beerName: '', beerType: '', hasCorn: '', ingredients: 'teste' },
+      initialTouched: { beerName: false, beerType: false, hasCorn: false, ingredients: true },
+      registerField: jest.fn(),
+      unregisterField: jest.fn()
+    };
+
+    const formik = wrapper.find(Formik).renderProp('children')(formikProps);
 
     expect(
-      wrapper.matchesElement(
-        <Paper className="paper">
-          <h1 className="title">Beer Formik</h1>
+      formik.matchesElement(
+        <form>
+          <div className="container">
+            <TextField
+              label="Beer name"
+              name="beerName"
+              variant="outlined"
+              fullWidth
+            />
+          </div>
 
-          <Formik
-            validationSchema={validationSchema}
-            initialValues={emptyValues}
-            onSubmit={onSubmitMock}
-          >
-            {({ values, isValid, dirty, handleSubmit, handleChange, setFieldValue }) => (
-              <form onSubmit={handleSubmit}>
-                <div className="container">
-                  <TextField
-                    label="Beer name"
-                    name="beerName"
-                    variant="outlined"
-                    fullWidth
-                    value={values.beerName}
-                    onChange={handleChange}
-                  />
-                </div>
-    
-                <div className="container">
-                  <FormControl variant="outlined" fullWidth>
-                    <InputLabel>Beer type</InputLabel>
-                    <Select
-                      label="Beer type"
-                      name="beerType"
-                      value={values.beerType}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={1}>Ale</MenuItem>
-                      <MenuItem value={2}>Lager</MenuItem>
-                      <MenuItem value={3}>Stout</MenuItem>
-                      <MenuItem value={4}>Malt</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-    
-                <div className="container">
-                  <FormControlLabel
-                    control={<Checkbox color="primary" />}
-                    label="Has corn"
-                    name="hasCorn"
-                    checked={values.hasCorn}
-                    onChange={() => setFieldValue('hasCorn', !values.hasCorn)}
-                  />
-                </div>
-    
-                <div className="container">
-                  <TextField
-                    label="Ingredients"
-                    name="ingredients"
-                    variant="outlined"
-                    fullWidth
-                    multiline
-                    rows={3}
-                    value={values.ingredients}
-                    onChange={handleChange}
-                  />
-                </div>
-    
-                <div className="button">
-                  <ButtonView
-                    label="Submit"
-                    disabled={!(isValid && dirty)}
-                  />
-                </div>
-              </form>
-            )}
-          </Formik>
-        </Paper>
+          <div className="container">
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel>Beer type</InputLabel>
+              <Select
+                label="Beer type"
+                name="beerType"
+              >
+                <MenuItem value={1}>Ale</MenuItem>
+                <MenuItem value={2}>Lager</MenuItem>
+                <MenuItem value={3}>Stout</MenuItem>
+                <MenuItem value={4}>Malt</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+
+          <div className="container">
+            <FormControlLabel
+              control={<Checkbox color="primary" />}
+              label="Has corn"
+              name="hasCorn"
+            />
+          </div>
+
+          <div className="container">
+            <TextField
+              label="Ingredients"
+              name="ingredients"
+              variant="outlined"
+              fullWidth
+              multiline
+              rows={3}
+            />
+          </div>
+
+          <div className="button">
+            <ButtonView
+              label="Submit"
+            />
+          </div>
+        </form>
       )
     ).toBe(true);
   });
