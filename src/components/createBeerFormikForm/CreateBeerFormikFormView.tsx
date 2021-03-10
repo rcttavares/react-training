@@ -14,7 +14,7 @@ const validationSchema = yup.object().shape({
 
 interface Props {
     initialValues: BeerFormik;
-    onSubmit: (values: BeerFormik) => void;
+    onSubmit: (values: BeerFormik, { resetForm }: any) => void;
 }
 
 function CreateBeerFormikFormView(props: Props) {
