@@ -15,7 +15,7 @@ function DogListView(props: Props) {
         <Paper className={classes.paper}>
             {dogList.map(dog => {
                 return (
-                    <List className={classes.list}>
+                    <List key={dog} className={classes.list}>
                         <ListItem button>
                             <ListItemText primary={capitalize(dog)} />
                         </ListItem>
