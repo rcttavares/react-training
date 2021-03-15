@@ -9,6 +9,6 @@ export async function getDogList(): Promise<Dog[]> {
         const { message: breeds } = await response.json();
         return breeds;
     } catch (error) {
-        throw console.error();
+        throw new Error(error);
     }
 };
