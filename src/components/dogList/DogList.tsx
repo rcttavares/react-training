@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DogListView from './DogListView';
 import { getDogList } from '../../services/DogListService';
 import { keys } from 'lodash';
@@ -11,7 +11,7 @@ function DogList() {
         setDogList(keys(result));
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         fetchDogs();
     }, []);
 
