@@ -18,7 +18,7 @@ describe('DogListView', () => {
 
   it('should render correctly', () => {
     // Given
-    const dogList: Dog[] = [];
+    const dogList: Dog[] = [{ name: '', image: '' }];
     // When
     const wrapper = shallow(
       <DogListView dogList={dogList} />
