@@ -1,10 +1,11 @@
 import React from 'react';
 import { useStyles } from './DogListView.styles';
-import { List, ListItem, ListItemText, Paper } from '@material-ui/core';
+import { Avatar, List, ListItem, ListItemAvatar, ListItemText, Paper } from '@material-ui/core';
 import { capitalize } from 'lodash';
+import { Dog } from '../../types/DogListType';
 
 interface Props {
-    dogList: string[];
+    dogList: Dog[];
 }
 
 function DogListView(props: Props) {
@@ -13,11 +14,14 @@ function DogListView(props: Props) {
 
     return (
         <Paper className={classes.paper}>
-            {dogList.map(dog => {
+            {dogList.map((dog, index) => {
                 return (
-                    <List key={dog} className={classes.list}>
+                    <List key={index} className={classes.list}>
                         <ListItem button>
-                            <ListItemText primary={capitalize(dog)} />
+                            <ListItemAvatar>
+                                <Avatar alt={dog.name} src={dog.image} />
+                            </ListItemAvatar>
+                            <ListItemText primary={capitalize(dog.name)} />
                         </ListItem>
                     </List>
                 )

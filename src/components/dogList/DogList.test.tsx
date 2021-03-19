@@ -2,19 +2,25 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import DogList from './DogList';
 import DogListView from './DogListView';
-import { getDogList } from '../../services/DogListService';
+import { getBreeds } from '../../services/DogListService';
 
 jest.mock('../../services/DogListService');
 
 describe('DogList', () => {
-  it('should render with the right props', () => {
+  it('should render the view with the right props', () => {
+    // Given
     const wrapper = shallow(<DogList />);
-    expect(wrapper.matchesElement(<DogListView dogList={[]} />)).toBe(true);
+    // Then
+    expect(wrapper.type()).toBe(DogListView);
+    expect(wrapper.props()).toMatchObject({ dogList: [] });
   });
 
-  it('should call function to API', () => {
+  it('should get a list of dog breeds', () => {
+    // Given
     jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
+    // When
     shallow(<DogList />);
-    expect(getDogList).toHaveBeenCalledTimes(1);
+    // Then
+    expect(getBreeds).toBeCalled();
   });
 });

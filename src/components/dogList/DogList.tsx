@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import DogListView from './DogListView';
-import { getDogList } from '../../services/DogListService';
-import { keys } from 'lodash';
+import { getBreeds } from '../../services/DogListService';
+import { Dog } from '../../types/DogListType';
 
 function DogList() {
-    const [dogList, setDogList] = useState<string[]>([]);
+    const [dogList, setDogList] = useState<Dog[]>([]);
 
-    const fetchDogs = async () => {
-        const result = await getDogList();
-        setDogList(keys(result));
+    const fetchBreeds = async () => {
+        const result = await getBreeds();
+        setDogList(result);
     };
 
     React.useEffect(() => {
-        fetchDogs();
+        fetchBreeds();
     }, []);
 
     return (
