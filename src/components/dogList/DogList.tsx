@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DogListView from './DogListView';
-import { getBreeds } from '../../services/DogListService';
 import { Dog } from '../../types/DogListType';
 
-function DogList() {
-    const [dogList, setDogList] = useState<Dog[]>([]);
+interface Props {
+    dogList: Dog[];
+    selectedDog: Dog;
+    onSelectDog: (breed: string) => void;
+}
 
-    const fetchBreeds = async () => {
-        const result = await getBreeds();
-        setDogList(result);
-    };
-
-    React.useEffect(() => {
-        fetchBreeds();
-    }, []);
+function DogList(props: Props) {
+    const { dogList, selectedDog, onSelectDog } = props;
 
     return (
-        <DogListView dogList={dogList} />
+        <DogListView
+            dogList={dogList}
+            selectedDog={selectedDog}
+            onSelectDog={onSelectDog}
+        />
     )
 }
 

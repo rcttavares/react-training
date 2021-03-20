@@ -2,7 +2,13 @@ import React, { useCallback, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import DogDetailsView from './DogDetailsView';
 
-function DogDetails() {
+interface Props {
+    name: string;
+    image: string;
+}
+
+function DogDetails(props: Props) {
+    const { name, image } = props;
     const { enqueueSnackbar } = useSnackbar();
 
     const [count, setCount] = useState(0);
@@ -22,8 +28,8 @@ function DogDetails() {
 
     return (
         <DogDetailsView
-            name="Buddy"
-            image="https://www.azpetshop.com.br/blog/wp-content/uploads/2018/06/french-bulldog-summer-smile-joy-160846-805x452.jpeg"
+            name={name}
+            image={image}
             onScold={scold}
             onBark={bark}
         >

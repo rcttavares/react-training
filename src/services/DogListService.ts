@@ -9,13 +9,13 @@ export async function getBreeds(): Promise<Dog[]> {
         if (data.status !== 'success')
             throw new Error('Não foi possível listar as raças de cachorro.');
         const response = data.message;
-        const dogBreedNames = Object.keys(response);
+        const dogBreeds = Object.keys(response);
 
         const dogBreedList = await Promise.all(
-            dogBreedNames.map(async dogBreedName => {
-                const image = await getImages(dogBreedName);
+            dogBreeds.map(async breed => {
+                const image = await getImages(breed);
                 return {
-                    name: dogBreedName,
+                    name: breed,
                     image
                 } as Dog
             })

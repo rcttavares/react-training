@@ -1,7 +1,8 @@
 import React from 'react';
 import { useStyles } from './DogDetailsView.styles';
-import { Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Avatar, Card, CardActions, CardContent, Typography } from '@material-ui/core';
 import ButtonView from '../button/ButtonView';
+import { capitalize } from 'lodash';
 
 interface Props {
     name: string;
@@ -19,10 +20,10 @@ function DogDetailsView(props: Props) {
         <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
                 <Typography variant="h5" component="h2">
-                    {name}
+                    {capitalize(name)}
                 </Typography>
             </CardContent>
-            <CardMedia className={classes.cardMedia} component="img" image={image} alt="Dog" title="Dog" />
+            <Avatar className={classes.avatar} alt={name} src={image} />
             <CardActions className={classes.cardActions}>
                 <ButtonView label="Scold!" onClick={onScold} />
                 <ButtonView label="Bark!" onClick={onBark} />

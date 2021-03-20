@@ -7,12 +7,10 @@ export const useStyles = makeStyles({
     cardContent: {
         padding: '10px !important' 
     },
-    cardMedia: {
-        width: '16em !important',
-        height: 'auto',
+    avatar: {
         margin: '0 auto',
-        border: '2px solid black',
-        borderRadius: '4px'
+        width: '200px !important',
+        height: '200px !important'
     },
     cardActions: {
         justifyContent: 'center'
