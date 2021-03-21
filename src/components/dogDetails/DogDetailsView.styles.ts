@@ -12,7 +12,12 @@ export const useStyles = makeStyles({
         width: '200px !important',
         height: '200px !important'
     },
+    icon: {
+        width: '120px',
+        height: '120px'
+    },
     cardActions: {
-        justifyContent: 'center'
+        justifyContent: 'center',
+        margin: 16
     }
 });

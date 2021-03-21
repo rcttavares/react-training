@@ -6,10 +6,11 @@ interface Props {
     name: string;
     image: string;
     onScold: () => void;
+    disabled: boolean;
 }
 
 function DogDetails(props: Props) {
-    const { name, image, onScold } = props;
+    const { name, image, onScold, disabled } = props;
     const { enqueueSnackbar } = useSnackbar();
 
     const onBark = useCallback(() => {
@@ -27,6 +28,7 @@ function DogDetails(props: Props) {
             image={image}
             onScold={onScold}
             onBark={onBark}
+            disabled={disabled}
         />
     );
 }

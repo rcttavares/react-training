@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
     paper: {
-        maxHeight: '18em', 
+        maxHeight: '21em', 
         overflow: 'auto'
     },
     list: {

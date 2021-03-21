@@ -40,10 +40,19 @@ function App() {
     <div>
       <Grid container spacing={3}>
         <Grid item xs={4}>
-          <DogDetails name={selectedDog?.name} image={selectedDog?.image} onScold={onScold} />
+          <DogDetails
+            name={selectedDog?.name}
+            image={selectedDog?.image}
+            onScold={onScold}
+            disabled={!selectedDog.name}
+          />
         </Grid>
         <Grid item xs={8}>
-          <DogList dogList={dogList} selectedDog={selectedDog} onSelectDog={onSelectDog} />
+          <DogList
+            dogList={dogList}
+            selectedDog={selectedDog}
+            onSelectDog={onSelectDog}
+          />
         </Grid>
         <Grid item xs={6}>
           <CreateBeerForm />
