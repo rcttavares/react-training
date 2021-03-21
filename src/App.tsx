@@ -26,11 +26,21 @@ function App() {
     setSelectedDog(selectedBreed);
   };
 
+  const onScold = () => {
+    const scoldedBreed = dogList.map((dog) => {
+      if (dog.name.toLowerCase() === selectedDog.name.toLowerCase())
+        return { ...dog, scolded: dog.scolded + 1 };
+      return dog;
+    });
+
+    setDogList(scoldedBreed);
+  };
+
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs={4}>
-          <DogDetails name={selectedDog?.name} image={selectedDog?.image} />
+          <DogDetails name={selectedDog?.name} image={selectedDog?.image} onScold={onScold} />
         </Grid>
         <Grid item xs={8}>
           <DogList dogList={dogList} selectedDog={selectedDog} onSelectDog={onSelectDog} />

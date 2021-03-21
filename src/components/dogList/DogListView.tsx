@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStyles } from './DogListView.styles';
-import { Avatar, List, ListItem, ListItemAvatar, ListItemText, Paper } from '@material-ui/core';
+import { Avatar, Chip, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Paper } from '@material-ui/core';
 import { capitalize } from 'lodash';
 import { Dog } from '../../types/DogListType';
 
@@ -28,6 +28,9 @@ function DogListView(props: Props) {
                                 <Avatar alt={dog.name} src={dog.image} />
                             </ListItemAvatar>
                             <ListItemText primary={capitalize(dog.name)} />
+                            <ListItemSecondaryAction>
+                                <Chip label={dog.scolded} />
+                            </ListItemSecondaryAction>
                         </ListItem>
                     </List>
                 )

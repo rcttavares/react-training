@@ -9,12 +9,11 @@ interface Props {
     image: string;
     onScold: () => void;
     onBark: () => void;
-    children: React.ReactElement;
 }
 
 function DogDetailsView(props: Props) {
     const classes = useStyles();
-    const { name, image, onScold, onBark, children } = props;
+    const { name, image, onScold, onBark } = props;
 
     return (
         <Card className={classes.card}>
@@ -27,9 +26,6 @@ function DogDetailsView(props: Props) {
             <CardActions className={classes.cardActions}>
                 <ButtonView label="Scold!" onClick={onScold} />
                 <ButtonView label="Bark!" onClick={onBark} />
-            </CardActions>
-            <CardActions className={classes.cardActions}>
-                {children}
             </CardActions>
         </Card>
     );

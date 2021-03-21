@@ -1,23 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
 import DogDetailsView from './DogDetailsView';
 
 interface Props {
     name: string;
     image: string;
+    onScold: () => void;
 }
 
 function DogDetails(props: Props) {
-    const { name, image } = props;
+    const { name, image, onScold } = props;
     const { enqueueSnackbar } = useSnackbar();
 
-    const [count, setCount] = useState(0);
-
-    const scold = useCallback(() => {
-        setCount(count + 1)
-    },[count]);
-
-    const bark = useCallback(() => {
+    const onBark = useCallback(() => {
         enqueueSnackbar("Woof! Woof!", {
             anchorOrigin: {
                 vertical: "top",
@@ -30,11 +25,9 @@ function DogDetails(props: Props) {
         <DogDetailsView
             name={name}
             image={image}
-            onScold={scold}
-            onBark={bark}
-        >
-            <p>Scold: {count}</p>
-        </DogDetailsView>
+            onScold={onScold}
+            onBark={onBark}
+        />
     );
 }
 

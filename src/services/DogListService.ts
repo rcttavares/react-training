@@ -16,7 +16,8 @@ export async function getBreeds(): Promise<Dog[]> {
                 const image = await getImages(breed);
                 return {
                     name: breed,
-                    image
+                    image: image,
+                    scolded: 0
                 } as Dog
             })
         );
