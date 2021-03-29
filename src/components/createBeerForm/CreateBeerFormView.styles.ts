@@ -5,6 +5,7 @@ export const useStyles = makeStyles({
         padding: 20
     },
     title: {
+        fontWeight: 600,
         textAlign: 'center'
     },
     container: {

@@ -20,7 +20,7 @@ function DogDetailsView(props: Props) {
     return (
         <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h5" component="h1" className={classes.title}>
                     {capitalize(name) ? capitalize(name) : 'No dog selected!'}
                 </Typography>
             </CardContent>

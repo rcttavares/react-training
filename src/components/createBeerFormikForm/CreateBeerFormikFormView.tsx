@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { BeerFormik } from './CreateBeerFormikForm.types';
 import { useStyles } from './CreateBeerFormikFormView.styles';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@material-ui/core';
 import ButtonView from '../button/ButtonView';
 
 const validationSchema = yup.object().shape({
@@ -23,7 +23,9 @@ function CreateBeerFormikFormView(props: Props) {
 
     return (
         <Paper className={classes.paper}>
-            <h1 className={classes.title}>Beer Formik</h1>
+            <Typography variant="h5" component="h1" className={classes.title}>
+                Beer Formik
+            </Typography>
 
             <Formik
                 validationSchema={validationSchema}

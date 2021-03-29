@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStyles } from './CreateBeerFormView.styles';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@material-ui/core';
 import ButtonView from '../button/ButtonView';
 
 interface Props {
@@ -20,7 +20,9 @@ function CreateBeerFormView(props: Props) {
 
     return (
         <Paper className={classes.paper}>
-            <h1 className={classes.title}>Beer Form</h1>
+            <Typography variant="h5" component="h1" className={classes.title}>
+                Beer Form
+            </Typography>
 
             <form onSubmit={onSubmit}>
                 <div className={classes.container}>

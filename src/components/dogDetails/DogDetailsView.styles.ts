@@ -5,7 +5,10 @@ export const useStyles = makeStyles({
         textAlign: 'center'
     },
     cardContent: {
-        padding: '10px !important' 
+        padding: 20
+    },
+    title: {
+        fontWeight: 600
     },
     avatar: {
         margin: '0 auto',
@@ -18,6 +21,6 @@ export const useStyles = makeStyles({
     },
     cardActions: {
         justifyContent: 'center',
-        margin: 16
+        padding: 20
     }
 });
