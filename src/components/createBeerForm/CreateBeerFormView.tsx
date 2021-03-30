@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStyles } from './CreateBeerFormView.styles';
 import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@material-ui/core';
-import ButtonView from '../button/ButtonView';
+import Button from '../button/Button';
 
 interface Props {
     beerName: string;
@@ -77,7 +77,7 @@ function CreateBeerFormView(props: Props) {
                 </div>
 
                 <div className={classes.button}>
-                    <ButtonView 
+                    <Button
                         label="Submit"
                         disabled={!beerName || !beerType || !ingredients}
                     />

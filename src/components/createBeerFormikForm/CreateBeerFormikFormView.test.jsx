@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import { Formik } from 'formik';
 import CreateBeerFormikFormView from './CreateBeerFormikFormView';
 import { useStyles } from './CreateBeerFormikFormView.styles';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
-import ButtonView from '../button/ButtonView';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import Button from '../button/Button';
 
 jest.mock('./CreateBeerFormikFormView.styles');
 
@@ -27,8 +27,10 @@ describe('CreateBeerFormikFormView', () => {
     );
 
     expect(
-      wrapper.find('h1').matchesElement(
-        <h1 className="title">Beer Formik</h1>
+      wrapper.find(Typography).matchesElement(
+        <Typography variant="h5" component="h1" className="title">
+          Beer Formik
+        </Typography>
       )
     ).toBe(true);
   });
@@ -130,7 +132,7 @@ describe('CreateBeerFormikFormView', () => {
           </div>
 
           <div className="button">
-            <ButtonView
+            <Button
               label="Submit"
             />
           </div>
@@ -147,7 +149,7 @@ describe('CreateBeerFormikFormView', () => {
       />
     );
 
-    const buttonWrapper = wrapper.find(Formik).dive().find(ButtonView);
+    const buttonWrapper = wrapper.find(Formik).dive().find(Button);
     expect(buttonWrapper.prop("disabled")).toBe(true);
   });
 

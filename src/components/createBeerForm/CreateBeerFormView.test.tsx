@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CreateBeerFormView from './CreateBeerFormView';
 import { useStyles } from './CreateBeerFormView.styles';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core';
-import ButtonView from '../button/ButtonView';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@material-ui/core';
+import Button from '../button/Button';
 
 jest.mock('./CreateBeerFormView.styles');
 
@@ -43,7 +43,9 @@ describe('CreateBeerFormView', () => {
     expect(
       wrapper.matchesElement(
         <Paper className="paper">
-          <h1 className="title">Beer Form</h1>
+          <Typography variant="h5" component="h1" className="title">
+            Beer Form
+          </Typography>
 
           <form onSubmit={onSubmitMock}>
             <div className="container">
@@ -98,7 +100,7 @@ describe('CreateBeerFormView', () => {
             </div>
 
             <div className="button">
-              <ButtonView
+              <Button
                 label="Submit"
                 disabled={!beerName || !beerType || !ingredients}
               />

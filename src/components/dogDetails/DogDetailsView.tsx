@@ -2,8 +2,8 @@ import React from 'react';
 import { useStyles } from './DogDetailsView.styles';
 import { Avatar, Card, CardActions, CardContent, Typography } from '@material-ui/core';
 import PetsIcon from '@material-ui/icons/Pets';
-import ButtonView from '../button/ButtonView';
 import { capitalize } from 'lodash';
+import Button from '../button/Button';
 
 interface Props {
     name: string;
@@ -28,8 +28,8 @@ function DogDetailsView(props: Props) {
                 <PetsIcon className={classes.icon} />
             </Avatar>
             <CardActions className={classes.cardActions}>
-                <ButtonView label="Scold!" onClick={onScold} disabled={disabled} />
-                <ButtonView label="Bark!" onClick={onBark} disabled={disabled} />
+                <Button label="Scold!" onClick={onScold} disabled={disabled} />
+                <Button label="Bark!" onClick={onBark} disabled={disabled} />
             </CardActions>
         </Card>
     );
