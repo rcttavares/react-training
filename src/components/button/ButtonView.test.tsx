@@ -7,17 +7,18 @@ describe('ButtonView', () => {
   it('should render correctly', () => {
     const label = 'Label';
     const onClickMock = jest.fn();
+    const disabled = false;
     const wrapper = shallow(
       <ButtonView 
         label={label}
         onClick={onClickMock}
-        disabled={false}
+        disabled={disabled}
       />
     );
 
     expect(
       wrapper.matchesElement(
-        <CustomButton onClick={onClickMock} disabled={false} type="submit" variant="contained" color="primary">
+        <CustomButton onClick={onClickMock} disabled={disabled} type="submit" variant="contained" color="primary">
           {label}
         </CustomButton>
       )

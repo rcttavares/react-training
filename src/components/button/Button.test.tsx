@@ -7,11 +7,12 @@ describe('Button', () => {
   it("should render the view with the right props", () => {
     const label = 'Label';
     const onClickMock = jest.fn();
+    const disabled = false;
     const wrapper = shallow(
       <Button
         label={label}
         onClick={onClickMock}
-        disabled={false}
+        disabled={disabled}
       />
     );
     expect(wrapper.type()).toBe(ButtonView);

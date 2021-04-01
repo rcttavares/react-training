@@ -2,9 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import DogListView from './DogListView';
 import { useStyles } from './DogListView.styles';
-import { Avatar, Chip, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Paper } from '@material-ui/core';
+import { List, Paper } from '@material-ui/core';
 import { capitalize } from 'lodash';
 import { Dog } from '../../types/DogListType';
+import DogListItem from './DogListItem';
 
 jest.mock('./DogListView.styles');
 
@@ -36,19 +37,13 @@ describe('DogListView', () => {
           {dogList.map((dog, index) => {
             return (
               <List key={index} className="list">
-                <ListItem 
-                  button
+                <DogListItem
+                  name={dog.name}
+                  image={dog.image}
+                  scolded={dog.scolded}
                   selected={dog.name === selectedDog.name}
-                  onClick={onSelectDogMock(dog.name)}
-                >
-                  <ListItemAvatar>
-                    <Avatar alt={dog.name} src={dog.image} />
-                  </ListItemAvatar>
-                  <ListItemText primary={capitalize(dog.name)} />
-                  <ListItemSecondaryAction>
-                    <Chip label={dog.scolded} />
-                  </ListItemSecondaryAction>
-                </ListItem>
+                  onSelectDog={onSelectDogMock}
+                />
               </List>
             )
           })}
@@ -59,7 +54,7 @@ describe('DogListView', () => {
 
   it('should render the same length of the dog breeds list', () => {
     // Given
-    const dogList: Dog[] = [{ name: '', image: '', scolded: 0 }];
+    const dogList: Dog[] = [];
     const selectedDog: Dog = { name: '', image: '', scolded: 0 };
     const onSelectDogMock = jest.fn();
     // When
@@ -76,7 +71,7 @@ describe('DogListView', () => {
 
   it('should capitalize the first letter of the dog breed name', () => {
     // Given
-    const dogList: Dog[] = [{ name: '', image: '', scolded: 0 }];
+    const dogList: Dog[] = [];
     const selectedDog: Dog = { name: '', image: '', scolded: 0 };
     const onSelectDogMock = jest.fn();
     // When

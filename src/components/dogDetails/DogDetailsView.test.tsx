@@ -26,13 +26,14 @@ describe('DogDetailsView', () => {
     const image = 'Image';
     const onScoldMock = jest.fn();
     const onBarkMock = jest.fn();
+    const disabled = false;
     const wrapper = shallow(
       <DogDetailsView 
         name={name}
         image={image}
         onScold={onScoldMock}
         onBark={onBarkMock}
-        disabled={false}
+        disabled={disabled}
       />
     );
 
@@ -48,8 +49,8 @@ describe('DogDetailsView', () => {
             <PetsIcon className="icon" />
           </Avatar>
           <CardActions className="cardActions">
-            <Button label="Scold!" onClick={onScoldMock} disabled={false} />
-            <Button label="Bark!" onClick={onBarkMock} disabled={false} />
+            <Button label="Scold!" onClick={onScoldMock} disabled={disabled} />
+            <Button label="Bark!" onClick={onBarkMock} disabled={disabled} />
           </CardActions>
         </Card>
       )
