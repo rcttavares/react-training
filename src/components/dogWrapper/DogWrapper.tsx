@@ -7,6 +7,7 @@ function DogWrapper() {
     const [dogList, setDogList] = useState<Dog[]>([]);
     const [selectedDog, setSelectedDog] = useState<Dog>({} as Dog);
     const [loading, setLoading] = useState(false);
+    const [selectedDogFilter, setSelectedDogFilter] = useState<string>('');
     
     const fetchBreeds = async () => {
         setLoading(true);
@@ -37,6 +38,8 @@ function DogWrapper() {
         setSelectedDog(selectedBreed);
     };
 
+    const onSelectDogFilter = (breedFilter: string) => setSelectedDogFilter(breedFilter);
+
     return (
         <DogWrapperView
             name={selectedDog?.name}
@@ -47,6 +50,8 @@ function DogWrapper() {
             selectedDog={selectedDog}
             onSelectDog={onSelectDog}
             loading={loading}
+            selectedDogFilter={selectedDogFilter}
+            onSelectDogFilter={onSelectDogFilter}
         />
     )
 }

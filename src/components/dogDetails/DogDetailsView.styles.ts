@@ -12,8 +12,8 @@ export const useStyles = makeStyles({
     },
     avatar: {
         margin: '0 auto',
-        width: '200px !important',
-        height: '200px !important'
+        width: '188px !important',
+        height: '188px !important'
     },
     icon: {
         width: '120px',
