@@ -1,5 +1,4 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import DogWrapper from './components/dogWrapper/DogWrapper';
 import CreateBeerForm from './components/createBeerForm/CreateBeerForm';
 import CreateBeerFormikForm from './components/createBeerFormikForm/CreateBeerFormikForm';
