@@ -3,10 +3,11 @@ import Button from './Button';
 import ButtonView from './ButtonView';
 
 describe('Button', () => {
+  const label = 'Label';
+  const onClickMock = jest.fn();
+  const disabled = false;
+
   it("should render the view with the right props", () => {
-    const label = 'Label';
-    const onClickMock = jest.fn();
-    const disabled = false;
     const wrapper = shallow(
       <Button
         label={label}
