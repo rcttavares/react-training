@@ -1,90 +1,97 @@
-import React from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import { useStyles } from './CreateBeerFormView.styles';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Button from '../button/Button';
+import { beerTypeList } from '../../mocks/BeerTypeMock';
 
 interface Props {
-    beerName: string;
-    beerType: string;
-    hasCorn: boolean;
-    ingredients: string;
-    onChangeInput: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    onChangeSelect: (event: React.ChangeEvent<{ value: unknown }>) => void;
-    onChangeCheckbox: (event: React.ChangeEvent<any>) => void;
-    onSubmit: (event: React.FormEvent) => void;
+  beerName: string;
+  beerType: string;
+  hasCorn: boolean;
+  ingredients: string;
+  onChangeInput: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  onChangeCheckbox: (event: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: FormEvent) => void;
 }
 
-function CreateBeerFormView(props: Props) {
-    const classes = useStyles();
-    const { beerName, beerType, hasCorn, ingredients, onChangeInput, onChangeSelect, onChangeCheckbox, onSubmit } = props;
+function CreateBeerFormView({ beerName, beerType, hasCorn, ingredients, onChangeInput, onChangeCheckbox, onSubmit }: Props) {
+  const classes = useStyles();
 
-    return (
-        <Paper className={classes.paper}>
-            <Typography variant="h5" component="h1" className={classes.title}>
-                Beer Form
-            </Typography>
+  return (
+    <Paper className={classes.paper}>
+      <Typography variant="h5" component="h1" className={classes.title}>
+        Beer Form
+      </Typography>
 
-            <form onSubmit={onSubmit}>
-                <div className={classes.container}>
-                    <TextField
-                        label="Beer name"
-                        name="beerName"
-                        variant="outlined"
-                        fullWidth
-                        value={beerName}
-                        onChange={onChangeInput}
-                    />
-                </div>
+      <form onSubmit={onSubmit}>
+        <div className={classes.container}>
+          <TextField
+            label="Beer name"
+            name="beerName"
+            variant="outlined"
+            fullWidth
+            value={beerName}
+            onChange={onChangeInput}
+          />
+        </div>
 
-                <div className={classes.container}>
-                    <FormControl variant="outlined" fullWidth>
-                        <InputLabel>Beer type</InputLabel>
-                        <Select
-                            label="Beer type"
-                            name="beerType"
-                            value={beerType}
-                            onChange={onChangeSelect}
-                        >
-                            <MenuItem value={1}>Ale</MenuItem>
-                            <MenuItem value={2}>Lager</MenuItem>
-                            <MenuItem value={3}>Stout</MenuItem>
-                            <MenuItem value={4}>Malt</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
+        <div className={classes.container}>
+          <TextField
+            select
+            label="Beer type"
+            name="beerType"
+            variant="outlined"
+            fullWidth
+            value={beerType}
+            onChange={onChangeInput}
+          >
+            {beerTypeList.map((item) => (
+              <MenuItem key={item.id} value={item.value}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
 
-                <div className={classes.container}>
-                    <FormControlLabel
-                        control={<Checkbox color="primary" />}
-                        label="Has corn"
-                        name="hasCorn"
-                        checked={hasCorn}
-                        onChange={onChangeCheckbox}
-                    />
-                </div>
+        <div className={classes.container}>
+          <FormControlLabel
+            label="Has corn"
+            control={<Checkbox 
+              color="primary"
+              name="hasCorn"
+              checked={hasCorn}
+              onChange={onChangeCheckbox}
+            />}
+          />
+        </div>
 
-                <div className={classes.container}>
-                    <TextField
-                        label="Ingredients"
-                        name="ingredients"
-                        variant="outlined"
-                        fullWidth
-                        multiline
-                        rows={3}
-                        value={ingredients}
-                        onChange={onChangeInput}
-                    />
-                </div>
+        <div className={classes.container}>
+          <TextField
+            label="Ingredients"
+            name="ingredients"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={3}
+            value={ingredients}
+            onChange={onChangeInput}
+          />
+        </div>
 
-                <div className={classes.button}>
-                    <Button
-                        label="Submit"
-                        disabled={!beerName || !beerType || !ingredients}
-                    />
-                </div>
-            </form>
-        </Paper>
-    )
+        <div className={classes.button}>
+          <Button
+            label="Submit"
+            disabled={!beerName || !beerType || !ingredients}
+          />
+        </div>
+      </form>
+    </Paper>
+  )
 }
 
 export default CreateBeerFormView;

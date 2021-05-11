@@ -1,9 +1,14 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import CreateBeerFormView from './CreateBeerFormView';
 import { useStyles } from './CreateBeerFormView.styles';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Button from '../button/Button';
+import { beerTypeList } from '../../mocks/BeerTypeMock';
 
 jest.mock('./CreateBeerFormView.styles');
 
@@ -17,16 +22,15 @@ describe('CreateBeerFormView', () => {
     });
   });
 
-  it('should render correctly', () => {
-    const beerName = "Beer name";
-    const beerType = "Beer type";
-    const hasCorn = false;
-    const ingredients = "Ingredients";
-    const onChangeInputMock = jest.fn();
-    const onChangeSelectMock = jest.fn();
-    const onChangeCheckboxMock = jest.fn();
-    const onSubmitMock = jest.fn();
+  const beerName = "Beer name";
+  const beerType = "Beer type";
+  const hasCorn = false;
+  const ingredients = "Ingredients";
+  const onChangeInputMock = jest.fn();
+  const onChangeCheckboxMock = jest.fn();
+  const onSubmitMock = jest.fn();
 
+  it('should render correctly', () => {
     const wrapper = shallow(
       <CreateBeerFormView
         beerName={beerName}
@@ -34,7 +38,6 @@ describe('CreateBeerFormView', () => {
         hasCorn={hasCorn}
         ingredients={ingredients}
         onChangeInput={onChangeInputMock}
-        onChangeSelect={onChangeSelectMock}
         onChangeCheckbox={onChangeCheckboxMock}
         onSubmit={onSubmitMock}
       />
@@ -60,29 +63,32 @@ describe('CreateBeerFormView', () => {
             </div>
 
             <div className="container">
-              <FormControl variant="outlined" fullWidth>
-                <InputLabel>Beer type</InputLabel>
-                <Select
-                  label="Beer type"
-                  name="beerType"
-                  value={beerType}
-                  onChange={onChangeSelectMock}
-                >
-                  <MenuItem value={1}>Ale</MenuItem>
-                  <MenuItem value={2}>Lager</MenuItem>
-                  <MenuItem value={3}>Stout</MenuItem>
-                  <MenuItem value={4}>Malt</MenuItem>
-                </Select>
-              </FormControl>
+              <TextField
+                select
+                label="Beer type"
+                name="beerType"
+                variant="outlined"
+                fullWidth
+                value={beerType}
+                onChange={onChangeInputMock}
+              >
+                {beerTypeList.map((item) => (
+                  <MenuItem key={item.id} value={item.value}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </TextField>
             </div>
 
             <div className="container">
               <FormControlLabel
-                control={<Checkbox color="primary" />}
                 label="Has corn"
-                name="hasCorn"
-                checked={hasCorn}
-                onChange={onChangeCheckboxMock}
+                control={<Checkbox 
+                  color="primary"
+                  name="hasCorn"
+                  checked={hasCorn}
+                  onChange={onChangeCheckboxMock}
+                />}
               />
             </div>
 
