@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import Button from './Button';
 import ButtonView from './ButtonView';
@@ -15,6 +14,7 @@ describe('Button', () => {
         disabled={disabled}
       />
     );
+    
     expect(wrapper.type()).toBe(ButtonView);
   });
 });

@@ -1,5 +1,4 @@
-import React from 'react';
-import CustomButton from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 
 interface Props {
   label: string;
@@ -7,13 +6,11 @@ interface Props {
   disabled?: boolean;
 }
 
-function ButtonView(props: Props) {
-  const { label, onClick, disabled } = props;
-
+function ButtonView({ label, onClick, disabled }: Props) {
   return (
-    <CustomButton onClick={onClick} disabled={disabled} type="submit" variant="contained" color="primary">
+    <Button onClick={onClick} disabled={disabled} type="submit" variant="contained" color="primary">
       {label}
-    </CustomButton>
+    </Button>
   );
 }
 
