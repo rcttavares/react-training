@@ -3,7 +3,7 @@ import CreateBeerFormikForm from './CreateBeerFormikForm';
 import CreateBeerFormikFormView from './CreateBeerFormikFormView';
 import { IBeerFormik } from '../../types/Types';
 
-const values: IBeerFormik = {
+const initialValues: IBeerFormik = {
   beerName: '',
   beerType: '',
   hasCorn: false,
@@ -15,7 +15,7 @@ describe('CreateBeerFormikForm', () => {
 		const wrapper = shallow(<CreateBeerFormikForm />);
 
 		expect(wrapper.type()).toBe(CreateBeerFormikFormView);
-		expect(wrapper.prop('initialValues')).toStrictEqual(values);
+		expect(wrapper.prop('initialValues')).toStrictEqual(initialValues);
 	});
 
   it('should handle the onSubmit callback', () => {
@@ -23,7 +23,7 @@ describe('CreateBeerFormikForm', () => {
 
     const resetForm = jest.fn();
     const wrapper = shallow(<CreateBeerFormikForm />);
-		wrapper.invoke("onSubmit")(values, { resetForm });
+		wrapper.invoke("onSubmit")(initialValues, { resetForm });
 
 		expect(console.log).toHaveBeenCalled();
     expect(resetForm).toHaveBeenCalled();

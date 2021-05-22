@@ -11,12 +11,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '../button/Button';
 import { beerTypeList } from '../../mocks/BeerTypeMock';
 
-const validationSchema = yup.object().shape({
-  beerName: yup.string().required(),
-  beerType: yup.string().required(),
-  ingredients: yup.string().required()
-})
-
 interface Props {
   initialValues: IBeerFormik;
   onSubmit: (values: IBeerFormik, { resetForm }: any) => void;
@@ -24,6 +18,12 @@ interface Props {
 
 function CreateBeerFormikFormView({ initialValues, onSubmit }: Props) {
   const classes = useStyles();
+
+  const validationSchema = yup.object().shape({
+    beerName: yup.string().required(),
+    beerType: yup.string().required(),
+    ingredients: yup.string().required()
+  });
 
   return (
     <Formik
@@ -33,7 +33,7 @@ function CreateBeerFormikFormView({ initialValues, onSubmit }: Props) {
     >
       {({ values, isValid, dirty, handleChange, handleSubmit }) => (
         <Paper className={classes.paper}>
-          <Typography variant="h5" component="h1" className={classes.title}>
+          <Typography variant="h5" component="h1" className={classes.typography}>
             Beer Formik
           </Typography>
 

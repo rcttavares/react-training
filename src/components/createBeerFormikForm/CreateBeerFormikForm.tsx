@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { IBeerFormik } from '../../types/Types';
 import CreateBeerFormikFormView from './CreateBeerFormikFormView';
 
-const emptyValues = {
+const initialValues = {
   beerName: '',
   beerType: '',
   hasCorn: false,
@@ -17,7 +17,7 @@ function CreateBeerFormikForm() {
 
   return (
     <CreateBeerFormikFormView
-      initialValues={emptyValues}
+      initialValues={initialValues}
       onSubmit={handleSubmit}
     />
   )
