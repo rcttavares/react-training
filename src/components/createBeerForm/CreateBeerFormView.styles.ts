@@ -4,7 +4,7 @@ export const useStyles = makeStyles({
   paper: {
     padding: 20
   },
-  title: {
+  typography: {
     fontWeight: 600,
     textAlign: 'center'
   },

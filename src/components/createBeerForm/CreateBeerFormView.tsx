@@ -24,7 +24,7 @@ function CreateBeerFormView({ beerName, beerType, hasCorn, ingredients, onChange
 
   return (
     <Paper className={classes.paper}>
-      <Typography variant="h5" component="h1" className={classes.title}>
+      <Typography variant="h5" component="h1" className={classes.typography}>
         Beer Form
       </Typography>
 

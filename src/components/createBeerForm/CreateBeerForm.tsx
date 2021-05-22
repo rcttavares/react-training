@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { IBeerForm } from '../../types/Types';
 import CreateBeerFormView from './CreateBeerFormView';
 
-const emptyValues = {
+const initialValues = {
   beerName: '',
   beerType: '',
   hasCorn: false,
@@ -10,7 +10,7 @@ const emptyValues = {
 }
 
 function CreateBeerForm() {
-  const [values, setValues] = useState<IBeerForm>(emptyValues);
+  const [values, setValues] = useState<IBeerForm>(initialValues);
 
   const handleInput = useCallback((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -23,7 +23,7 @@ function CreateBeerForm() {
   const handleSubmit = useCallback((event: FormEvent) => {
     event.preventDefault();
     console.log(values);
-    setValues(emptyValues);
+    setValues(initialValues);
   },[values])
 
   return (

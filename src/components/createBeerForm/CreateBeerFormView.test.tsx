@@ -16,7 +16,7 @@ describe('CreateBeerFormView', () => {
   beforeEach(() => {
     (useStyles as jest.Mock).mockReturnValue({
       "paper": "paper",
-      "title": "title",
+      "typography": "typography",
       "container": "container",
       "button": "button"
     });
@@ -46,7 +46,7 @@ describe('CreateBeerFormView', () => {
     expect(
       wrapper.matchesElement(
         <Paper className="paper">
-          <Typography variant="h5" component="h1" className="title">
+          <Typography variant="h5" component="h1" className="typography">
             Beer Form
           </Typography>
 
