@@ -11,3 +11,9 @@ export interface IBeerFormik {
   hasCorn: boolean;
   ingredients: string;
 }
+
+export interface IDog {
+  name: string;
+  image: string;
+  scolded: number;
+}

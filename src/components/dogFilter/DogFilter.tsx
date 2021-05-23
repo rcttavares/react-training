@@ -1,34 +1,32 @@
-import React, { useCallback, useMemo } from 'react';
-import { Dog } from '../../types/DogListType';
-import DogFilterView from './DogFilterView';
+import { ChangeEvent, useCallback, useMemo } from "react";
+import { IDog } from '../../types/Types';
+import DogFilterView from "./DogFilterView";
 
 interface Props {
-    dogList: Dog[];
-    onSelectDogFilter: (breedFilter: string) => void;
+  dogList: IDog[];
+  onSelectDogFilter: (breedFilter: string) => void;
 }
 
-function DogFilter(props: Props) {
-    const { dogList, onSelectDogFilter } = props;
+function DogFilter({ dogList, onSelectDogFilter }: Props) {
+  const filterOptions = useMemo(() => 'abcdefghijklmnopqrstuvwxyz'.split(''), []);
 
-    const filterOptions = useMemo(() => 'abcdefghijklmnopqrstuvwxyz'.split(''), []);
+  const getDogBreedsLength = useCallback((breedLetter: string) => {
+    return dogList.filter(
+      (dog) => dog.name.charAt(0).toLowerCase() === breedLetter.toLowerCase()
+    ).length;
+  },[dogList]);
 
-    const getDogBreedsLength = useCallback((breedLetter: string) => {
-        return dogList.filter(
-            (dog) => dog.name.charAt(0).toLowerCase() === breedLetter.toLowerCase()
-        ).length;
-    }, [dogList]);
+  const onChangeOption = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    onSelectDogFilter(event.target.value);
+  },[onSelectDogFilter]);
 
-    const onChangeOption = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        onSelectDogFilter(e.target.value);
-    }, [onSelectDogFilter]);
-
-    return (
-        <DogFilterView
-            filterOptions={filterOptions}
-            getDogBreedsLength={getDogBreedsLength}
-            onChangeOption={onChangeOption}
-        />
-    );
+  return (
+    <DogFilterView
+      filterOptions={filterOptions}
+      getDogBreedsLength={getDogBreedsLength}
+      onChangeOption={onChangeOption}
+    />
+  );
 }
 
 export default DogFilter;

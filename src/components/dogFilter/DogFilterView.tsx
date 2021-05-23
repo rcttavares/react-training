@@ -1,37 +1,40 @@
-import React from 'react';
+import { ChangeEvent } from 'react';
 import { useStyles } from './DogFilterView.styles';
-import { FormControlLabel, Paper, Radio, RadioGroup, Typography } from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Paper from '@material-ui/core/Paper';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Typography from '@material-ui/core/Typography';
 
 interface Props {
-    filterOptions: string[];
-    getDogBreedsLength: (breedLetter: string) => number;
-    onChangeOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  filterOptions: string[];
+  getDogBreedsLength: (breedLetter: string) => number;
+  onChangeOption: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function DogFilterView(props: Props) {
-    const classes = useStyles();
-    const { filterOptions, getDogBreedsLength, onChangeOption } = props;
+function DogFilterView({ filterOptions, getDogBreedsLength, onChangeOption }: Props) {
+  const classes = useStyles();
 
-    return (
-        <Paper className={classes.paper}>
-            <RadioGroup row aria-label="dogLetter" name="dogLetter" onChange={onChangeOption}>
-                {filterOptions.map((filter) => (
-                    <FormControlLabel
-                        key={filter}
-                        value={filter}
-                        control={<Radio color="primary" />}
-                        labelPlacement="bottom"
-                        label={
-                            <div className={classes.flex}>
-                                <Typography className={classes.letter}>{filter.toUpperCase()}</Typography>
-                                <Typography className={classes.number}>({getDogBreedsLength(filter)})</Typography>
-                            </div>
-                        }
-                    />
-                ))}
-            </RadioGroup>
-        </Paper>
-    );
+  return (
+    <Paper className={classes.paper}>
+      <RadioGroup row aria-label="dogLetter" name="dogLetter" onChange={onChangeOption}>
+        {filterOptions.map((item) => (
+          <FormControlLabel
+            key={item}
+            value={item}
+            control={<Radio color="primary" />}
+            labelPlacement="bottom"
+            label={
+              <div className={classes.flex}>
+                <Typography className={classes.letter}>{item.toUpperCase()}</Typography>
+                <Typography className={classes.number}>({getDogBreedsLength(item)})</Typography>
+              </div>
+            }
+          />
+        ))}
+      </RadioGroup>
+    </Paper>
+  );
 }
 
 export default DogFilterView;
