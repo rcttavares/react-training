@@ -1,8 +1,11 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import DogDetailsView from './DogDetailsView';
 import { useStyles } from './DogDetailsView.styles';
-import { Avatar, Card, CardActions, CardContent, Typography } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import CardActions from '@material-ui/core/CardActions';
 import PetsIcon from '@material-ui/icons/Pets';
 import { capitalize } from 'lodash';
 import Button from '../button/Button';
@@ -14,19 +17,20 @@ describe('DogDetailsView', () => {
     (useStyles as jest.Mock).mockReturnValue({
       "card": "card",
       "cardContent": "cardContent",
-      "title": "title",
+      "typography": "typography",
       "avatar": "avatar",
       "icon": "icon",
       "cardActions": "cardActions"
     });
   });
 
+  const name = 'Name';
+  const image = 'Image';
+  const onScoldMock = jest.fn();
+  const onBarkMock = jest.fn();
+  const disabled = false;
+
   it('should render correctly', () => {
-    const name = 'Name';
-    const image = 'Image';
-    const onScoldMock = jest.fn();
-    const onBarkMock = jest.fn();
-    const disabled = false;
     const wrapper = shallow(
       <DogDetailsView 
         name={name}
@@ -41,8 +45,8 @@ describe('DogDetailsView', () => {
       wrapper.matchesElement(
         <Card className="card">
           <CardContent className="cardContent">
-            <Typography variant="h5" component="h1" className="title">
-              {capitalize(name) ? capitalize(name) : 'No dog selected!'}
+            <Typography variant="h5" component="h1" className="typography">
+              {capitalize(name) ? capitalize(name) : 'Name of breed'}
             </Typography>
           </CardContent>
           <Avatar className="avatar" alt={name} src={image}>
@@ -55,5 +59,19 @@ describe('DogDetailsView', () => {
         </Card>
       )
     ).toBe(true);
+  });
+
+  it('should render in Typography "Name of breed" if breed is not selected', () => {
+    const wrapper = shallow(
+      <DogDetailsView 
+        name=''
+        image={image}
+        onScold={onScoldMock}
+        onBark={onBarkMock}
+        disabled={disabled}
+      />
+    );
+
+    expect(wrapper.find(Typography).first().text()).toBe('Name of breed');
   });
 });
