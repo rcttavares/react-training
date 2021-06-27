@@ -1,28 +1,26 @@
-import { Formik } from 'formik';
-import * as yup from 'yup';
-import { IBeerFormik } from '../../types/Types';
-import { useStyles } from './CreateBeerFormikFormView.styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '../button/Button';
-import { beerTypeList } from '../../mocks/BeerTypeMock';
+import { Formik } from "formik";
+import * as yup from "yup";
+import { useStyles } from "./CreateBeerFormikFormView.styles";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "../button/Button";
+import { beerTypeList } from "../../mocks/BeerTypeMock";
+import { CreateBeerFormikFormProps } from "./CreateBeerFormikForm.types";
 
-interface Props {
-  initialValues: IBeerFormik;
-  onSubmit: (values: IBeerFormik, { resetForm }: any) => void;
-}
-
-function CreateBeerFormikFormView({ initialValues, onSubmit }: Props) {
+function CreateBeerFormikFormView({
+  initialValues,
+  onSubmit,
+}: CreateBeerFormikFormProps) {
   const classes = useStyles();
 
   const validationSchema = yup.object().shape({
     beerName: yup.string().required(),
     beerType: yup.string().required(),
-    ingredients: yup.string().required()
+    ingredients: yup.string().required(),
   });
 
   return (
@@ -31,9 +29,13 @@ function CreateBeerFormikFormView({ initialValues, onSubmit }: Props) {
       initialValues={initialValues}
       onSubmit={onSubmit}
     >
-      {({ values, isValid, dirty, handleChange, handleSubmit }) => (
+      {({ values, isValid, dirty, handleChange, handleSubmit, errors }) => (
         <Paper className={classes.paper}>
-          <Typography variant="h5" component="h1" className={classes.typography}>
+          <Typography
+            variant="h5"
+            component="h1"
+            className={classes.typography}
+          >
             Beer Formik
           </Typography>
 
@@ -46,6 +48,7 @@ function CreateBeerFormikFormView({ initialValues, onSubmit }: Props) {
                 fullWidth
                 value={values.beerName}
                 onChange={handleChange}
+                helperText={errors.beerName}
               />
             </div>
 
@@ -58,6 +61,7 @@ function CreateBeerFormikFormView({ initialValues, onSubmit }: Props) {
                 fullWidth
                 value={values.beerType}
                 onChange={handleChange}
+                helperText={errors.beerType}
               >
                 {beerTypeList.map((item) => (
                   <MenuItem key={item.id} value={item.value}>
@@ -70,12 +74,14 @@ function CreateBeerFormikFormView({ initialValues, onSubmit }: Props) {
             <div className={classes.container}>
               <FormControlLabel
                 label="Has corn"
-                control={<Checkbox 
-                  color="primary"
-                  name="hasCorn"
-                  checked={values.hasCorn}
-                  onChange={handleChange}
-                />}
+                control={
+                  <Checkbox
+                    color="primary"
+                    name="hasCorn"
+                    checked={values.hasCorn}
+                    onChange={handleChange}
+                  />
+                }
               />
             </div>
 
@@ -89,20 +95,18 @@ function CreateBeerFormikFormView({ initialValues, onSubmit }: Props) {
                 rows={3}
                 value={values.ingredients}
                 onChange={handleChange}
+                helperText={errors.ingredients}
               />
             </div>
 
             <div className={classes.button}>
-              <Button
-                label="Submit"
-                disabled={!(isValid && dirty)}
-              />
+              <Button label="Submit" disabled={!(isValid && dirty)} />
             </div>
           </form>
         </Paper>
       )}
     </Formik>
-  )
+  );
 }
 
 export default CreateBeerFormikFormView;
