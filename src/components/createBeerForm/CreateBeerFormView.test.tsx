@@ -1,24 +1,24 @@
-import { shallow } from 'enzyme';
-import CreateBeerFormView from './CreateBeerFormView';
-import { useStyles } from './CreateBeerFormView.styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '../button/Button';
-import { beerTypeList } from '../../mocks/BeerTypeMock';
+import { shallow } from "enzyme";
+import CreateBeerFormView from "./CreateBeerFormView";
+import { useStyles } from "./CreateBeerFormView.styles";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "../button/Button";
+import { beerTypeList } from "../../mocks/BeerTypeMock";
 
-jest.mock('./CreateBeerFormView.styles');
+jest.mock("./CreateBeerFormView.styles");
 
-describe('CreateBeerFormView', () => {
+describe("CreateBeerFormView", () => {
   beforeEach(() => {
     (useStyles as jest.Mock).mockReturnValue({
-      "paper": "paper",
-      "typography": "typography",
-      "container": "container",
-      "button": "button"
+      paper: "paper",
+      typography: "typography",
+      container: "container",
+      button: "button",
     });
   });
 
@@ -30,7 +30,7 @@ describe('CreateBeerFormView', () => {
   const onChangeCheckboxMock = jest.fn();
   const onSubmitMock = jest.fn();
 
-  it('should render correctly', () => {
+  it("should render correctly", () => {
     const wrapper = shallow(
       <CreateBeerFormView
         beerName={beerName}
@@ -83,12 +83,14 @@ describe('CreateBeerFormView', () => {
             <div className="container">
               <FormControlLabel
                 label="Has corn"
-                control={<Checkbox 
-                  color="primary"
-                  name="hasCorn"
-                  checked={hasCorn}
-                  onChange={onChangeCheckboxMock}
-                />}
+                control={
+                  <Checkbox
+                    color="primary"
+                    name="hasCorn"
+                    checked={hasCorn}
+                    onChange={onChangeCheckboxMock}
+                  />
+                }
               />
             </div>
 

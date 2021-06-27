@@ -1,25 +1,23 @@
-import { ChangeEvent, FormEvent } from 'react';
-import { useStyles } from './CreateBeerFormView.styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '../button/Button';
-import { beerTypeList } from '../../mocks/BeerTypeMock';
+import { useStyles } from "./CreateBeerFormView.styles";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "../button/Button";
+import { beerTypeList } from "../../mocks/BeerTypeMock";
+import { CreateBeerFormProps } from "./CreateBeerForm.types";
 
-interface Props {
-  beerName: string;
-  beerType: string;
-  hasCorn: boolean;
-  ingredients: string;
-  onChangeInput: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-  onChangeCheckbox: (event: ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (event: FormEvent) => void;
-}
-
-function CreateBeerFormView({ beerName, beerType, hasCorn, ingredients, onChangeInput, onChangeCheckbox, onSubmit }: Props) {
+function CreateBeerFormView({
+  beerName,
+  beerType,
+  hasCorn,
+  ingredients,
+  onChangeInput,
+  onChangeCheckbox,
+  onSubmit,
+}: CreateBeerFormProps) {
   const classes = useStyles();
 
   return (
@@ -61,12 +59,14 @@ function CreateBeerFormView({ beerName, beerType, hasCorn, ingredients, onChange
         <div className={classes.container}>
           <FormControlLabel
             label="Has corn"
-            control={<Checkbox 
-              color="primary"
-              name="hasCorn"
-              checked={hasCorn}
-              onChange={onChangeCheckbox}
-            />}
+            control={
+              <Checkbox
+                color="primary"
+                name="hasCorn"
+                checked={hasCorn}
+                onChange={onChangeCheckbox}
+              />
+            }
           />
         </div>
 
@@ -91,7 +91,7 @@ function CreateBeerFormView({ beerName, beerType, hasCorn, ingredients, onChange
         </div>
       </form>
     </Paper>
-  )
+  );
 }
 
 export default CreateBeerFormView;
