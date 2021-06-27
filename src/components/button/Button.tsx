@@ -1,19 +1,8 @@
-import ButtonView from './ButtonView';
+import ButtonView from "./ButtonView";
+import { ButtonProps } from "./Button.types";
 
-interface Props {
-  label: string;
-  onClick?: () => void;
-  disabled?: boolean;
-}
-
-function Button({ label, onClick, disabled }: Props) {
-  return (
-    <ButtonView
-      label={label}
-      onClick={onClick}
-      disabled={disabled}
-    />
-  );
+function Button({ label, onClick, disabled }: ButtonProps) {
+  return <ButtonView label={label} onClick={onClick} disabled={disabled} />;
 }
 
 export default Button;
