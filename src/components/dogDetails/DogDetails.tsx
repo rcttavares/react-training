@@ -1,18 +1,37 @@
 import { useCallback } from "react";
 import { useSnackbar } from "notistack";
 import DogDetailsView from "./DogDetailsView";
+import { useStoreMap } from "effector-react";
+import DogListStore from "../../stores/dogList/DogListStore";
+import DogItemStore from "../../stores/dogItem/DogItemStore";
+import * as DogListEvent from "../../stores/dogList/DogListEvent";
 
-interface Props {
-  name: string;
-  image: string;
-  onScold: () => void;
-  disabled: boolean;
-}
-
-function DogDetails({ name, image, onScold, disabled }: Props) {
+function DogDetails() {
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleBark = useCallback(() => {
+  const { dogList } = useStoreMap({
+    store: DogListStore,
+    keys: [],
+    fn: (state) => state,
+  });
+
+  const { dogItem } = useStoreMap({
+    store: DogItemStore,
+    keys: [],
+    fn: (state) => state,
+  });
+
+  const onScold = () => {
+    const breedScolded = dogList.map((item) => {
+      if (item.name.toLowerCase() === dogItem?.name.toLowerCase())
+        return { ...item, scolded: item.scolded + 1 };
+      return item;
+    });
+
+    DogListEvent.setDogList(breedScolded);
+  };
+
+  const onBark = useCallback(() => {
     enqueueSnackbar("Woof! Woof!", {
       anchorOrigin: {
         vertical: "top",
@@ -23,11 +42,11 @@ function DogDetails({ name, image, onScold, disabled }: Props) {
 
   return (
     <DogDetailsView
-      name={name}
-      image={image}
+      name={dogItem?.name}
+      image={dogItem?.image}
       onScold={onScold}
-      onBark={handleBark}
-      disabled={disabled}
+      onBark={onBark}
+      disabled={!dogItem?.name}
     />
   );
 }

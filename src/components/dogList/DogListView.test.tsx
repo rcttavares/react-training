@@ -1,10 +1,8 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import DogListView from './DogListView';
 import { useStyles } from './DogListView.styles';
 import { List, Paper } from '@material-ui/core';
-import { capitalize } from 'lodash';
-import { Dog } from '../../types/DogListType';
+import { IDog } from '../../types/Types';
 import DogListItem from './DogListItem';
 
 jest.mock('./DogListView.styles');
@@ -18,31 +16,30 @@ describe('DogListView', () => {
   });
 
   it('should render correctly', () => {
-    // Given
-    const dogList: Dog[] = [{ name: '', image: '', scolded: 0 }];
-    const selectedDog: Dog = { name: '', image: '', scolded: 0 };
-    const onSelectDogMock = jest.fn();
-    // When
+    const dogList: IDog[] = [{ name: '', image: '', scolded: 0 }];
+    const selected: IDog = { name: '', image: '', scolded: 0 };
+    const onSelectMock = jest.fn();
+
     const wrapper = shallow(
       <DogListView 
         dogList={dogList}
-        selectedDog={selectedDog}
-        onSelectDog={onSelectDogMock}
+        selected={selected}
+        onSelect={onSelectMock}
       />
     );
-    // Then
+
     expect(
       wrapper.matchesElement(
         <Paper className="paper">
-          {dogList.map((dog, index) => {
+          {dogList.map((item, index) => {
             return (
               <List key={index} className="list">
                 <DogListItem
-                  name={dog.name}
-                  image={dog.image}
-                  scolded={dog.scolded}
-                  selected={dog.name === selectedDog.name}
-                  onSelectDog={onSelectDogMock}
+                  name={item.name}
+                  image={item.image}
+                  scolded={item.scolded}
+                  selected={item.name === selected.name}
+                  onSelect={onSelectMock}
                 />
               </List>
             )
@@ -53,38 +50,18 @@ describe('DogListView', () => {
   });
 
   it('should render the same length of the dog breeds list', () => {
-    // Given
-    const dogList: Dog[] = [];
-    const selectedDog: Dog = { name: '', image: '', scolded: 0 };
-    const onSelectDogMock = jest.fn();
-    // When
-    const wrapper = shallow(
-      <DogListView
-        dogList={dogList}
-        selectedDog={selectedDog}
-        onSelectDog={onSelectDogMock}
-      />
-    );
-    // Then
-    expect(wrapper.find(List).length).toEqual(dogList.length);
-  });
+    const dogList: IDog[] = [{ name: '', image: '', scolded: 0 }];
+    const selected: IDog = { name: '', image: '', scolded: 0 };
+    const onSelectMock = jest.fn();
 
-  it('should capitalize the first letter of the dog breed name', () => {
-    // Given
-    const dogList: Dog[] = [];
-    const selectedDog: Dog = { name: '', image: '', scolded: 0 };
-    const onSelectDogMock = jest.fn();
-    // When
     const wrapper = shallow(
-      <DogListView
+      <DogListView 
         dogList={dogList}
-        selectedDog={selectedDog}
-        onSelectDog={onSelectDogMock}
+        selected={selected}
+        onSelect={onSelectMock}
       />
     );
-    // Then
-    expect(
-      wrapper.find(List).map(dog => dog.text())
-    ).toEqual(dogList.map(dog => capitalize(dog.name)));
+
+    expect(wrapper.find(List).length).toEqual(dogList.length);
   });
 });

@@ -1,34 +1,34 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import DogListItemView from './DogListItemView';
-import { Avatar, Chip, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
-import { capitalize } from 'lodash';
+import { shallow } from "enzyme";
+import DogListItemView from "./DogListItemView";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import Chip from "@material-ui/core/Chip";
+import { capitalize } from "lodash";
 
-describe('DogListItemView', () => {
-  it('should render correctly', () => {
-    // Given
-    const name = 'Name';
-    const image = 'Image';
+describe("DogListItemView", () => {
+  it("should render correctly", () => {
+    const name = "Name";
+    const image = "Image";
     const scolded = 0;
     const selected = false;
-    const onSelectDogMock = jest.fn();
-    // When
+    const onSelectMock = jest.fn();
+
     const wrapper = shallow(
       <DogListItemView
         name={name}
         image={image}
         scolded={scolded}
         selected={selected}
-        onSelectDog={onSelectDogMock}
+        onSelect={onSelectMock}
       />
     );
-    // Then
+
     expect(
       wrapper.matchesElement(
-        <ListItem 
-          button
-          selected={selected}
-        >
+        <ListItem button selected={selected}>
           <ListItemAvatar>
             <Avatar alt={name} src={image} />
           </ListItemAvatar>
@@ -42,24 +42,23 @@ describe('DogListItemView', () => {
   });
 
   it("should handle the onClick event", () => {
-    // Given
-    const name = 'Name';
-    const image = 'Image';
+    const name = "Name";
+    const image = "Image";
     const scolded = 0;
     const selected = false;
-    const onSelectDogMock = jest.fn();
-    // When
+    const onSelectMock = jest.fn();
+
     const wrapper = shallow(
       <DogListItemView
         name={name}
         image={image}
         scolded={scolded}
         selected={selected}
-        onSelectDog={onSelectDogMock}
+        onSelect={onSelectMock}
       />
     );
-    // Then
+
     wrapper.find(ListItem).first().simulate("click");
-    expect(onSelectDogMock).toHaveBeenCalled();
+    expect(onSelectMock).toHaveBeenCalled();
   });
 });

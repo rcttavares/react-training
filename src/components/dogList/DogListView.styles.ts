@@ -1,14 +1,14 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles({
-    paper: {
-        maxHeight: '336px', 
-        overflow: 'auto'
+  paper: {
+    maxHeight: "336px",
+    overflow: "auto",
+  },
+  list: {
+    padding: 0,
+    "&:hover": {
+      background: "#EAECEE",
     },
-    list: {
-        padding: 0,
-        '&:hover': {
-            background: '#EAECEE'
-        }
-    }
+  },
 });

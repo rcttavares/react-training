@@ -1,38 +1,38 @@
-import { shallow } from 'enzyme';
-import DogDetailsView from './DogDetailsView';
-import { useStyles } from './DogDetailsView.styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import CardActions from '@material-ui/core/CardActions';
-import PetsIcon from '@material-ui/icons/Pets';
-import { capitalize } from 'lodash';
-import Button from '../button/Button';
+import { shallow } from "enzyme";
+import DogDetailsView from "./DogDetailsView";
+import { useStyles } from "./DogDetailsView.styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import CardActions from "@material-ui/core/CardActions";
+import PetsIcon from "@material-ui/icons/Pets";
+import { capitalize } from "lodash";
+import Button from "../button/Button";
 
-jest.mock('./DogDetailsView.styles');
+jest.mock("./DogDetailsView.styles");
 
-describe('DogDetailsView', () => {
+describe("DogDetailsView", () => {
   beforeEach(() => {
     (useStyles as jest.Mock).mockReturnValue({
-      "card": "card",
-      "cardContent": "cardContent",
-      "typography": "typography",
-      "avatar": "avatar",
-      "icon": "icon",
-      "cardActions": "cardActions"
+      card: "card",
+      cardContent: "cardContent",
+      typography: "typography",
+      avatar: "avatar",
+      icon: "icon",
+      cardActions: "cardActions",
     });
   });
 
-  const name = 'Name';
-  const image = 'Image';
+  const name = "Name";
+  const image = "Image";
   const onScoldMock = jest.fn();
   const onBarkMock = jest.fn();
   const disabled = false;
 
-  it('should render correctly', () => {
+  it("should render correctly", () => {
     const wrapper = shallow(
-      <DogDetailsView 
+      <DogDetailsView
         name={name}
         image={image}
         onScold={onScoldMock}
@@ -46,7 +46,7 @@ describe('DogDetailsView', () => {
         <Card className="card">
           <CardContent className="cardContent">
             <Typography variant="h5" component="h1" className="typography">
-              {capitalize(name) ? capitalize(name) : 'Name of breed'}
+              {capitalize(name) ? capitalize(name) : "Name of breed"}
             </Typography>
           </CardContent>
           <Avatar className="avatar" alt={name} src={image}>
@@ -63,8 +63,8 @@ describe('DogDetailsView', () => {
 
   it('should render in Typography "Name of breed" if breed is not selected', () => {
     const wrapper = shallow(
-      <DogDetailsView 
-        name=''
+      <DogDetailsView
+        name=""
         image={image}
         onScold={onScoldMock}
         onBark={onBarkMock}
@@ -72,6 +72,6 @@ describe('DogDetailsView', () => {
       />
     );
 
-    expect(wrapper.find(Typography).first().text()).toBe('Name of breed');
+    expect(wrapper.find(Typography).first().text()).toBe("Name of breed");
   });
 });

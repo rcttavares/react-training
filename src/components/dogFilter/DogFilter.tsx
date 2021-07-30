@@ -1,24 +1,27 @@
+import { useStoreMap } from 'effector-react';
 import { ChangeEvent, useCallback, useMemo } from "react";
-import { IDog } from '../../types/Types';
+import { setDogFilter } from '../../stores/dogFilter/DogFilterEvent';
+import DogListStore from '../../stores/dogList/DogListStore';
 import DogFilterView from "./DogFilterView";
 
-interface Props {
-  dogList: IDog[];
-  onSelectDogFilter: (breedFilter: string) => void;
-}
+function DogFilter() {
+  const { dogList } = useStoreMap({
+    store: DogListStore,
+    keys: [],
+    fn: (state) => state,
+  });
 
-function DogFilter({ dogList, onSelectDogFilter }: Props) {
   const filterOptions = useMemo(() => 'abcdefghijklmnopqrstuvwxyz'.split(''), []);
 
   const getDogBreedsLength = useCallback((breedLetter: string) => {
     return dogList.filter(
-      (dog) => dog.name.charAt(0).toLowerCase() === breedLetter.toLowerCase()
+      (item) => item.name.charAt(0).toLowerCase() === breedLetter.toLowerCase()
     ).length;
   },[dogList]);
 
   const onChangeOption = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    onSelectDogFilter(event.target.value);
-  },[onSelectDogFilter]);
+    setDogFilter({ dogFilter: event.target.value });
+  },[]);
 
   return (
     <DogFilterView

@@ -1,26 +1,23 @@
-import React from 'react';
-import DogListItemView from './DogListItemView';
+import DogListItemView from "./DogListItemView";
 
 interface Props {
-    name: string;
-    image: string;
-    scolded: number;
-    selected: boolean;
-    onSelectDog: (breed: string) => void;
+  name: string;
+  image: string;
+  scolded: number;
+  selected: boolean;
+  onSelect: (breed: string) => void;
 }
 
-function DogListItem(props: Props) {
-    const { name, image, scolded, selected, onSelectDog } = props;
-
-    return (
-        <DogListItemView
-            name={name}
-            image={image}
-            scolded={scolded}
-            selected={selected}
-            onSelectDog={onSelectDog}
-        />
-    );
-};
+function DogListItem({ name, image, scolded, selected, onSelect }: Props) {
+  return (
+    <DogListItemView
+      name={name}
+      image={image}
+      scolded={scolded}
+      selected={selected}
+      onSelect={onSelect}
+    />
+  );
+}
 
 export default DogListItem;

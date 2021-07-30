@@ -1,59 +1,25 @@
-import React, { useState } from 'react';
-import { Dog } from '../../types/DogListType';
-import { getBreeds } from '../../services/DogListService';
+import { useStoreMap } from 'effector-react';
+import React from 'react';
+import { fetchBreeds } from '../../stores/dogList/DogListEffect';
+import LoaderStore from '../../stores/loader/LoaderStore';
 import DogWrapperView from './DogWrapperView';
 
 function DogWrapper() {
-    const [dogList, setDogList] = useState<Dog[]>([]);
-    const [selectedDog, setSelectedDog] = useState<Dog>({} as Dog);
-    const [loading, setLoading] = useState(false);
-    const [selectedDogFilter, setSelectedDogFilter] = useState<string>('');
-    
-    const fetchBreeds = async () => {
-        setLoading(true);
+  const { loading } = useStoreMap({
+    store: LoaderStore,
+    keys: [],
+    fn: (state) => state,
+  });
 
-        const result = await getBreeds();
-        setDogList(result);
+  React.useEffect(() => {
+    fetchBreeds();
+  }, []);
 
-        setLoading(false);
-    };
-
-    React.useEffect(() => {
-        fetchBreeds();
-    }, []);
-
-    const onScold = () => {
-        const scoldedBreed = dogList.map((dog) => {
-            if (dog.name.toLowerCase() === selectedDog.name.toLowerCase())
-                return { ...dog, scolded: dog.scolded + 1 };
-            return dog;
-        });
-
-        setDogList(scoldedBreed);
-    };
-
-    const onSelectDog = (breed: string) => {
-        const selectedBreed = dogList.find((dog) => dog.name.toLowerCase() === breed.toLowerCase());
-        if (!selectedBreed) return;
-        setSelectedDog(selectedBreed);
-    };
-
-    const onSelectDogFilter = (breedFilter: string) => setSelectedDogFilter(breedFilter);
-
-    return (
-        <DogWrapperView
-            name={selectedDog?.name}
-            image={selectedDog?.image}
-            onScold={onScold}
-            disabled={!selectedDog.name}
-            dogList={dogList}
-            selectedDog={selectedDog}
-            onSelectDog={onSelectDog}
-            loading={loading}
-            selectedDogFilter={selectedDogFilter}
-            onSelectDogFilter={onSelectDogFilter}
-        />
-    )
+  return (
+    <DogWrapperView
+      loading={loading}
+    />
+  );
 }
 
 export default DogWrapper;
