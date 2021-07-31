@@ -1,15 +1,12 @@
 import { useStyles } from "./DogWrapperView.styles";
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 import { Skeleton } from "@material-ui/lab";
 import DogFilter from "../dogFilter/DogFilter";
 import DogDetails from "../dogDetails/DogDetails";
 import DogList from "../dogList/DogList";
+import { DogWrapperProps } from "./DogWrapper.types";
 
-interface Props {
-  loading: boolean;
-}
-
-function DogWrapperView({ loading }: Props) {
+function DogWrapperView({ isLoading }: DogWrapperProps) {
   const classes = useStyles();
 
   return (
@@ -23,7 +20,7 @@ function DogWrapperView({ loading }: Props) {
       </Grid>
 
       <Grid item xs={8}>
-        {loading ? (
+        {isLoading ? (
           <Skeleton
             variant="rect"
             animation="wave"

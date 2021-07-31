@@ -1,5 +1,5 @@
-import { setDogList } from "./DogListEvent";
-import DogListStore from "./DogListStore";
+import { DogListEvent } from "./DogListEvent";
+import { DogListStore } from "./DogListStore";
 
 describe("DogListStore", () => {
   const dogListMock = [
@@ -16,7 +16,7 @@ describe("DogListStore", () => {
   ];
 
   it("should change value of dogList", () => {
-    setDogList(dogListMock);
+    DogListEvent(dogListMock);
 
     expect(DogListStore.getState().dogList).toEqual(dogListMock);
   });

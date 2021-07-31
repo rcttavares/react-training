@@ -1,13 +1,13 @@
 import { createEffect } from "effector";
-import { getBreed } from "../../services/dogBreed/DogBreedService";
-import { setLoading } from "../loader/LoaderEvent";
-import { setDogList } from "./DogListEvent";
+import * as DogBreedService from "../../services/dogBreed/DogBreedService";
+import { LoaderEvent } from "../loader/LoaderEvent";
+import { DogListEvent } from "./DogListEvent";
 
-export const fetchBreeds = createEffect(async () => {
-  setLoading({ loading: true });
+export const DogListEffect = createEffect(async () => {
+  LoaderEvent({ isLoading: true });
 
-  const result = await getBreed();
-  setDogList(result);
+  const result = await DogBreedService.getBreed();
+  DogListEvent(result);
 
-  setLoading({ loading: false });
+  LoaderEvent({ isLoading: false });
 });

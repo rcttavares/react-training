@@ -1,19 +1,17 @@
 import { createStore } from "effector";
 import { cloneDeep } from "lodash";
-import { setLoading } from "./LoaderEvent";
-import LoaderState from "./LoaderState";
+import { LoaderEvent } from "./LoaderEvent";
+import { LoaderState } from "./LoaderState";
 
 const initialState: LoaderState = {
-  loading: false,
+  isLoading: false,
 };
 
-const LoaderStore = createStore<LoaderState>(initialState).on(
-  setLoading,
-  (state, loading) =>
+export const LoaderStore = createStore<LoaderState>(initialState).on(
+  LoaderEvent,
+  (state, isLoading) =>
     cloneDeep({
       ...state,
-      ...loading,
+      ...isLoading,
     })
 );
-
-export default LoaderStore;

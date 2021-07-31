@@ -1,14 +1,14 @@
 import { createStore } from "effector";
 import { cloneDeep } from "lodash";
-import { setDogList } from "./DogListEvent";
-import DogListState from "./DogListState";
+import { DogListEvent } from "./DogListEvent";
+import { DogListState } from "./DogListState";
 
 const initialState: DogListState = {
   dogList: [],
 };
 
-const DogListStore = createStore<DogListState>(initialState).on(
-  setDogList,
+export const DogListStore = createStore<DogListState>(initialState).on(
+  DogListEvent,
   (state, dogList) => {
     return cloneDeep({
       ...state,
@@ -16,5 +16,3 @@ const DogListStore = createStore<DogListState>(initialState).on(
     });
   }
 );
-
-export default DogListStore;

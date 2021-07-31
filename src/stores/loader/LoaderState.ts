@@ -1,5 +1,3 @@
-interface LoaderState {
-  loading: boolean;
+export interface LoaderState {
+  isLoading: boolean;
 }
-
-export default LoaderState;

@@ -16,14 +16,10 @@ describe("DogWrapperView", () => {
     });
   });
 
-  it("should render correctly", () => {
-    const loading = false;
+  it("should render component when isLoading is false", () => {
+    const isLoading = false;
 
-    const wrapper = shallow(
-      <DogWrapperView
-        loading={loading}
-      />
-    );
+    const wrapper = shallow(<DogWrapperView isLoading={isLoading} />);
 
     expect(
       wrapper.matchesElement(
@@ -37,16 +33,36 @@ describe("DogWrapperView", () => {
           </Grid>
 
           <Grid item xs={8}>
-            {loading ? (
-              <Skeleton
-                variant="rect"
-                animation="wave"
-                height={336}
-                className="loading"
-              />
-            ) : (
-              <DogList />
-            )}
+            <DogList />
+          </Grid>
+        </Grid>
+      )
+    ).toBe(true);
+  });
+
+  it("should render component when isLoading is true", () => {
+    const isLoading = true;
+
+    const wrapper = shallow(<DogWrapperView isLoading={isLoading} />);
+
+    expect(
+      wrapper.matchesElement(
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <DogFilter />
+          </Grid>
+
+          <Grid item xs={4}>
+            <DogDetails />
+          </Grid>
+
+          <Grid item xs={8}>
+            <Skeleton
+              variant="rect"
+              animation="wave"
+              height={336}
+              className="loading"
+            />
           </Grid>
         </Grid>
       )

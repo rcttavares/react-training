@@ -1,25 +1,21 @@
-import { useStoreMap } from 'effector-react';
-import React from 'react';
-import { fetchBreeds } from '../../stores/dogList/DogListEffect';
-import LoaderStore from '../../stores/loader/LoaderStore';
-import DogWrapperView from './DogWrapperView';
+import React from "react";
+import { useStoreMap } from "effector-react";
+import { LoaderStore } from "../../stores/loader/LoaderStore";
+import { DogListEffect } from "../../stores/dogList/DogListEffect";
+import DogWrapperView from "./DogWrapperView";
 
 function DogWrapper() {
-  const { loading } = useStoreMap({
+  const { isLoading } = useStoreMap({
     store: LoaderStore,
     keys: [],
     fn: (state) => state,
   });
 
   React.useEffect(() => {
-    fetchBreeds();
+    DogListEffect();
   }, []);
 
-  return (
-    <DogWrapperView
-      loading={loading}
-    />
-  );
+  return <DogWrapperView isLoading={isLoading} />;
 }
 
 export default DogWrapper;

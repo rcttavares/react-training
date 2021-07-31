@@ -1,10 +1,10 @@
-import { shallow } from "enzyme";
 import React from "react";
-import { getBreed } from "../../services/dogBreed/DogBreedService";
+import { shallow } from "enzyme";
 import DogWrapper from "./DogWrapper";
 import DogWrapperView from "./DogWrapperView";
+import { DogListEffect } from "../../stores/dogList/DogListEffect";
 
-jest.mock("../../services/dogBreed/DogBreedService.ts");
+jest.mock("../../stores/dogList/DogListEffect.ts");
 
 describe("DogWrapper", () => {
   it("should render the view with the right props", () => {
@@ -13,11 +13,11 @@ describe("DogWrapper", () => {
     expect(wrapper.type()).toBe(DogWrapperView);
   });
 
-  it("should get a list of dog breeds", () => {
+  it("should call DogListEffect when useEffect has been called", () => {
     jest.spyOn(React, "useEffect").mockImplementationOnce((f) => f());
 
     shallow(<DogWrapper />);
 
-    expect(getBreed).toBeCalled();
+    expect(DogListEffect).toHaveBeenCalled();
   });
 });

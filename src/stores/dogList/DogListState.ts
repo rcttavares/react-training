@@ -1,7 +1,5 @@
 import { IDog } from "../../types/Types";
 
-interface DogListState {
+export interface DogListState {
   dogList: IDog[];
 }
-
-export default DogListState;
