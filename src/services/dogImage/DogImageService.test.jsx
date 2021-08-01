@@ -1,22 +1,28 @@
-import { getImage } from './DogImageService';
+import { getImage } from "./DogImageService";
 
-describe('DogImageService', () => {
-  const mock = jest.spyOn(global, 'fetch');
+describe("DogImageService", () => {
+  const mock = jest.spyOn(global, "fetch");
 
-  it('should return an image with success', async () => {
-    const mockJsonPromise = Promise.resolve({ message: [], status: 'success' });
-    mock.mockImplementation(() => Promise.resolve({ json: () => mockJsonPromise }));
+  it("should return an image with success", async () => {
+    const mockJsonPromise = Promise.resolve({ message: [], status: "success" });
+    mock.mockImplementation(() =>
+      Promise.resolve({ json: () => mockJsonPromise })
+    );
 
-    const breedName = 'bulldog';
-    const result = await getImage(breedName);
-    expect(result).toEqual([]);
+    const breedName = "affenpinscher";
+    const response = await getImage(breedName);
+    expect(response).toEqual([]);
     expect(global.fetch).toBeCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith(`https://dog.ceo/api/breed/${breedName}/images/random`);
+    expect(global.fetch).toHaveBeenCalledWith(
+      `https://dog.ceo/api/breed/${breedName}/images/random`
+    );
   });
 
-  it('should return an image with an error', async () => {
-    const mockJsonPromise = Promise.resolve({ message: [], status: 'error' });
-    mock.mockImplementation(() => Promise.resolve({ json: () => mockJsonPromise }));
+  it("should return an image with an error", async () => {
+    const mockJsonPromise = Promise.resolve({ message: [], status: "error" });
+    mock.mockImplementation(() =>
+      Promise.resolve({ json: () => mockJsonPromise })
+    );
 
     await expect(() => {
       return getImage();
