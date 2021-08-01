@@ -1,7 +1,7 @@
-import Grid from '@material-ui/core/Grid';
-import DogWrapper from './components/dogWrapper/DogWrapper';
-import CreateBeerForm from './components/createBeerForm/CreateBeerForm';
-import CreateBeerFormikForm from './components/createBeerFormikForm/CreateBeerFormikForm';
+import Grid from "@material-ui/core/Grid";
+import DogWrapper from "./components/dogWrapper/DogWrapper";
+import CreateBeerForm from "./components/createBeerForm/CreateBeerForm";
+import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFormikForm";
 
 function App() {
   return (

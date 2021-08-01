@@ -1,7 +1,7 @@
-import { shallow } from 'enzyme';
-import App from './App';
+import { shallow } from "enzyme";
+import App from "./App";
 
-describe('App', () => {
+describe("App", () => {
   it("should render App component", () => {
     const wrapper = shallow(<App />);
 
