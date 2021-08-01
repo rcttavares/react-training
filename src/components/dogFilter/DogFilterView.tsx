@@ -1,24 +1,27 @@
-import { ChangeEvent } from 'react';
-import { useStyles } from './DogFilterView.styles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Typography from '@material-ui/core/Typography';
+import { useStyles } from "./DogFilterView.styles";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Paper from "@material-ui/core/Paper";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import Typography from "@material-ui/core/Typography";
+import { DogFilterProps } from "./DogFilter.types";
 
-interface Props {
-  filterOptions: string[];
-  getDogBreedsLength: (breedLetter: string) => number;
-  onChangeOption: (event: ChangeEvent<HTMLInputElement>) => void;
-}
-
-function DogFilterView({ filterOptions, getDogBreedsLength, onChangeOption }: Props) {
+function DogFilterView({
+  filter,
+  onChangeOption,
+  getDogBreedLength,
+}: DogFilterProps) {
   const classes = useStyles();
 
   return (
     <Paper className={classes.paper}>
-      <RadioGroup row aria-label="dogLetter" name="dogLetter" onChange={onChangeOption}>
-        {filterOptions.map((item) => (
+      <RadioGroup
+        row
+        aria-label="dogLetter"
+        name="dogLetter"
+        onChange={onChangeOption}
+      >
+        {filter.map((item) => (
           <FormControlLabel
             key={item}
             value={item}
@@ -26,8 +29,12 @@ function DogFilterView({ filterOptions, getDogBreedsLength, onChangeOption }: Pr
             labelPlacement="bottom"
             label={
               <div className={classes.flex}>
-                <Typography className={classes.letter}>{item.toUpperCase()}</Typography>
-                <Typography className={classes.number}>({getDogBreedsLength(item)})</Typography>
+                <Typography className={classes.letter}>
+                  {item.toUpperCase()}
+                </Typography>
+                <Typography className={classes.number}>
+                  ({getDogBreedLength(item)})
+                </Typography>
               </div>
             }
           />

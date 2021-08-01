@@ -1,8 +1,8 @@
-import { useStoreMap } from 'effector-react';
 import { ChangeEvent, useCallback, useMemo } from "react";
-import { DogFilterEvent } from '../../stores/dogFilter/DogFilterEvent';
-import { DogListStore } from '../../stores/dogList/DogListStore';
 import DogFilterView from "./DogFilterView";
+import { useStoreMap } from "effector-react";
+import { DogFilterEvent } from "../../stores/dogFilter/DogFilterEvent";
+import { DogListStore } from "../../stores/dogList/DogListStore";
 
 function DogFilter() {
   const { dogList } = useStoreMap({
@@ -11,23 +11,27 @@ function DogFilter() {
     fn: (state) => state,
   });
 
-  const filterOptions = useMemo(() => 'abcdefghijklmnopqrstuvwxyz'.split(''), []);
-
-  const getDogBreedsLength = useCallback((breedLetter: string) => {
-    return dogList.filter(
-      (item) => item.name.charAt(0).toLowerCase() === breedLetter.toLowerCase()
-    ).length;
-  },[dogList]);
+  const filter = useMemo(() => "abcdefghijklmnopqrstuvwxyz".split(""), []);
 
   const onChangeOption = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     DogFilterEvent({ dogFilter: event.target.value });
-  },[]);
+  }, []);
+
+  const getDogBreedLength = useCallback(
+    (breedLetter: string) => {
+      return dogList.filter(
+        (item) =>
+          item.name.charAt(0).toLowerCase() === breedLetter.toLowerCase()
+      ).length;
+    },
+    [dogList]
+  );
 
   return (
     <DogFilterView
-      filterOptions={filterOptions}
-      getDogBreedsLength={getDogBreedsLength}
+      filter={filter}
       onChangeOption={onChangeOption}
+      getDogBreedLength={getDogBreedLength}
     />
   );
 }
