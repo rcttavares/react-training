@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "../button/Button";
-import { beerTypeList } from "../../mocks/BeerTypeMock";
+import { beerTypeList } from "../../mocks/BeerTypeList";
 
 jest.mock("./CreateBeerFormikFormView.styles");
 
