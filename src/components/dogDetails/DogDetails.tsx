@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { useSnackbar } from "notistack";
-import DogDetailsView from "./DogDetailsView";
 import { useStoreMap } from "effector-react";
-import DogListStore from "../../stores/dogList/DogListStore";
-import DogItemStore from "../../stores/dogItem/DogItemStore";
-import * as DogListEvent from "../../stores/dogList/DogListEvent";
+import { DogListEvent } from "../../stores/dogList/DogListEvent";
+import { DogListStore } from "../../stores/dogList/DogListStore";
+import { DogItemStore } from "../../stores/dogItem/DogItemStore";
+import DogDetailsView from "./DogDetailsView";
 
 function DogDetails() {
   const { enqueueSnackbar } = useSnackbar();
@@ -28,7 +28,7 @@ function DogDetails() {
       return item;
     });
 
-    DogListEvent.setDogList(breedScolded);
+    DogListEvent(breedScolded);
   };
 
   const onBark = useCallback(() => {

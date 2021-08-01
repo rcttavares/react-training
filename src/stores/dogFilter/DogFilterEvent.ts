@@ -1,4 +1,4 @@
 import { createEvent } from "effector";
-import DogFilterState from "./DogFilterState";
+import { DogFilterState } from "./DogFilterState";
 
-export const setDogFilter = createEvent<DogFilterState>();
+export const DogFilterEvent = createEvent<DogFilterState>();

@@ -6,8 +6,8 @@ import { DogListEvent } from "./DogListEvent";
 export const DogListEffect = createEffect(async () => {
   LoaderEvent({ isLoading: true });
 
-  const result = await DogBreedService.getBreed();
-  DogListEvent(result);
+  const response = await DogBreedService.getBreed();
+  DogListEvent(response);
 
   LoaderEvent({ isLoading: false });
 });

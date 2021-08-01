@@ -1,7 +1,7 @@
 import { useStoreMap } from 'effector-react';
 import { ChangeEvent, useCallback, useMemo } from "react";
-import { setDogFilter } from '../../stores/dogFilter/DogFilterEvent';
-import DogListStore from '../../stores/dogList/DogListStore';
+import { DogFilterEvent } from '../../stores/dogFilter/DogFilterEvent';
+import { DogListStore } from '../../stores/dogList/DogListStore';
 import DogFilterView from "./DogFilterView";
 
 function DogFilter() {
@@ -20,7 +20,7 @@ function DogFilter() {
   },[dogList]);
 
   const onChangeOption = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setDogFilter({ dogFilter: event.target.value });
+    DogFilterEvent({ dogFilter: event.target.value });
   },[]);
 
   return (

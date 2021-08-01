@@ -1,14 +1,14 @@
-import { useStoreMap } from 'effector-react';
+import { useStoreMap } from "effector-react";
 import { useMemo } from "react";
-import DogFilterStore from '../../stores/dogFilter/DogFilterStore';
-import { setDogItem } from '../../stores/dogItem/DogItemEvent';
-import DogItemStore from '../../stores/dogItem/DogItemStore';
-import DogListStore from '../../stores/dogList/DogListStore';
+import { DogFilterStore } from "../../stores/dogFilter/DogFilterStore";
+import { DogItemEvent } from "../../stores/dogItem/DogItemEvent";
+import { DogItemStore } from "../../stores/dogItem/DogItemStore";
+import { DogListStore } from "../../stores/dogList/DogListStore";
 import DogListView from "./DogListView";
 
 function DogList() {
-  const { dogList } = useStoreMap({
-    store: DogListStore,
+  const { dogFilter } = useStoreMap({
+    store: DogFilterStore,
     keys: [],
     fn: (state) => state,
   });
@@ -19,18 +19,20 @@ function DogList() {
     fn: (state) => state,
   });
 
-  const { dogFilter } = useStoreMap({
-    store: DogFilterStore,
+  const { dogList } = useStoreMap({
+    store: DogListStore,
     keys: [],
     fn: (state) => state,
   });
 
-  const dogListFilter = useMemo(() => 
-    dogFilter
-      ? dogList.filter(
-        (item) => item.name.charAt(0).toLowerCase() === dogFilter.toLowerCase()
-      )
-      : dogList,
+  const dogListFilter = useMemo(
+    () =>
+      dogFilter
+        ? dogList.filter(
+            (item) =>
+              item.name.charAt(0).toLowerCase() === dogFilter.toLowerCase()
+          )
+        : dogList,
     [dogList, dogFilter]
   );
 
@@ -40,7 +42,7 @@ function DogList() {
     );
 
     if (!selectedBreed) return;
-    setDogItem({ dogItem: selectedBreed});
+    DogItemEvent({ dogItem: selectedBreed });
   };
 
   return (
