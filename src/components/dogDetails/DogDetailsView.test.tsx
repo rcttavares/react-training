@@ -24,8 +24,8 @@ describe("DogDetailsView", () => {
     });
   });
 
-  const name = "Name";
-  const image = "Image";
+  const name = "affenpinscher";
+  const image = "image url";
   const onScoldMock = jest.fn();
   const onBarkMock = jest.fn();
   const disabled = false;

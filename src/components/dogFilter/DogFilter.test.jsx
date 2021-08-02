@@ -41,7 +41,7 @@ describe("DogFilter", () => {
     expect(DogFilterEvent).toHaveBeenCalledTimes(0);
   });
 
-  it("shold call storeMap and return the right props from store", () => {
+  it("should call storeMap and return the right props from store", () => {
     useStoreMap.mockReturnValueOnce(stateBreeds());
 
     shallow(<DogFilter />);

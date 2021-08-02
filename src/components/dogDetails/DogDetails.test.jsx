@@ -2,11 +2,13 @@ import { shallow } from "enzyme";
 import DogDetails from "./DogDetails";
 import DogDetailsView from "./DogDetailsView";
 import { useStoreMap } from "effector-react";
-import DogListStore from "../../stores/dogList/DogListStore";
-import DogItemStore from "../../stores/dogItem/DogItemStore";
-import * as DogListEvent from "../../stores/dogList/DogListEvent";
+import { DogListEvent } from "../../stores/dogList/DogListEvent";
+import { DogListStore } from "../../stores/dogList/DogListStore";
+import { DogItemStore } from "../../stores/dogItem/DogItemStore";
 
 jest.mock("effector-react");
+jest.mock("../../stores/dogList/DogListEvent.ts");
+
 const mockEnqueue = jest.fn();
 jest.mock("notistack", () => ({
   ...jest.requireActual("notistack"),
@@ -25,33 +27,18 @@ describe("DogDetails", () => {
 
     const wrapper = shallow(<DogDetails />);
 
-    expect(wrapper.matchesElement(<DogDetailsView />)).toBe(true);
+    expect(wrapper.type()).toBe(DogDetailsView);
   });
 
-  it("should add + 1 to selectedDog scoldCount when onScold function is called", () => {
+  it("should handle the onScold function is called", () => {
     useStoreMap
       .mockReturnValueOnce(stateBreeds())
       .mockReturnValueOnce(stateBreedSelected());
 
-    jest
-      .spyOn(DogListEvent, "setDogList")
-      .mockImplementation(() => "some value");
-
     const wrapper = shallow(<DogDetails />);
 
     wrapper.invoke("onScold")();
-    expect(DogListEvent.setDogList).toBeCalledWith([
-      {
-        name: "affenpinscher",
-        image: "test",
-        scolded: 0,
-      },
-      {
-        name: "beagle",
-        image: "test",
-        scolded: 0,
-      },
-    ]);
+    expect(DogListEvent).toHaveBeenCalled();
   });
 
   it("should handle the onBark function is called", () => {
@@ -66,34 +53,23 @@ describe("DogDetails", () => {
   });
 
   it("should call storeMap and return the right props from store", () => {
-    useStoreMap.mockReturnValueOnce(stateBreeds()).mockReturnValueOnce(stateBreedSelected());
+    useStoreMap
+      .mockReturnValueOnce(stateBreeds())
+      .mockReturnValueOnce(stateBreedSelected());
 
     shallow(<DogDetails />);
 
     expect(useStoreMap.mock.calls[0][0].store).toBe(DogListStore);
     expect(useStoreMap.mock.calls[0][0].keys).toEqual([]);
-    expect(useStoreMap.mock.calls[0][0].fn(stateBreeds())).toMatchObject({
-      dogList: [
-        {
-          name: "affenpinscher",
-          image: "test",
-          scolded: 0,
-        },
-        {
-          name: "beagle",
-          image: "test",
-          scolded: 0,
-        },
-      ],
-    });
+    expect(useStoreMap.mock.calls[0][0].fn(stateBreeds())).toMatchObject(
+      stateBreeds()
+    );
 
     expect(useStoreMap.mock.calls[1][0].store).toBe(DogItemStore);
     expect(useStoreMap.mock.calls[1][0].keys).toEqual([]);
-    expect(useStoreMap.mock.calls[1][0].fn(stateBreedSelected())).toMatchObject({
-      name: "affenpinscher",
-      image: "test",
-      scolded: 0,
-    });
+    expect(useStoreMap.mock.calls[1][0].fn(stateBreedSelected())).toMatchObject(
+      stateBreedSelected()
+    );
   });
 });
 
@@ -102,12 +78,12 @@ function stateBreeds() {
     dogList: [
       {
         name: "affenpinscher",
-        image: "test",
+        image: "image url",
         scolded: 0,
       },
       {
-        name: "beagle",
-        image: "test",
+        name: "basenji",
+        image: "image url",
         scolded: 0,
       },
     ],
@@ -117,7 +93,7 @@ function stateBreeds() {
 function stateBreedSelected() {
   return {
     name: "affenpinscher",
-    image: "test",
+    image: "image url",
     scolded: 0,
   };
 }

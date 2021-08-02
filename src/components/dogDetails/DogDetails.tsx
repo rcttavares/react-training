@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { useSnackbar } from "notistack";
+import DogDetailsView from "./DogDetailsView";
 import { useStoreMap } from "effector-react";
 import { DogListEvent } from "../../stores/dogList/DogListEvent";
 import { DogListStore } from "../../stores/dogList/DogListStore";
 import { DogItemStore } from "../../stores/dogItem/DogItemStore";
-import DogDetailsView from "./DogDetailsView";
 
 function DogDetails() {
   const { enqueueSnackbar } = useSnackbar();
@@ -21,7 +21,7 @@ function DogDetails() {
     fn: (state) => state,
   });
 
-  const onScold = () => {
+  const onScold = useCallback(() => {
     const breedScolded = dogList.map((item) => {
       if (item.name.toLowerCase() === dogItem?.name.toLowerCase())
         return { ...item, scolded: item.scolded + 1 };
@@ -29,7 +29,7 @@ function DogDetails() {
     });
 
     DogListEvent(breedScolded);
-  };
+  }, [dogItem?.name, dogList]);
 
   const onBark = useCallback(() => {
     enqueueSnackbar("Woof! Woof!", {
