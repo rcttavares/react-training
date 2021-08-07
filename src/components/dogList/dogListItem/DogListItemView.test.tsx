@@ -1,28 +1,28 @@
 import { shallow } from "enzyme";
 import DogListItemView from "./DogListItemView";
+import Avatar from "@material-ui/core/Avatar";
+import Chip from "@material-ui/core/Chip";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Chip from "@material-ui/core/Chip";
 import { capitalize } from "lodash";
 
 describe("DogListItemView", () => {
-  it("should render correctly", () => {
-    const name = "Name";
-    const image = "Image";
-    const scolded = 0;
-    const selected = false;
-    const onSelectMock = jest.fn();
+  const name = "affenpinscher";
+  const image = "image url";
+  const scolded = 0;
+  const selected = false;
+  const onClickMock = jest.fn();
 
+  it("should render correctly", () => {
     const wrapper = shallow(
       <DogListItemView
         name={name}
         image={image}
         scolded={scolded}
         selected={selected}
-        onSelect={onSelectMock}
+        onClick={onClickMock}
       />
     );
 
@@ -42,23 +42,17 @@ describe("DogListItemView", () => {
   });
 
   it("should handle the onClick event", () => {
-    const name = "Name";
-    const image = "Image";
-    const scolded = 0;
-    const selected = false;
-    const onSelectMock = jest.fn();
-
     const wrapper = shallow(
       <DogListItemView
         name={name}
         image={image}
         scolded={scolded}
         selected={selected}
-        onSelect={onSelectMock}
+        onClick={onClickMock}
       />
     );
 
     wrapper.find(ListItem).first().simulate("click");
-    expect(onSelectMock).toHaveBeenCalled();
+    expect(onClickMock).toHaveBeenCalled();
   });
 });

@@ -1,25 +1,19 @@
-import { MouseEventHandler, useCallback } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Chip from "@material-ui/core/Chip";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Chip from "@material-ui/core/Chip";
 import { capitalize } from "lodash";
+import { DogListItemViewProps } from "./DogListItem.types";
 
-interface Props {
-  name: string;
-  image: string;
-  scolded: number;
-  selected: boolean;
-  onSelect: (breed: string) => void;
-}
-
-function DogListItemView({ name, image, scolded, selected, onSelect }: Props) {
-  const onClick: MouseEventHandler<HTMLDivElement> = useCallback(() => {
-    onSelect(name);
-  }, [name, onSelect]);
-
+function DogListItemView({
+  name,
+  image,
+  scolded,
+  selected,
+  onClick,
+}: DogListItemViewProps) {
   return (
     <ListItem button selected={selected} onClick={onClick}>
       <ListItemAvatar>
