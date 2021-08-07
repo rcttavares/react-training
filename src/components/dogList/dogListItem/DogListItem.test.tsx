@@ -22,4 +22,19 @@ describe("DogListItem", () => {
 
     expect(wrapper.type()).toBe(DogListItemView);
   });
+
+  it("should call onClick event when selected", () => {
+    const wrapper = shallow(
+      <DogListItem
+        name={name}
+        image={image}
+        scolded={scolded}
+        selected={selected}
+        onSelect={onSelectMock}
+      />
+    );
+
+    wrapper.invoke("onClick")();
+    expect(onSelectMock).toHaveBeenCalled();
+  });
 });
