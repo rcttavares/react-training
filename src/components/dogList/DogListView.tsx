@@ -1,15 +1,10 @@
 import { useStyles } from "./DogListView.styles";
-import { List, Paper } from "@material-ui/core";
-import DogListItem from "./DogListItem";
-import { IDog } from "../../types/Types";
+import List from "@material-ui/core/List";
+import Paper from "@material-ui/core/Paper";
+import DogListItem from "./dogListItem/DogListItem";
+import { DogListProps } from "./DogList.types";
 
-interface Props {
-  dogList: IDog[];
-  selected: IDog;
-  onSelect: (breed: string) => void;
-}
-
-function DogListView({ dogList, selected, onSelect }: Props) {
+function DogListView({ dogList, dogItem, onSelect }: DogListProps) {
   const classes = useStyles();
 
   return (
@@ -21,8 +16,8 @@ function DogListView({ dogList, selected, onSelect }: Props) {
               name={item.name}
               image={item.image}
               scolded={item.scolded}
-              selected={item.name === selected.name}
-              onSelect={onSelect}
+              selected={item.name === dogItem.name}
+              onClick={() => onSelect(item)}
             />
           </List>
         );

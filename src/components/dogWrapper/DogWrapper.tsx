@@ -1,8 +1,8 @@
 import React from "react";
-import { useStoreMap } from "effector-react";
-import { LoaderStore } from "../../stores/loader/LoaderStore";
-import { DogListEffect } from "../../stores/dogList/DogListEffect";
 import DogWrapperView from "./DogWrapperView";
+import { useStoreMap } from "effector-react";
+import { DogListEffect } from "../../stores/dogList/DogListEffect";
+import { LoaderStore } from "../../stores/loader/LoaderStore";
 
 function DogWrapper() {
   const { isLoading } = useStoreMap({

@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { DogListItemProps } from "./DogListItem.types";
 import DogListItemView from "./DogListItemView";
 
@@ -7,12 +6,8 @@ function DogListItem({
   image,
   scolded,
   selected,
-  onSelect,
+  onClick,
 }: DogListItemProps) {
-  const onClick = useCallback(() => {
-    onSelect(name);
-  }, [name, onSelect]);
-
   return (
     <DogListItemView
       name={name}

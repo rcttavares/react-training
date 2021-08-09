@@ -1,14 +1,15 @@
 import { useStoreMap } from "effector-react";
-import { useMemo } from "react";
-import { DogFilterStore } from "../../stores/dogFilter/DogFilterStore";
+import { useCallback, useMemo } from "react";
+import { DogListStore } from "../../stores/dogList/DogListStore";
 import { DogItemEvent } from "../../stores/dogItem/DogItemEvent";
 import { DogItemStore } from "../../stores/dogItem/DogItemStore";
-import { DogListStore } from "../../stores/dogList/DogListStore";
+import { DogFilterStore } from "../../stores/dogFilter/DogFilterStore";
 import DogListView from "./DogListView";
+import { IDog } from "../../types/Types";
 
 function DogList() {
-  const { dogFilter } = useStoreMap({
-    store: DogFilterStore,
+  const { dogList } = useStoreMap({
+    store: DogListStore,
     keys: [],
     fn: (state) => state,
   });
@@ -19,8 +20,8 @@ function DogList() {
     fn: (state) => state,
   });
 
-  const { dogList } = useStoreMap({
-    store: DogListStore,
+  const { dogFilter } = useStoreMap({
+    store: DogFilterStore,
     keys: [],
     fn: (state) => state,
   });
@@ -36,19 +37,14 @@ function DogList() {
     [dogList, dogFilter]
   );
 
-  const onSelect = (breed: string) => {
-    const selectedBreed = dogList.find(
-      (item) => item.name.toLowerCase() === breed.toLowerCase()
-    );
-
-    if (!selectedBreed) return;
-    DogItemEvent({ dogItem: selectedBreed });
-  };
+  const onSelect = useCallback((breed: IDog) => {
+    DogItemEvent({ dogItem: breed });
+  }, []);
 
   return (
     <DogListView
       dogList={dogListFilter}
-      selected={dogItem}
+      dogItem={dogItem}
       onSelect={onSelect}
     />
   );

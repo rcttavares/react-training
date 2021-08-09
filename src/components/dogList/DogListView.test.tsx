@@ -1,29 +1,30 @@
-import { shallow } from 'enzyme';
-import DogListView from './DogListView';
-import { useStyles } from './DogListView.styles';
-import { List, Paper } from '@material-ui/core';
-import { IDog } from '../../types/Types';
-import DogListItem from './DogListItem';
+import { shallow } from "enzyme";
+import DogListView from "./DogListView";
+import { useStyles } from "./DogListView.styles";
+import List from "@material-ui/core/List";
+import Paper from "@material-ui/core/Paper";
+import DogListItem from "./dogListItem/DogListItem";
+import { IDog } from "../../types/Types";
 
-jest.mock('./DogListView.styles');
+jest.mock("./DogListView.styles");
 
-describe('DogListView', () => {
+describe("DogListView", () => {
   beforeEach(() => {
     (useStyles as jest.Mock).mockReturnValue({
-      "paper": "paper",
-      "list": "list"
+      paper: "paper",
+      list: "list",
     });
   });
 
-  it('should render correctly', () => {
-    const dogList: IDog[] = [{ name: '', image: '', scolded: 0 }];
-    const selected: IDog = { name: '', image: '', scolded: 0 };
-    const onSelectMock = jest.fn();
+  const dogList: IDog[] = [{ name: "", image: "", scolded: 0 }];
+  const dogItem: IDog = { name: "", image: "", scolded: 0 };
+  const onSelectMock = jest.fn((f) => f);
 
+  it("should render correctly", () => {
     const wrapper = shallow(
-      <DogListView 
+      <DogListView
         dogList={dogList}
-        selected={selected}
+        dogItem={dogItem}
         onSelect={onSelectMock}
       />
     );
@@ -38,30 +39,27 @@ describe('DogListView', () => {
                   name={item.name}
                   image={item.image}
                   scolded={item.scolded}
-                  selected={item.name === selected.name}
-                  onSelect={onSelectMock}
+                  selected={item.name === dogItem.name}
+                  onClick={onSelectMock(item)}
                 />
               </List>
-            )
+            );
           })}
         </Paper>
       )
     ).toBe(true);
   });
 
-  it('should render the same length of the dog breeds list', () => {
-    const dogList: IDog[] = [{ name: '', image: '', scolded: 0 }];
-    const selected: IDog = { name: '', image: '', scolded: 0 };
-    const onSelectMock = jest.fn();
-
+  it("should call the onClick of DogListItem", () => {
     const wrapper = shallow(
-      <DogListView 
+      <DogListView
         dogList={dogList}
-        selected={selected}
+        dogItem={dogItem}
         onSelect={onSelectMock}
       />
     );
 
-    expect(wrapper.find(List).length).toEqual(dogList.length);
+    wrapper.find(DogListItem).first().invoke("onClick")();
+    expect(onSelectMock).toHaveBeenCalled();
   });
 });

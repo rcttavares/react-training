@@ -5,7 +5,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import { capitalize } from "lodash";
-import { DogListItemViewProps } from "./DogListItem.types";
+import { DogListItemProps } from "./DogListItem.types";
 
 function DogListItemView({
   name,
@@ -13,7 +13,7 @@ function DogListItemView({
   scolded,
   selected,
   onClick,
-}: DogListItemViewProps) {
+}: DogListItemProps) {
   return (
     <ListItem button selected={selected} onClick={onClick}>
       <ListItemAvatar>

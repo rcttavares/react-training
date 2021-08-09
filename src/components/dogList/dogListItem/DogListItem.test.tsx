@@ -7,7 +7,7 @@ describe("DogListItem", () => {
   const image = "image url";
   const scolded = 0;
   const selected = false;
-  const onSelectMock = jest.fn();
+  const onClickMock = jest.fn();
 
   it("should render the view with the right props", () => {
     const wrapper = shallow(
@@ -16,25 +16,10 @@ describe("DogListItem", () => {
         image={image}
         scolded={scolded}
         selected={selected}
-        onSelect={onSelectMock}
+        onClick={onClickMock}
       />
     );
 
     expect(wrapper.type()).toBe(DogListItemView);
-  });
-
-  it("should call onClick event when selected", () => {
-    const wrapper = shallow(
-      <DogListItem
-        name={name}
-        image={image}
-        scolded={scolded}
-        selected={selected}
-        onSelect={onSelectMock}
-      />
-    );
-
-    wrapper.invoke("onClick")();
-    expect(onSelectMock).toHaveBeenCalled();
   });
 });

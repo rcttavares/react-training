@@ -10,7 +10,7 @@ jest.mock("../../stores/dogFilter/DogFilterEvent.ts");
 
 describe("DogFilter", () => {
   it("should render the view with the right props", () => {
-    useStoreMap.mockReturnValueOnce(stateBreeds());
+    useStoreMap.mockReturnValueOnce(stateDogList());
 
     const wrapper = shallow(<DogFilter />);
 
@@ -18,7 +18,7 @@ describe("DogFilter", () => {
   });
 
   it("should call onChangeOption event when change an option", () => {
-    useStoreMap.mockReturnValueOnce(stateBreeds());
+    useStoreMap.mockReturnValueOnce(stateDogList());
 
     const event = {
       target: {
@@ -33,7 +33,7 @@ describe("DogFilter", () => {
   });
 
   it("should return the length of dogBreed on filter when getDogBreedLength have been called", () => {
-    useStoreMap.mockReturnValueOnce(stateBreeds());
+    useStoreMap.mockReturnValueOnce(stateDogList());
 
     const wrapper = shallow(<DogFilter />);
 
@@ -42,19 +42,19 @@ describe("DogFilter", () => {
   });
 
   it("should call storeMap and return the right props from store", () => {
-    useStoreMap.mockReturnValueOnce(stateBreeds());
+    useStoreMap.mockReturnValueOnce(stateDogList());
 
     shallow(<DogFilter />);
 
     expect(useStoreMap.mock.calls[0][0].store).toBe(DogListStore);
     expect(useStoreMap.mock.calls[0][0].keys).toEqual([]);
-    expect(useStoreMap.mock.calls[0][0].fn(stateBreeds())).toMatchObject(
-      stateBreeds()
+    expect(useStoreMap.mock.calls[0][0].fn(stateDogList())).toMatchObject(
+      stateDogList()
     );
   });
 });
 
-function stateBreeds() {
+function stateDogList() {
   return {
     dogList: [
       {
