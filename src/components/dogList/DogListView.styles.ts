@@ -1,14 +1,19 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles({
-  paper: {
-    maxHeight: "336px",
-    overflow: "auto",
+  box: {
+    width: "100%",
+    minHeight: "336px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
   },
   list: {
     padding: 0,
-    "&:hover": {
-      background: "#EAECEE",
-    },
+  },
+  paper: {
+    maxHeight: "336px",
+    overflow: "auto",
   },
 });
