@@ -1,32 +1,32 @@
-import { shallow } from "enzyme";
-import { Formik } from "formik";
-import CreateBeerFormikFormView from "./CreateBeerFormikFormView";
-import { useStyles } from "./CreateBeerFormikFormView.styles";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "../button/Button";
-import { beerTypeList } from "../../mocks/BeerTypeList";
+import Button from '../button/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import CreateBeerFormikFormView from './CreateBeerFormikFormView';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Formik } from 'formik';
+import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { beerTypeList } from '../../mocks/BeerTypeList';
+import { shallow } from 'enzyme';
+import { useStyles } from './CreateBeerFormikFormView.styles';
 
-jest.mock("./CreateBeerFormikFormView.styles");
+jest.mock('./CreateBeerFormikFormView.styles');
 
-describe("CreateBeerFormikFormView", () => {
+describe('CreateBeerFormikFormView', () => {
   beforeEach(() => {
     useStyles.mockReturnValue({
-      paper: "paper",
-      typography: "typography",
-      container: "container",
-      button: "button",
+      paper: 'paper',
+      typography: 'typography',
+      container: 'container',
+      button: 'button',
     });
   });
 
   const formikProps = {
     // Formik State
-    values: { beerName: "", beerType: "", hasCorn: false, ingredients: "" },
-    errors: { beerName: "", beerType: "", hasCorn: false, ingredients: "" },
+    values: { beerName: '', beerType: '', hasCorn: false, ingredients: '' },
+    errors: { beerName: '', beerType: '', hasCorn: false, ingredients: '' },
     touched: {},
     isSubmitting: false,
     isValidating: false,
@@ -57,10 +57,10 @@ describe("CreateBeerFormikFormView", () => {
     dirty: false,
     isValid: false,
     initialValues: {
-      beerName: "",
-      beerType: "",
+      beerName: '',
+      beerType: '',
       hasCorn: false,
-      ingredients: "",
+      ingredients: '',
     },
     initialErrors: {},
     initialTouched: {},
@@ -69,7 +69,7 @@ describe("CreateBeerFormikFormView", () => {
     unregisterField: jest.fn(),
   };
 
-  it("should render correctly", () => {
+  it('should render correctly', () => {
     const wrapper = shallow(
       <CreateBeerFormikFormView
         initialValues={formikProps.initialValues}
@@ -77,20 +77,22 @@ describe("CreateBeerFormikFormView", () => {
       />
     );
 
-    const formikWrapper = wrapper.find(Formik).renderProp("children")(formikProps);
+    const formikWrapper = wrapper.find(Formik).renderProp('children')(
+      formikProps
+    );
     expect(
       formikWrapper.matchesElement(
-        <Paper className="paper">
-          <Typography variant="h5" component="h1" className="typography">
+        <Paper className='paper'>
+          <Typography variant='h5' component='h1' className='typography'>
             Beer Formik
           </Typography>
 
           <form onSubmit={formikProps.handleSubmit}>
-            <div className="container">
+            <div className='container'>
               <TextField
-                label="Beer name"
-                name="beerName"
-                variant="outlined"
+                label='Beer name'
+                name='beerName'
+                variant='outlined'
                 fullWidth
                 value={formikProps.values.beerName}
                 onChange={formikProps.handleChange}
@@ -98,12 +100,12 @@ describe("CreateBeerFormikFormView", () => {
               />
             </div>
 
-            <div className="container">
+            <div className='container'>
               <TextField
                 select
-                label="Beer type"
-                name="beerType"
-                variant="outlined"
+                label='Beer type'
+                name='beerType'
+                variant='outlined'
                 fullWidth
                 value={formikProps.values.beerType}
                 onChange={formikProps.handleChange}
@@ -117,13 +119,13 @@ describe("CreateBeerFormikFormView", () => {
               </TextField>
             </div>
 
-            <div className="container">
+            <div className='container'>
               <FormControlLabel
-                label="Has corn"
+                label='Has corn'
                 control={
                   <Checkbox
-                    color="primary"
-                    name="hasCorn"
+                    color='primary'
+                    name='hasCorn'
                     checked={formikProps.values.hasCorn}
                     onChange={formikProps.handleChange}
                   />
@@ -131,23 +133,23 @@ describe("CreateBeerFormikFormView", () => {
               />
             </div>
 
-            <div className="container">
+            <div className='container'>
               <TextField
-                label="Ingredients"
-                name="ingredients"
-                variant="outlined"
+                label='Ingredients'
+                name='ingredients'
+                variant='outlined'
                 fullWidth
                 multiline
-                rows={3}
+                minRows={3}
                 value={formikProps.values.ingredients}
                 onChange={formikProps.handleChange}
                 helperText={formikProps.errors.ingredients}
               />
             </div>
 
-            <div className="button">
+            <div className='button'>
               <Button
-                label="Submit"
+                label='Submit'
                 disabled={!(formikProps.isValid && formikProps.dirty)}
               />
             </div>
@@ -157,7 +159,7 @@ describe("CreateBeerFormikFormView", () => {
     ).toBe(true);
   });
 
-  it("should have submit button disabled", () => {
+  it('should have submit button disabled', () => {
     const wrapper = shallow(
       <CreateBeerFormikFormView
         initialValues={formikProps.initialValues}
@@ -166,6 +168,6 @@ describe("CreateBeerFormikFormView", () => {
     );
 
     const buttonWrapper = wrapper.find(Formik).dive().find(Button);
-    expect(buttonWrapper.prop("disabled")).toBe(true);
+    expect(buttonWrapper.prop('disabled')).toBe(true);
   });
 });

@@ -1,16 +1,16 @@
-import { useCallback } from "react";
-import { IBeerFormik } from "../../types/Types";
-import CreateBeerFormikFormView from "./CreateBeerFormikFormView";
+import CreateBeerFormikFormView from './CreateBeerFormikFormView';
+import { IBeerFormik } from '../../types/Types';
+import { useCallback } from 'react';
 
 const initialValues = {
-  beerName: "",
-  beerType: "",
+  beerName: '',
+  beerType: '',
   hasCorn: false,
-  ingredients: "",
+  ingredients: '',
 };
 
 function CreateBeerFormikForm() {
-  const onSubmit = useCallback((values: IBeerFormik, { resetForm }) => {
+  const onSubmit = useCallback((values: IBeerFormik, { resetForm }: any) => {
     console.log(values);
     resetForm();
   }, []);

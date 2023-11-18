@@ -1,15 +1,16 @@
-import { Formik } from "formik";
-import * as yup from "yup";
-import { useStyles } from "./CreateBeerFormikFormView.styles";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "../button/Button";
-import { beerTypeList } from "../../mocks/BeerTypeList";
-import { CreateBeerFormikFormProps } from "./CreateBeerFormikForm.types";
+import * as yup from 'yup';
+
+import Button from '../button/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import { CreateBeerFormikFormProps } from './CreateBeerFormikForm.types';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Formik } from 'formik';
+import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { beerTypeList } from '../../mocks/BeerTypeList';
+import { useStyles } from './CreateBeerFormikFormView.styles';
 
 function CreateBeerFormikFormView({
   initialValues,
@@ -32,8 +33,8 @@ function CreateBeerFormikFormView({
       {({ values, isValid, dirty, handleChange, handleSubmit, errors }) => (
         <Paper className={classes.paper}>
           <Typography
-            variant="h5"
-            component="h1"
+            variant='h5'
+            component='h1'
             className={classes.typography}
           >
             Beer Formik
@@ -42,9 +43,9 @@ function CreateBeerFormikFormView({
           <form onSubmit={handleSubmit}>
             <div className={classes.container}>
               <TextField
-                label="Beer name"
-                name="beerName"
-                variant="outlined"
+                label='Beer name'
+                name='beerName'
+                variant='outlined'
                 fullWidth
                 value={values.beerName}
                 onChange={handleChange}
@@ -55,9 +56,9 @@ function CreateBeerFormikFormView({
             <div className={classes.container}>
               <TextField
                 select
-                label="Beer type"
-                name="beerType"
-                variant="outlined"
+                label='Beer type'
+                name='beerType'
+                variant='outlined'
                 fullWidth
                 value={values.beerType}
                 onChange={handleChange}
@@ -73,11 +74,11 @@ function CreateBeerFormikFormView({
 
             <div className={classes.container}>
               <FormControlLabel
-                label="Has corn"
+                label='Has corn'
                 control={
                   <Checkbox
-                    color="primary"
-                    name="hasCorn"
+                    color='primary'
+                    name='hasCorn'
                     checked={values.hasCorn}
                     onChange={handleChange}
                   />
@@ -87,12 +88,12 @@ function CreateBeerFormikFormView({
 
             <div className={classes.container}>
               <TextField
-                label="Ingredients"
-                name="ingredients"
-                variant="outlined"
+                label='Ingredients'
+                name='ingredients'
+                variant='outlined'
                 fullWidth
                 multiline
-                rows={3}
+                minRows={3}
                 value={values.ingredients}
                 onChange={handleChange}
                 helperText={errors.ingredients}
@@ -100,7 +101,7 @@ function CreateBeerFormikFormView({
             </div>
 
             <div className={classes.button}>
-              <Button label="Submit" disabled={!(isValid && dirty)} />
+              <Button label='Submit' disabled={!(isValid && dirty)} />
             </div>
           </form>
         </Paper>
