@@ -48,11 +48,11 @@
     ]
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^5.1.2",
     "@types/enzyme": "^3.10.16",
     "@types/lodash": "^4.14.201",
     "react-scripts": "^5.0.1",
-    "vite": "^5.4.11"
+    "vite": "^7.3.1"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -79,6 +79,7 @@
     }
   },
   "resolutions": {
+    "cheerio": "1.0.0-rc.12",
     "on-headers": "1.1.0"
   }
 }
