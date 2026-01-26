@@ -1,46 +1,43 @@
-# Getting Started with Create React App
+# React Training (Vite)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto usa **Vite** para desenvolvimento e build.
+
+> Observação: a suíte de testes ainda roda via **react-scripts/Jest** (legado do CRA) enquanto a migração de testes não é concluída.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn dev`
 
-Runs the app in the development mode.\
+Roda o app em modo de desenvolvimento (Vite).\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You will also see any runtime errors in the console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Roda os testes (Jest via react-scripts).\
+Por padrão roda em watch e gera coverage (configurado no `package.json`).
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.\
+Gera o build de produção (Vite) na pasta `build`.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `yarn preview`
 
-### `yarn eject`
+Sobe um servidor local para pré-visualizar o build de produção.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### `yarn typecheck`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Roda o TypeScript (`tsc`) sem emitir arquivos.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Estrutura (rápido)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Entrada do app: `index.html` (raiz) → `src/index.tsx`
+- Config do Vite: `vite.config.ts` (porta `3000`, output em `build/`)
