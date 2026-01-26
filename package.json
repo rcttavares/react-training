@@ -91,6 +91,7 @@
     "webpack-dev-server": "^5.2.1",
     "react-scripts/**/eslint/**/js-yaml": "4.1.1",
     "react-scripts/**/load-nyc-config/js-yaml": "3.14.2",
-    "react-scripts/**/svgo/js-yaml": "3.14.2"
+    "react-scripts/**/svgo/js-yaml": "3.14.2",
+    "**/sucrase/glob": "10.5.0"
   }
 }
