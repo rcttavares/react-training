@@ -58,9 +58,18 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/index.tsx",
+      "!src/**/index.ts",
+      "!src/**/*.types.ts",
+      "!src/**/*.d.ts",
       "!src/**/*.styles.ts",
       "!src/react-app-env.d.ts",
       "!src/reportWebVitals.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/src/.*/index\\.ts$",
+      "\\.types\\.ts$",
+      "\\.d\\.ts$"
     ],
     "coverageReporters": [
       "cobertura",
