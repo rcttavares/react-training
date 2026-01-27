@@ -2,8 +2,6 @@
 
 Este projeto usa **Vite** para desenvolvimento e build.
 
-> Observação: a suíte de testes ainda roda via **react-scripts/Jest** (legado do CRA) enquanto a migração de testes não é concluída.
-
 ## Available Scripts
 
 In the project directory, you can run:
@@ -18,8 +16,8 @@ You will also see any runtime errors in the console.
 
 ### `yarn test`
 
-Roda os testes (Jest via react-scripts).\
-Por padrão roda em watch e gera coverage (configurado no `package.json`).
+Roda os testes via **Jest standalone** (com coverage e thresholds).\
+Se quiser rodar em modo watch, você pode passar flags do Jest, por exemplo: `yarn test --watch`.
 
 ### `yarn build`
 

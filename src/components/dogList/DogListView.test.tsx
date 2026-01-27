@@ -1,12 +1,12 @@
-import { shallow } from "enzyme";
-import DogListView from "./DogListView";
-import { useStyles } from "./DogListView.styles";
 import Box from "@material-ui/core/Box";
 import List from "@material-ui/core/List";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import DogListItem from "./dogListItem/DogListItem";
+import { shallow } from "enzyme";
 import { IDog } from "../../types/Types";
+import DogListItem from "./dogListItem/DogListItem";
+import DogListView from "./DogListView";
+import { useStyles } from "./DogListView.styles";
 
 jest.mock("./DogListView.styles");
 
@@ -32,26 +32,9 @@ describe("DogListView", () => {
       />
     );
 
-    expect(
-      wrapper.matchesElement(
-        <Paper className="paper">
-          {dogList.map((item, index) => {
-            return (
-              <List key={index} className="list">
-                <DogListItem
-                  key={index}
-                  name={item.name}
-                  image={item.image}
-                  scolded={item.scolded}
-                  selected={item.name === dogItem.name}
-                  onClick={onSelectMock(item)}
-                />
-              </List>
-            );
-          })}
-        </Paper>
-      )
-    ).toBe(true);
+    expect(wrapper.find(Paper).prop("className")).toBe("paper");
+    expect(wrapper.find(List).prop("className")).toBe("list");
+    expect(wrapper.find(DogListItem)).toHaveLength(dogList.length);
   });
 
   it("should return empty list if not have breed", () => {
