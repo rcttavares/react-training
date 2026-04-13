@@ -64,6 +64,7 @@
   },
   "resolutions": {
     "cheerio": "1.0.0-rc.12",
+    "picomatch": ">=2.3.2",
     "postcss": "8.5.6",
     "webpack-dev-server": "5.2.1",
     "@tootallnate/once": "3.0.1"
