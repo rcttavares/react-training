@@ -59,15 +59,17 @@
     "identity-obj-proxy": "3.0.0",
     "jest": "30.4.2",
     "jest-environment-jsdom": "30.4.1",
+    "lru-cache": "5.1.1",
     "vite": "^7.3.2",
     "whatwg-fetch": "3.6.20"
   },
   "resolutions": {
+    "@babel/helper-compilation-targets/lru-cache": "5.1.1",
     "brace-expansion": ">=1.1.13",
     "cheerio": "1.0.0-rc.12",
     "picomatch": ">=2.3.2",
     "postcss": "8.5.10",
-    "webpack-dev-server": "5.2.1",
+    "webpack-dev-server": "5.2.4",
     "ws": "8.20.1"
   }
 }

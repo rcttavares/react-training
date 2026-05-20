@@ -12,7 +12,7 @@ describe("DogBreedService", () => {
 
     const response = await getBreed();
     expect(response).toEqual([]);
-    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(
       "https://dog.ceo/api/breeds/list/all"
     );
@@ -43,7 +43,7 @@ describe("DogBreedService", () => {
     dogBreeds.map(async (breedName) => {
       const image = await getImage(breedName);
       expect(image).toEqual("breeds");
-      expect(global.fetch).toBeCalledTimes(8);
+      expect(global.fetch).toHaveBeenCalledTimes(8);
       expect(global.fetch).toHaveBeenCalledWith(
         `https://dog.ceo/api/breed/${breedName}/images/random`
       );

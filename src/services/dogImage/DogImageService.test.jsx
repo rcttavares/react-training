@@ -12,7 +12,7 @@ describe("DogImageService", () => {
     const breedName = "affenpinscher";
     const response = await getImage(breedName);
     expect(response).toEqual([]);
-    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(
       `https://dog.ceo/api/breed/${breedName}/images/random`
     );
