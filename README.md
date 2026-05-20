@@ -1,6 +1,6 @@
 # React Training (Vite)
 
-Este projeto usa **Vite** para desenvolvimento e build.
+This project uses **Vite** for development and build.
 
 ## Available Scripts
 
@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `yarn dev`
 
-Roda o app em modo de desenvolvimento (Vite).\
+Runs the app in development mode (Vite).\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
@@ -16,12 +16,12 @@ You will also see any runtime errors in the console.
 
 ### `yarn test`
 
-Roda os testes via **Jest standalone** (com coverage e thresholds).\
-Se quiser rodar em modo watch, você pode passar flags do Jest, por exemplo: `yarn test --watch`.
+Runs tests via **Jest standalone** (with coverage and thresholds).\
+If you want watch mode, you can pass Jest flags, for example: `yarn test --watch`.
 
 ### `yarn build`
 
-Gera o build de produção (Vite) na pasta `build`.\
+Generates the production build (Vite) in the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
@@ -29,13 +29,13 @@ Your app is ready to be deployed!
 
 ### `yarn preview`
 
-Sobe um servidor local para pré-visualizar o build de produção.
+Starts a local server to preview the production build.
 
 ### `yarn typecheck`
 
-Roda o TypeScript (`tsc`) sem emitir arquivos.
+Runs TypeScript (`tsc`) without emitting files.
 
-## Estrutura (rápido)
+## Structure (quick)
 
-- Entrada do app: `index.html` (raiz) → `src/index.tsx`
-- Config do Vite: `vite.config.ts` (porta `3000`, output em `build/`)
+- App entry: `index.html` (root) → `src/index.tsx`
+- Vite config: `vite.config.ts` (port `3000`, output in `build/`)
