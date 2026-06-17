@@ -48,7 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "7.26.0",
+    "@babel/core": "7.29.7",
     "@babel/preset-env": "7.26.0",
     "@babel/preset-react": "7.25.9",
     "@babel/preset-typescript": "7.26.0",
@@ -60,15 +60,18 @@
     "jest": "30.4.2",
     "jest-environment-jsdom": "30.4.1",
     "lru-cache": "5.1.1",
-    "vite": "^7.3.2",
+    "vite": "^7.3.5",
     "whatwg-fetch": "3.6.20"
   },
   "resolutions": {
     "@babel/helper-compilation-targets/lru-cache": "5.1.1",
+    "@babel/core": "7.29.7",
     "brace-expansion": ">=1.1.13",
     "cheerio": "1.0.0-rc.12",
+    "form-data": ">=4.0.6",
+    "js-yaml": ">=4.2.0",
     "picomatch": ">=2.3.2",
     "postcss": "8.5.10",
-    "ws": "8.20.1"
+    "ws": "8.21.0"
   }
 }
