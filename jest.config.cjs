@@ -18,6 +18,7 @@ module.exports = {
     '!src/**/*.types.ts',
     '!src/**/*.d.ts',
     '!src/**/*.styles.ts',
+    '!src/**/*State.ts',
     '!src/react-app-env.d.ts',
     '!src/reportWebVitals.ts',
   ],
@@ -26,6 +27,7 @@ module.exports = {
     '/src/.*/index\\.ts$',
     '\\.?types\\.ts$',
     '\\.?d\\.ts$',
+    'State\\.ts$',
   ],
   coverageReporters: ['cobertura', 'html', 'lcov', 'text-summary', 'text'],
   coverageThreshold: {
