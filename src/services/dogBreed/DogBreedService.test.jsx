@@ -2,7 +2,7 @@ import { getBreed } from "./DogBreedService";
 import { getImage } from "../dogImage/DogImageService";
 
 describe("DogBreedService", () => {
-  const mock = jest.spyOn(global, "fetch");
+  const mock = vi.spyOn(global, "fetch");
 
   it("should return a list of breeds with success", async () => {
     const mockJsonPromise = Promise.resolve({ message: [], status: "success" });

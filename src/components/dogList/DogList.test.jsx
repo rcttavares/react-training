@@ -7,8 +7,8 @@ import { DogItemEvent } from "../../stores/dogItem/DogItemEvent";
 import { DogItemStore } from "../../stores/dogItem/DogItemStore";
 import { DogFilterStore } from "../../stores/dogFilter/DogFilterStore";
 
-jest.mock("effector-react");
-jest.mock("../../stores/dogItem/DogItemEvent.ts");
+vi.mock("effector-react");
+vi.mock("../../stores/dogItem/DogItemEvent.ts");
 
 describe("DogList", () => {
   it("should render the view with the right props", () => {

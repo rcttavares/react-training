@@ -1,7 +1,7 @@
 import { getImage } from "./DogImageService";
 
 describe("DogImageService", () => {
-  const mock = jest.spyOn(global, "fetch");
+  const mock = vi.spyOn(global, "fetch");
 
   it("should return an image with success", async () => {
     const mockJsonPromise = Promise.resolve({ message: [], status: "success" });

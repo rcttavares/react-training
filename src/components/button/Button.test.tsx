@@ -4,7 +4,7 @@ import ButtonView from "./ButtonView";
 
 describe("Button", () => {
   const label = "Label";
-  const onClickMock = jest.fn();
+  const onClickMock = vi.fn();
   const disabled = false;
 
   it("should render the view with the right props", () => {

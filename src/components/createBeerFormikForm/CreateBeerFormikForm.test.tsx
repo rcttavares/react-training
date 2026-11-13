@@ -19,8 +19,8 @@ describe("CreateBeerFormikForm", () => {
   });
 
   it("should handle the onSubmit callback", () => {
-    console.log = jest.fn();
-    const resetForm = jest.fn();
+    console.log = vi.fn();
+    const resetForm = vi.fn();
     
     const wrapper = shallow(<CreateBeerFormikForm />);
     wrapper.invoke("onSubmit")(initialValues, { resetForm });

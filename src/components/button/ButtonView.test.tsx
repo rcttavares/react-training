@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 
 describe("ButtonView", () => {
   const label = "Label";
-  const onClickMock = jest.fn();
+  const onClickMock = vi.fn();
   const disabled = false;
 
   it("should render correctly", () => {

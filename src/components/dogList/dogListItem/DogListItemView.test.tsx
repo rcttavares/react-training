@@ -13,7 +13,7 @@ describe("DogListItemView", () => {
   const image = "image url";
   const scolded = 0;
   const selected = false;
-  const onClickMock = jest.fn();
+  const onClickMock = vi.fn();
 
   it("should render correctly", () => {
     const wrapper = shallow(

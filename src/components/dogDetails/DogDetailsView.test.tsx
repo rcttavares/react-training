@@ -1,3 +1,4 @@
+import type { Mock } from "vitest";
 import { shallow } from "enzyme";
 import DogDetailsView from "./DogDetailsView";
 import { useStyles } from "./DogDetailsView.styles";
@@ -10,11 +11,11 @@ import PetsIcon from "@material-ui/icons/Pets";
 import { capitalize } from "lodash";
 import Button from "../button/Button";
 
-jest.mock("./DogDetailsView.styles");
+vi.mock("./DogDetailsView.styles");
 
 describe("DogDetailsView", () => {
   beforeEach(() => {
-    (useStyles as jest.Mock).mockReturnValue({
+    (useStyles as Mock).mockReturnValue({
       card: "card",
       cardContent: "cardContent",
       typography: "typography",
@@ -26,8 +27,8 @@ describe("DogDetailsView", () => {
 
   const name = "affenpinscher";
   const image = "image url";
-  const onScoldMock = jest.fn();
-  const onBarkMock = jest.fn();
+  const onScoldMock = vi.fn();
+  const onBarkMock = vi.fn();
   const disabled = false;
 
   it("should render correctly", () => {

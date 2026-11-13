@@ -1,3 +1,4 @@
+import type { Mock } from "vitest";
 import { shallow } from "enzyme";
 import DogFilterView from "./DogFilterView";
 import { useStyles } from "./DogFilterView.styles";
@@ -7,11 +8,11 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Typography from "@material-ui/core/Typography";
 
-jest.mock("./DogFilterView.styles.ts");
+vi.mock("./DogFilterView.styles.ts");
 
 describe("DogFilterView", () => {
   beforeEach(() => {
-    (useStyles as jest.Mock).mockReturnValue({
+    (useStyles as Mock).mockReturnValue({
       paper: "paper",
       flex: "flex",
       letter: "letter",
@@ -20,8 +21,8 @@ describe("DogFilterView", () => {
   });
 
   const filter = ["a", "b", "c", "d"];
-  const onChangeOptionMock = jest.fn();
-  const getDogBreedLengthMock = jest.fn();
+  const onChangeOptionMock = vi.fn();
+  const getDogBreedLengthMock = vi.fn();
 
   it("should render correctly", () => {
     const wrapper = shallow(

@@ -1,3 +1,4 @@
+import type { Mock } from "vitest";
 import Button from '../button/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import CreateBeerFormView from './CreateBeerFormView';
@@ -10,11 +11,11 @@ import { beerTypeList } from '../../mocks/BeerTypeList';
 import { shallow } from 'enzyme';
 import { useStyles } from './CreateBeerFormView.styles';
 
-jest.mock('./CreateBeerFormView.styles');
+vi.mock('./CreateBeerFormView.styles');
 
 describe('CreateBeerFormView', () => {
   beforeEach(() => {
-    (useStyles as jest.Mock).mockReturnValue({
+    (useStyles as Mock).mockReturnValue({
       paper: 'paper',
       typography: 'typography',
       container: 'container',
@@ -26,9 +27,9 @@ describe('CreateBeerFormView', () => {
   const beerType = 'Beer type';
   const hasCorn = false;
   const ingredients = 'Ingredients';
-  const onChangeInputMock = jest.fn();
-  const onChangeCheckboxMock = jest.fn();
-  const onSubmitMock = jest.fn();
+  const onChangeInputMock = vi.fn();
+  const onChangeCheckboxMock = vi.fn();
+  const onSubmitMock = vi.fn();
 
   it('should render correctly', () => {
     const wrapper = shallow(

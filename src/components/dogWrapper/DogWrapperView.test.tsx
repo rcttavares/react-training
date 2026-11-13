@@ -1,3 +1,4 @@
+import type { Mock } from "vitest";
 import { shallow } from "enzyme";
 import { useStyles } from "./DogWrapperView.styles";
 import DogWrapperView from "./DogWrapperView";
@@ -7,11 +8,11 @@ import DogFilter from "../dogFilter/DogFilter";
 import DogDetails from "../dogDetails/DogDetails";
 import DogList from "../dogList/DogList";
 
-jest.mock("./DogWrapperView.styles.ts");
+vi.mock("./DogWrapperView.styles.ts");
 
 describe("DogWrapperView", () => {
   beforeEach(() => {
-    (useStyles as jest.Mock).mockReturnValue({
+    (useStyles as Mock).mockReturnValue({
       loading: "loading",
     });
   });

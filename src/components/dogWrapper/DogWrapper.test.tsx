@@ -4,7 +4,7 @@ import DogWrapper from "./DogWrapper";
 import DogWrapperView from "./DogWrapperView";
 import { DogListEffect } from "../../stores/dogList/DogListEffect";
 
-jest.mock("../../stores/dogList/DogListEffect.ts");
+vi.mock("../../stores/dogList/DogListEffect.ts");
 
 describe("DogWrapper", () => {
   it("should render the view with the right props", () => {
@@ -14,7 +14,7 @@ describe("DogWrapper", () => {
   });
 
   it("should call DogListEffect when useEffect has been called", () => {
-    jest.spyOn(React, "useEffect").mockImplementationOnce((f) => f());
+    vi.spyOn(React, "useEffect").mockImplementationOnce((f) => f());
 
     shallow(<DogWrapper />);
 

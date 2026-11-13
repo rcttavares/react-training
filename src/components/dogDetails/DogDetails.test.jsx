@@ -6,12 +6,12 @@ import { DogListEvent } from "../../stores/dogList/DogListEvent";
 import { DogListStore } from "../../stores/dogList/DogListStore";
 import { DogItemStore } from "../../stores/dogItem/DogItemStore";
 
-jest.mock("effector-react");
-jest.mock("../../stores/dogList/DogListEvent.ts");
+vi.mock("effector-react");
+vi.mock("../../stores/dogList/DogListEvent.ts");
 
-const mockEnqueue = jest.fn();
-jest.mock("notistack", () => ({
-  ...jest.requireActual("notistack"),
+const mockEnqueue = vi.fn();
+vi.mock("notistack", async () => ({
+  ...await vi.importActual("notistack"),
   useSnackbar: () => {
     return {
       enqueueSnackbar: mockEnqueue,

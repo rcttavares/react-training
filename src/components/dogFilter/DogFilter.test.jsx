@@ -5,8 +5,8 @@ import { useStoreMap } from "effector-react";
 import { DogFilterEvent } from "../../stores/dogFilter/DogFilterEvent";
 import { DogListStore } from "../../stores/dogList/DogListStore";
 
-jest.mock("effector-react");
-jest.mock("../../stores/dogFilter/DogFilterEvent.ts");
+vi.mock("effector-react");
+vi.mock("../../stores/dogFilter/DogFilterEvent.ts");
 
 describe("DogFilter", () => {
   it("should render the view with the right props", () => {

@@ -11,7 +11,7 @@ import { beerTypeList } from '../../mocks/BeerTypeList';
 import { shallow } from 'enzyme';
 import { useStyles } from './CreateBeerFormikFormView.styles';
 
-jest.mock('./CreateBeerFormikFormView.styles');
+vi.mock('./CreateBeerFormikFormView.styles');
 
 describe('CreateBeerFormikFormView', () => {
   beforeEach(() => {
@@ -32,27 +32,27 @@ describe('CreateBeerFormikFormView', () => {
     isValidating: false,
     submitCount: 1,
     // Formik Helpers
-    setStatus: jest.fn(),
-    setErrors: jest.fn(),
-    setSubmitting: jest.fn(),
-    setTouched: jest.fn(),
-    setValues: jest.fn(),
-    setFieldValue: jest.fn(),
-    setFieldError: jest.fn(),
-    setFieldTouched: jest.fn(),
-    validateForm: jest.fn(),
-    validateField: jest.fn(),
-    resetForm: jest.fn(),
-    submitForm: jest.fn(),
-    setFormikState: jest.fn(),
+    setStatus: vi.fn(),
+    setErrors: vi.fn(),
+    setSubmitting: vi.fn(),
+    setTouched: vi.fn(),
+    setValues: vi.fn(),
+    setFieldValue: vi.fn(),
+    setFieldError: vi.fn(),
+    setFieldTouched: vi.fn(),
+    validateForm: vi.fn(),
+    validateField: vi.fn(),
+    resetForm: vi.fn(),
+    submitForm: vi.fn(),
+    setFormikState: vi.fn(),
     // Formik Handlers
-    handleSubmit: jest.fn(),
-    handleReset: jest.fn(),
-    handleBlur: jest.fn(),
-    handleChange: jest.fn(),
-    getFieldProps: jest.fn(),
-    getFieldMeta: jest.fn(),
-    getFieldHelpers: jest.fn(),
+    handleSubmit: vi.fn(),
+    handleReset: vi.fn(),
+    handleBlur: vi.fn(),
+    handleChange: vi.fn(),
+    getFieldProps: vi.fn(),
+    getFieldMeta: vi.fn(),
+    getFieldHelpers: vi.fn(),
     // Computed
     dirty: false,
     isValid: false,
@@ -65,8 +65,8 @@ describe('CreateBeerFormikFormView', () => {
     initialErrors: {},
     initialTouched: {},
     // Registered Field
-    registerField: jest.fn(),
-    unregisterField: jest.fn(),
+    registerField: vi.fn(),
+    unregisterField: vi.fn(),
   };
 
   it('should render correctly', () => {

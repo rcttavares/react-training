@@ -54,7 +54,7 @@ describe("CreateBeerForm", () => {
   });
 
   it("should submit form correctly", () => {
-    console.log = jest.fn();
+    console.log = vi.fn();
 
     const event = {
       preventDefault() {},

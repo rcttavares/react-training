@@ -1,3 +1,4 @@
+import type { Mock } from "vitest";
 import Box from "@material-ui/core/Box";
 import List from "@material-ui/core/List";
 import Paper from "@material-ui/core/Paper";
@@ -8,11 +9,11 @@ import DogListItem from "./dogListItem/DogListItem";
 import DogListView from "./DogListView";
 import { useStyles } from "./DogListView.styles";
 
-jest.mock("./DogListView.styles");
+vi.mock("./DogListView.styles");
 
 describe("DogListView", () => {
   beforeEach(() => {
-    (useStyles as jest.Mock).mockReturnValue({
+    (useStyles as Mock).mockReturnValue({
       box: "box",
       list: "list",
       paper: "paper",
@@ -21,7 +22,7 @@ describe("DogListView", () => {
 
   const dogList: IDog[] = [{ name: "", image: "", scolded: 0 }];
   const dogItem: IDog = { name: "", image: "", scolded: 0 };
-  const onSelectMock = jest.fn((f) => f);
+  const onSelectMock = vi.fn((f) => f);
 
   it("should render correctly", () => {
     const wrapper = shallow(
