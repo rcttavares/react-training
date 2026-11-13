@@ -1,24 +1,22 @@
-import { useStyles } from "./DogListView.styles";
-import Box from "@material-ui/core/Box";
-import List from "@material-ui/core/List";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import { styles } from "./DogListView.styles";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import DogListItem from "./dogListItem/DogListItem";
 import { DogListProps } from "./DogList.types";
 
 function DogListView({ dogList, dogItem, onSelect }: DogListProps) {
-  const classes = useStyles();
-
   return (
-    <Paper className={classes.paper}>
+    <Paper sx={styles.paper}>
       {dogList.length <= 0 ? (
-        <Box className={classes.box}>
+        <Box sx={styles.box}>
           <Typography variant="h6" component="h2">
             There is no such initial letter, <b>please select another breed</b>.
           </Typography>
         </Box>
       ) : (
-        <List className={classes.list}>
+        <List sx={styles.list}>
           {dogList.map((item, index) => (
             <DogListItem
               key={index}

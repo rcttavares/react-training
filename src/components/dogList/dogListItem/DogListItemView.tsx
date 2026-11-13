@@ -1,9 +1,9 @@
-import Avatar from "@material-ui/core/Avatar";
-import Chip from "@material-ui/core/Chip";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 import { capitalize } from "lodash";
 import { DogListItemProps } from "./DogListItem.types";
 
@@ -15,14 +15,13 @@ function DogListItemView({
   onClick,
 }: DogListItemProps) {
   return (
-    <ListItem button selected={selected} onClick={onClick}>
-      <ListItemAvatar>
-        <Avatar alt={name} src={image} />
-      </ListItemAvatar>
-      <ListItemText primary={capitalize(name)} />
-      <ListItemSecondaryAction>
-        <Chip label={scolded} />
-      </ListItemSecondaryAction>
+    <ListItem disablePadding secondaryAction={<Chip label={scolded} />}>
+      <ListItemButton selected={selected} onClick={onClick}>
+        <ListItemAvatar>
+          <Avatar alt={name} src={image} />
+        </ListItemAvatar>
+        <ListItemText primary={capitalize(name)} />
+      </ListItemButton>
     </ListItem>
   );
 }

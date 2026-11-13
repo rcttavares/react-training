@@ -1,30 +1,32 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CreateBeerFormikForm from "./CreateBeerFormikForm";
-import { fillBeerForm, filledBeerForm, getField } from "../../test-utils/beerForm";
+import {
+  expectEmptyBeerForm,
+  fillBeerForm,
+  filledBeerForm,
+  getSubmit,
+} from "../../test-utils/beerForm";
 
 describe("CreateBeerFormikForm", () => {
   it("should start empty with the submit button disabled", () => {
-    const { container } = render(<CreateBeerFormikForm />);
+    render(<CreateBeerFormikForm />);
 
-    expect(getField(container, "beerName")).toHaveValue("");
-    expect(getField(container, "beerType")).toHaveValue("");
-    expect(getField(container, "ingredients")).toHaveValue("");
-    expect(screen.getByRole("checkbox", { name: "Has corn" })).not.toBeChecked();
-    expect(screen.getByRole("button", { name: "Submit" })).toBeDisabled();
+    expectEmptyBeerForm();
+    expect(getSubmit()).toBeDisabled();
   });
 
   it("should log the values and reset the form on submit", async () => {
     const user = userEvent.setup();
     const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-    const { container } = render(<CreateBeerFormikForm />);
+    render(<CreateBeerFormikForm />);
 
-    await fillBeerForm(user, container);
-    await user.click(await screen.findByRole("button", { name: "Submit" }));
+    await fillBeerForm(user);
+    await waitFor(() => expect(getSubmit()).toBeEnabled());
+    await user.click(getSubmit());
 
     await waitFor(() => expect(logSpy).toHaveBeenCalledWith(filledBeerForm));
-    await waitFor(() => expect(getField(container, "beerName")).toHaveValue(""));
-    expect(screen.getByRole("checkbox", { name: "Has corn" })).not.toBeChecked();
+    await waitFor(() => expectEmptyBeerForm());
 
     logSpy.mockRestore();
   });

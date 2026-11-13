@@ -1,4 +1,4 @@
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { ButtonProps } from "./Button.types";
 
 function ButtonView({ label, onClick, disabled }: ButtonProps) {

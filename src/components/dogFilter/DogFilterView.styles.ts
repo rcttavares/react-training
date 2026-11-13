@@ -1,8 +1,8 @@
-import { makeStyles } from "@material-ui/core/styles";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export const useStyles = makeStyles({
+export const styles = {
   paper: {
-    padding: 5,
+    padding: "5px",
   },
   flex: {
     display: "flex",
@@ -11,7 +11,7 @@ export const useStyles = makeStyles({
     fontWeight: "bold",
   },
   number: {
-    marginLeft: 5,
+    marginLeft: "5px",
     fontSize: 14,
   },
-});
+} satisfies Record<string, SxProps<Theme>>;

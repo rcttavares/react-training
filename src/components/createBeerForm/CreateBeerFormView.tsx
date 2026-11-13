@@ -1,13 +1,14 @@
+import Box from '@mui/material/Box';
 import Button from '../button/Button';
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from '@mui/material/Checkbox';
 import { CreateBeerFormProps } from './CreateBeerForm.types';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { beerTypeList } from '../../mocks/BeerTypeList';
-import { useStyles } from './CreateBeerFormView.styles';
+import { styles } from './CreateBeerFormView.styles';
 
 function CreateBeerFormView({
   beerName,
@@ -18,16 +19,14 @@ function CreateBeerFormView({
   onChangeCheckbox,
   onSubmit,
 }: CreateBeerFormProps) {
-  const classes = useStyles();
-
   return (
-    <Paper className={classes.paper}>
-      <Typography variant='h5' component='h1' className={classes.typography}>
+    <Paper sx={styles.paper}>
+      <Typography variant='h5' component='h1' sx={styles.typography}>
         Beer Form
       </Typography>
 
       <form onSubmit={onSubmit}>
-        <div className={classes.container}>
+        <Box sx={styles.container}>
           <TextField
             label='Beer name'
             name='beerName'
@@ -36,9 +35,9 @@ function CreateBeerFormView({
             value={beerName}
             onChange={onChangeInput}
           />
-        </div>
+        </Box>
 
-        <div className={classes.container}>
+        <Box sx={styles.container}>
           <TextField
             select
             label='Beer type'
@@ -54,9 +53,9 @@ function CreateBeerFormView({
               </MenuItem>
             ))}
           </TextField>
-        </div>
+        </Box>
 
-        <div className={classes.container}>
+        <Box sx={styles.container}>
           <FormControlLabel
             label='Has corn'
             control={
@@ -68,9 +67,9 @@ function CreateBeerFormView({
               />
             }
           />
-        </div>
+        </Box>
 
-        <div className={classes.container}>
+        <Box sx={styles.container}>
           <TextField
             label='Ingredients'
             name='ingredients'
@@ -81,14 +80,14 @@ function CreateBeerFormView({
             value={ingredients}
             onChange={onChangeInput}
           />
-        </div>
+        </Box>
 
-        <div className={classes.button}>
+        <Box sx={styles.button}>
           <Button
             label='Submit'
             disabled={!beerName || !beerType || !ingredients}
           />
-        </div>
+        </Box>
       </form>
     </Paper>
   );

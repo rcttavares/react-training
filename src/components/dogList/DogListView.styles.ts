@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core/styles";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export const useStyles = makeStyles({
+export const styles = {
   box: {
     width: "100%",
     minHeight: "336px",
@@ -16,4 +16,4 @@ export const useStyles = makeStyles({
     maxHeight: "336px",
     overflow: "auto",
   },
-});
+} satisfies Record<string, SxProps<Theme>>;

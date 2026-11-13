@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import DogWrapper from "./components/dogWrapper/DogWrapper";
 import CreateBeerForm from "./components/createBeerForm/CreateBeerForm";
 import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFormikForm";
@@ -6,13 +6,13 @@ import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFo
 function App() {
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12}>
+      <Grid size={12}>
         <DogWrapper />
       </Grid>
-      <Grid item xs={6}>
+      <Grid size={6}>
         <CreateBeerForm />
       </Grid>
-      <Grid item xs={6}>
+      <Grid size={6}>
         <CreateBeerFormikForm />
       </Grid>
     </Grid>

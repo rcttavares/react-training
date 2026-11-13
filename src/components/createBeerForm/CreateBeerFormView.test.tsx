@@ -1,7 +1,14 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CreateBeerFormView from "./CreateBeerFormView";
-import { getField, selectBeerType } from "../../test-utils/beerForm";
+import {
+  getBeerName,
+  getBeerType,
+  getHasCorn,
+  getIngredients,
+  getSubmit,
+  selectBeerType,
+} from "../../test-utils/beerForm";
 import { CreateBeerFormProps } from "./CreateBeerForm.types";
 
 function renderView(props: Partial<CreateBeerFormProps> = {}) {
@@ -27,14 +34,14 @@ function renderView(props: Partial<CreateBeerFormProps> = {}) {
 
 describe("CreateBeerFormView", () => {
   it("should render the title and the given values", () => {
-    const { container } = renderView({ hasCorn: true });
+    renderView({ hasCorn: true });
 
     expect(screen.getByRole("heading", { name: "Beer Form" })).toBeInTheDocument();
-    expect(getField(container, "beerName")).toHaveValue("Colorado");
-    expect(getField(container, "beerType")).toHaveValue("Ale");
-    expect(getField(container, "ingredients")).toHaveValue("Malt");
-    expect(screen.getByRole("checkbox", { name: "Has corn" })).toBeChecked();
-    expect(screen.getByRole("button", { name: "Submit" })).toBeEnabled();
+    expect(getBeerName()).toHaveValue("Colorado");
+    expect(getBeerType()).toHaveTextContent("Ale");
+    expect(getIngredients()).toHaveValue("Malt");
+    expect(getHasCorn()).toBeChecked();
+    expect(getSubmit()).toBeEnabled();
   });
 
   it.each(["beerName", "beerType", "ingredients"] as const)(
@@ -42,7 +49,7 @@ describe("CreateBeerFormView", () => {
     (field) => {
       renderView({ [field]: "" });
 
-      expect(screen.getByRole("button", { name: "Submit" })).toBeDisabled();
+      expect(getSubmit()).toBeDisabled();
     }
   );
 
@@ -50,10 +57,10 @@ describe("CreateBeerFormView", () => {
     const user = userEvent.setup();
     const { container, onChangeInput, onChangeCheckbox, onSubmit } = renderView();
 
-    await user.type(getField(container, "beerName"), "!");
-    await selectBeerType(user, container, "Lager");
-    await user.type(getField(container, "ingredients"), "!");
-    await user.click(screen.getByRole("checkbox", { name: "Has corn" }));
+    await user.type(getBeerName(), "!");
+    await selectBeerType(user, "Lager");
+    await user.type(getIngredients(), "!");
+    await user.click(getHasCorn());
     fireEvent.submit(container.querySelector("form")!);
 
     expect(onChangeInput).toHaveBeenCalledTimes(3);

@@ -1,7 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export const useStyles = makeStyles({
+export const styles = {
   loading: {
-    backgroundColor: "#fff !important",
+    backgroundColor: "#fff",
   },
-});
+} satisfies Record<string, SxProps<Theme>>;

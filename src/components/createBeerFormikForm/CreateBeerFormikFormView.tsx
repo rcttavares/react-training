@@ -1,23 +1,22 @@
 import * as yup from 'yup';
 
+import Box from '@mui/material/Box';
 import Button from '../button/Button';
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from '@mui/material/Checkbox';
 import { CreateBeerFormikFormProps } from './CreateBeerFormikForm.types';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { Formik } from 'formik';
-import MenuItem from '@material-ui/core/MenuItem';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { beerTypeList } from '../../mocks/BeerTypeList';
-import { useStyles } from './CreateBeerFormikFormView.styles';
+import { styles } from './CreateBeerFormikFormView.styles';
 
 function CreateBeerFormikFormView({
   initialValues,
   onSubmit,
 }: CreateBeerFormikFormProps) {
-  const classes = useStyles();
-
   const validationSchema = yup.object().shape({
     beerName: yup.string().required(),
     beerType: yup.string().required(),
@@ -31,17 +30,13 @@ function CreateBeerFormikFormView({
       onSubmit={onSubmit}
     >
       {({ values, isValid, dirty, handleChange, handleSubmit, errors }) => (
-        <Paper className={classes.paper}>
-          <Typography
-            variant='h5'
-            component='h1'
-            className={classes.typography}
-          >
+        <Paper sx={styles.paper}>
+          <Typography variant='h5' component='h1' sx={styles.typography}>
             Beer Formik
           </Typography>
 
           <form onSubmit={handleSubmit}>
-            <div className={classes.container}>
+            <Box sx={styles.container}>
               <TextField
                 label='Beer name'
                 name='beerName'
@@ -51,9 +46,9 @@ function CreateBeerFormikFormView({
                 onChange={handleChange}
                 helperText={errors.beerName}
               />
-            </div>
+            </Box>
 
-            <div className={classes.container}>
+            <Box sx={styles.container}>
               <TextField
                 select
                 label='Beer type'
@@ -70,9 +65,9 @@ function CreateBeerFormikFormView({
                   </MenuItem>
                 ))}
               </TextField>
-            </div>
+            </Box>
 
-            <div className={classes.container}>
+            <Box sx={styles.container}>
               <FormControlLabel
                 label='Has corn'
                 control={
@@ -84,9 +79,9 @@ function CreateBeerFormikFormView({
                   />
                 }
               />
-            </div>
+            </Box>
 
-            <div className={classes.container}>
+            <Box sx={styles.container}>
               <TextField
                 label='Ingredients'
                 name='ingredients'
@@ -98,11 +93,11 @@ function CreateBeerFormikFormView({
                 onChange={handleChange}
                 helperText={errors.ingredients}
               />
-            </div>
+            </Box>
 
-            <div className={classes.button}>
+            <Box sx={styles.button}>
               <Button label='Submit' disabled={!(isValid && dirty)} />
-            </div>
+            </Box>
           </form>
         </Paper>
       )}

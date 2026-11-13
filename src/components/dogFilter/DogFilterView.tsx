@@ -1,9 +1,10 @@
-import { useStyles } from "./DogFilterView.styles";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Paper from "@material-ui/core/Paper";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Typography from "@material-ui/core/Typography";
+import { styles } from "./DogFilterView.styles";
+import Box from "@mui/material/Box";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Paper from "@mui/material/Paper";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import Typography from "@mui/material/Typography";
 import { DogFilterProps } from "./DogFilter.types";
 
 function DogFilterView({
@@ -11,10 +12,8 @@ function DogFilterView({
   onChangeOption,
   getDogBreedLength,
 }: DogFilterProps) {
-  const classes = useStyles();
-
   return (
-    <Paper className={classes.paper}>
+    <Paper sx={styles.paper}>
       <RadioGroup
         row
         aria-label="dogLetter"
@@ -28,14 +27,12 @@ function DogFilterView({
             control={<Radio color="primary" />}
             labelPlacement="bottom"
             label={
-              <div className={classes.flex}>
-                <Typography className={classes.letter}>
-                  {item.toUpperCase()}
-                </Typography>
-                <Typography className={classes.number}>
+              <Box sx={styles.flex}>
+                <Typography sx={styles.letter}>{item.toUpperCase()}</Typography>
+                <Typography sx={styles.number}>
                   ({getDogBreedLength(item)})
                 </Typography>
-              </div>
+              </Box>
             }
           />
         ))}
