@@ -1,80 +1,39 @@
-import type { Mock } from "vitest";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import DogFilterView from "./DogFilterView";
-import { useStyles } from "./DogFilterView.styles";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Paper from "@material-ui/core/Paper";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Typography from "@material-ui/core/Typography";
-
-vi.mock("./DogFilterView.styles.ts");
 
 describe("DogFilterView", () => {
-  beforeEach(() => {
-    (useStyles as Mock).mockReturnValue({
-      paper: "paper",
-      flex: "flex",
-      letter: "letter",
-      number: "number",
-    });
-  });
-
   const filter = ["a", "b", "c", "d"];
-  const onChangeOptionMock = vi.fn();
-  const getDogBreedLengthMock = vi.fn();
 
-  it("should render correctly", () => {
-    const wrapper = shallow(
+  it("should render one option per letter using getDogBreedLength", () => {
+    const getDogBreedLengthMock = vi.fn(() => 3);
+    render(
       <DogFilterView
         filter={filter}
-        onChangeOption={onChangeOptionMock}
+        onChangeOption={vi.fn()}
         getDogBreedLength={getDogBreedLengthMock}
       />
     );
 
-    expect(
-      wrapper.matchesElement(
-        <Paper className="paper">
-          <RadioGroup
-            row
-            aria-label="dogLetter"
-            name="dogLetter"
-            onChange={onChangeOptionMock}
-          >
-            {filter.map((item) => (
-              <FormControlLabel
-                key={item}
-                value={item}
-                control={<Radio color="primary" />}
-                labelPlacement="bottom"
-                label={
-                  <div className="flex">
-                    <Typography className="letter">
-                      {item.toUpperCase()}
-                    </Typography>
-                    <Typography className="number">
-                      ({getDogBreedLengthMock(item)})
-                    </Typography>
-                  </div>
-                }
-              />
-            ))}
-          </RadioGroup>
-        </Paper>
-      )
-    ).toBe(true);
+    expect(screen.getByRole("radiogroup", { name: "dogLetter" })).toBeInTheDocument();
+    expect(screen.getAllByRole("radio")).toHaveLength(filter.length);
+    expect(screen.getByRole("radio", { name: "A (3)" })).toHaveAttribute("value", "a");
+    expect(getDogBreedLengthMock).toHaveBeenCalledWith("d");
   });
 
-  it("should render all letters of alphabet", () => {
-    const wrapper = shallow(
+  it("should call onChangeOption when a letter is selected", async () => {
+    const user = userEvent.setup();
+    const onChangeOptionMock = vi.fn();
+    render(
       <DogFilterView
         filter={filter}
         onChangeOption={onChangeOptionMock}
-        getDogBreedLength={getDogBreedLengthMock}
+        getDogBreedLength={() => 0}
       />
     );
 
-    expect(wrapper.find(FormControlLabel)).toHaveLength(filter.length);
+    await user.click(screen.getByRole("radio", { name: "C (0)" }));
+
+    expect(onChangeOptionMock).toHaveBeenCalledTimes(1);
   });
 });

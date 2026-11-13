@@ -1,67 +1,43 @@
-import { ChangeEvent, FormEvent } from "react";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import CreateBeerForm from "./CreateBeerForm";
-import CreateBeerFormView from "./CreateBeerFormView";
+import { fillBeerForm, filledBeerForm, getField } from "../../test-utils/beerForm";
 
 describe("CreateBeerForm", () => {
-  it("should render the view with the right props", () => {
-    const wrapper = shallow(<CreateBeerForm />);
+  it("should start empty with the submit button disabled", () => {
+    const { container } = render(<CreateBeerForm />);
 
-    expect(wrapper.type()).toBe(CreateBeerFormView);
-    expect(wrapper.prop("beerName")).toBe("");
-    expect(wrapper.prop("beerType")).toBe("");
-    expect(wrapper.prop("hasCorn")).toBe(false);
-    expect(wrapper.prop("ingredients")).toBe("");
+    expect(getField(container, "beerName")).toHaveValue("");
+    expect(getField(container, "beerType")).toHaveValue("");
+    expect(getField(container, "ingredients")).toHaveValue("");
+    expect(screen.getByRole("checkbox", { name: "Has corn" })).not.toBeChecked();
+    expect(screen.getByRole("button", { name: "Submit" })).toBeDisabled();
   });
 
-  it("should update beerName when onChange is called passing a new value", () => {
-    const event = {
-      target: {
-        name: "beerName",
-        value: "",
-      },
-    } as ChangeEvent<HTMLInputElement>;
-    const wrapper = shallow(<CreateBeerForm />);
+  it("should toggle hasCorn on every click", async () => {
+    const user = userEvent.setup();
+    render(<CreateBeerForm />);
+    const checkbox = screen.getByRole("checkbox", { name: "Has corn" });
 
-    wrapper.invoke("onChangeInput")(event);
-    expect(wrapper.prop("beerName")).toBe("");
+    await user.click(checkbox);
+    expect(checkbox).toBeChecked();
+
+    await user.click(checkbox);
+    expect(checkbox).not.toBeChecked();
   });
 
-  it("should update hasCorn when onChange is called passing boolean of true or false", () => {
-    const event = {
-      target: {
-        name: "hasCorn",
-        checked: false,
-      },
-    } as ChangeEvent<HTMLInputElement>;
-    const wrapper = shallow(<CreateBeerForm />);
+  it("should log the values and reset the form on submit", async () => {
+    const user = userEvent.setup();
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    const { container } = render(<CreateBeerForm />);
 
-    wrapper.invoke("onChangeCheckbox")(event);
-    expect(wrapper.prop("hasCorn")).toBe(true);
-  });
+    await fillBeerForm(user, container);
+    await user.click(screen.getByRole("button", { name: "Submit" }));
 
-  it("should update ingredients when onChange is called passing a new value", () => {
-    const event = {
-      target: {
-        name: "ingredients",
-        value: "",
-      },
-    } as ChangeEvent<HTMLInputElement>;
-    const wrapper = shallow(<CreateBeerForm />);
+    expect(logSpy).toHaveBeenCalledWith(filledBeerForm);
+    expect(getField(container, "beerName")).toHaveValue("");
+    expect(screen.getByRole("checkbox", { name: "Has corn" })).not.toBeChecked();
 
-    wrapper.invoke("onChangeInput")(event);
-    expect(wrapper.prop("ingredients")).toBe("");
-  });
-
-  it("should submit form correctly", () => {
-    console.log = vi.fn();
-
-    const event = {
-      preventDefault() {},
-    } as FormEvent;
-    const wrapper = shallow(<CreateBeerForm />);
-
-    wrapper.invoke("onSubmit")(event);
-    expect(console.log).toHaveBeenCalled();
+    logSpy.mockRestore();
   });
 });

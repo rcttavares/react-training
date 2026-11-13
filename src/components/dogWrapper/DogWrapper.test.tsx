@@ -1,23 +1,40 @@
-import React from "react";
-import { shallow } from "enzyme";
+import { act, render, screen } from "@testing-library/react";
+import { SnackbarProvider } from "notistack";
 import DogWrapper from "./DogWrapper";
-import DogWrapperView from "./DogWrapperView";
 import { DogListEffect } from "../../stores/dogList/DogListEffect";
+import { LoaderEvent } from "../../stores/loader/LoaderEvent";
+import { setDogState } from "../../test-utils/dogs";
 
-vi.mock("../../stores/dogList/DogListEffect.ts");
+vi.mock("../../stores/dogList/DogListEffect");
+
+function renderDogWrapper() {
+  return render(
+    <SnackbarProvider>
+      <DogWrapper />
+    </SnackbarProvider>
+  );
+}
 
 describe("DogWrapper", () => {
-  it("should render the view with the right props", () => {
-    const wrapper = shallow(<DogWrapper />);
-
-    expect(wrapper.type()).toBe(DogWrapperView);
+  beforeEach(() => {
+    setDogState();
   });
 
-  it("should call DogListEffect when useEffect has been called", () => {
-    vi.spyOn(React, "useEffect").mockImplementationOnce((f) => f());
+  it("should load the breeds once on mount", () => {
+    renderDogWrapper();
 
-    shallow(<DogWrapper />);
+    expect(DogListEffect).toHaveBeenCalledTimes(1);
+  });
 
-    expect(DogListEffect).toHaveBeenCalled();
+  it("should replace the list with a skeleton while loading", () => {
+    const { container } = renderDogWrapper();
+    expect(screen.getByRole("list")).toBeInTheDocument();
+
+    act(() => {
+      LoaderEvent({ isLoading: true });
+    });
+
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    expect(container.querySelector(".MuiSkeleton-root")).toBeInTheDocument();
   });
 });

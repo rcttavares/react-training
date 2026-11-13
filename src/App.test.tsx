@@ -1,10 +1,19 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { SnackbarProvider } from "notistack";
 import App from "./App";
 
-describe("App", () => {
-  it("should render App component", () => {
-    const wrapper = shallow(<App />);
+vi.mock("./stores/dogList/DogListEffect");
 
-    expect(wrapper.exists()).toBe(true);
+describe("App", () => {
+  it("should render the dog section and both beer forms", () => {
+    render(
+      <SnackbarProvider>
+        <App />
+      </SnackbarProvider>
+    );
+
+    expect(screen.getByRole("radiogroup", { name: "dogLetter" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Beer Form" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Beer Formik" })).toBeInTheDocument();
   });
 });

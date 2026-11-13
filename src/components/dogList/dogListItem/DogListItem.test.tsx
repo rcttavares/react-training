@@ -1,25 +1,24 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import DogListItem from "./DogListItem";
-import DogListItemView from "./DogListItemView";
 
 describe("DogListItem", () => {
-  const name = "affenpinscher";
-  const image = "image url";
-  const scolded = 0;
-  const selected = false;
-  const onClickMock = vi.fn();
-
-  it("should render the view with the right props", () => {
-    const wrapper = shallow(
+  it("should render the breed and call onClick when clicked", async () => {
+    const user = userEvent.setup();
+    const onClickMock = vi.fn();
+    render(
       <DogListItem
-        name={name}
-        image={image}
-        scolded={scolded}
-        selected={selected}
+        name="affenpinscher"
+        image="image url"
+        scolded={2}
+        selected={false}
         onClick={onClickMock}
       />
     );
 
-    expect(wrapper.type()).toBe(DogListItemView);
+    await user.click(screen.getByRole("button", { name: /Affenpinscher/ }));
+
+    expect(screen.getByText("2")).toBeInTheDocument();
+    expect(onClickMock).toHaveBeenCalledTimes(1);
   });
 });

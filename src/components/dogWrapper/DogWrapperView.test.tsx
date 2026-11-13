@@ -1,72 +1,35 @@
-import type { Mock } from "vitest";
-import { shallow } from "enzyme";
-import { useStyles } from "./DogWrapperView.styles";
+import { render, screen } from "@testing-library/react";
+import { SnackbarProvider } from "notistack";
 import DogWrapperView from "./DogWrapperView";
-import { Grid } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
-import DogFilter from "../dogFilter/DogFilter";
-import DogDetails from "../dogDetails/DogDetails";
-import DogList from "../dogList/DogList";
+import { setDogState } from "../../test-utils/dogs";
 
-vi.mock("./DogWrapperView.styles.ts");
+function renderView(isLoading: boolean) {
+  return render(
+    <SnackbarProvider>
+      <DogWrapperView isLoading={isLoading} />
+    </SnackbarProvider>
+  );
+}
 
 describe("DogWrapperView", () => {
   beforeEach(() => {
-    (useStyles as Mock).mockReturnValue({
-      loading: "loading",
-    });
+    setDogState();
   });
 
-  it("should render component when isLoading is false", () => {
-    const isLoading = false;
+  it("should render the filter, the details and the list when not loading", () => {
+    const { container } = renderView(false);
 
-    const wrapper = shallow(<DogWrapperView isLoading={isLoading} />);
-
-    expect(
-      wrapper.matchesElement(
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <DogFilter />
-          </Grid>
-
-          <Grid item xs={4}>
-            <DogDetails />
-          </Grid>
-
-          <Grid item xs={8}>
-            <DogList />
-          </Grid>
-        </Grid>
-      )
-    ).toBe(true);
+    expect(screen.getByRole("radiogroup", { name: "dogLetter" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Name of breed" })).toBeInTheDocument();
+    expect(screen.getByRole("list")).toBeInTheDocument();
+    expect(container.querySelector(".MuiSkeleton-root")).not.toBeInTheDocument();
   });
 
-  it("should render component when isLoading is true", () => {
-    const isLoading = true;
+  it("should render a skeleton instead of the list when loading", () => {
+    const { container } = renderView(true);
 
-    const wrapper = shallow(<DogWrapperView isLoading={isLoading} />);
-
-    expect(
-      wrapper.matchesElement(
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <DogFilter />
-          </Grid>
-
-          <Grid item xs={4}>
-            <DogDetails />
-          </Grid>
-
-          <Grid item xs={8}>
-            <Skeleton
-              variant="rect"
-              animation="wave"
-              height={336}
-              className="loading"
-            />
-          </Grid>
-        </Grid>
-      )
-    ).toBe(true);
+    expect(screen.getByRole("radiogroup", { name: "dogLetter" })).toBeInTheDocument();
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    expect(container.querySelector(".MuiSkeleton-root")).toBeInTheDocument();
   });
 });

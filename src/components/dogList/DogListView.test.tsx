@@ -1,82 +1,49 @@
-import type { Mock } from "vitest";
-import Box from "@material-ui/core/Box";
-import List from "@material-ui/core/List";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import { shallow } from "enzyme";
-import { IDog } from "../../types/Types";
-import DogListItem from "./dogListItem/DogListItem";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import DogListView from "./DogListView";
-import { useStyles } from "./DogListView.styles";
-
-vi.mock("./DogListView.styles");
+import { affenpinscher, basenji, emptyDog } from "../../test-utils/dogs";
 
 describe("DogListView", () => {
-  beforeEach(() => {
-    (useStyles as Mock).mockReturnValue({
-      box: "box",
-      list: "list",
-      paper: "paper",
-    });
-  });
-
-  const dogList: IDog[] = [{ name: "", image: "", scolded: 0 }];
-  const dogItem: IDog = { name: "", image: "", scolded: 0 };
-  const onSelectMock = vi.fn((f) => f);
-
-  it("should render correctly", () => {
-    const wrapper = shallow(
+  it("should render one item per breed and mark the selected one", () => {
+    render(
       <DogListView
-        dogList={dogList}
-        dogItem={dogItem}
-        onSelect={onSelectMock}
+        dogList={[affenpinscher, basenji]}
+        dogItem={basenji}
+        onSelect={vi.fn()}
       />
     );
 
-    expect(wrapper.find(Paper).prop("className")).toBe("paper");
-    expect(wrapper.find(List).prop("className")).toBe("list");
-    expect(wrapper.find(DogListItem)).toHaveLength(dogList.length);
+    expect(screen.getAllByRole("listitem")).toHaveLength(2);
+    expect(screen.getByRole("button", { name: /Basenji/ })).toHaveClass("Mui-selected");
+    expect(screen.getByRole("button", { name: /Affenpinscher/ })).not.toHaveClass(
+      "Mui-selected"
+    );
   });
 
-  it("should return empty list if not have breed", () => {
-    const dogListEmpty: IDog[] = [];
+  it("should render a message when the list is empty", () => {
+    render(<DogListView dogList={[]} dogItem={emptyDog} onSelect={vi.fn()} />);
 
-    const wrapper = shallow(
-      <DogListView
-        dogList={dogListEmpty}
-        dogItem={dogItem}
-        onSelect={onSelectMock}
-      />
-    );
-
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(
-      wrapper.matchesElement(
-        <Paper className="paper">
-          {dogListEmpty.length <= 0 ? (
-            <Box className="box">
-              <Typography variant="h6" component="h2">
-                There is no such initial letter,{" "}
-                <b>please select another breed</b>.
-              </Typography>
-            </Box>
-          ) : (
-            <></>
-          )}
-        </Paper>
-      )
-    ).toBe(true);
+      screen.getByRole("heading", {
+        name: "There is no such initial letter, please select another breed.",
+      })
+    ).toBeInTheDocument();
   });
 
-  it("should call the onClick of DogListItem", () => {
-    const wrapper = shallow(
+  it("should call onSelect with the clicked breed", async () => {
+    const user = userEvent.setup();
+    const onSelectMock = vi.fn();
+    render(
       <DogListView
-        dogList={dogList}
-        dogItem={dogItem}
+        dogList={[affenpinscher, basenji]}
+        dogItem={emptyDog}
         onSelect={onSelectMock}
       />
     );
 
-    wrapper.find(DogListItem).first().invoke("onClick")();
-    expect(onSelectMock).toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: /Affenpinscher/ }));
+
+    expect(onSelectMock).toHaveBeenCalledWith(affenpinscher);
   });
 });

@@ -1,17 +1,21 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Button from "./Button";
-import ButtonView from "./ButtonView";
 
 describe("Button", () => {
-  const label = "Label";
-  const onClickMock = vi.fn();
-  const disabled = false;
+  it("should render the label and call onClick when clicked", async () => {
+    const user = userEvent.setup();
+    const onClickMock = vi.fn();
 
-  it("should render the view with the right props", () => {
-    const wrapper = shallow(
-      <Button label={label} onClick={onClickMock} disabled={disabled} />
-    );
+    render(<Button label="Label" onClick={onClickMock} />);
+    await user.click(screen.getByRole("button", { name: "Label" }));
 
-    expect(wrapper.type()).toBe(ButtonView);
+    expect(onClickMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("should be disabled when disabled is true", () => {
+    render(<Button label="Label" disabled />);
+
+    expect(screen.getByRole("button", { name: "Label" })).toBeDisabled();
   });
 });

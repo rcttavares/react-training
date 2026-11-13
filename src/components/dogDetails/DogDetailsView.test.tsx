@@ -1,78 +1,53 @@
-import type { Mock } from "vitest";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import DogDetailsView from "./DogDetailsView";
-import { useStyles } from "./DogDetailsView.styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
-import CardActions from "@material-ui/core/CardActions";
-import PetsIcon from "@material-ui/icons/Pets";
-import { capitalize } from "lodash";
-import Button from "../button/Button";
-
-vi.mock("./DogDetailsView.styles");
 
 describe("DogDetailsView", () => {
-  beforeEach(() => {
-    (useStyles as Mock).mockReturnValue({
-      card: "card",
-      cardContent: "cardContent",
-      typography: "typography",
-      avatar: "avatar",
-      icon: "icon",
-      cardActions: "cardActions",
-    });
-  });
-
-  const name = "affenpinscher";
   const image = "image url";
-  const onScoldMock = vi.fn();
-  const onBarkMock = vi.fn();
-  const disabled = false;
 
-  it("should render correctly", () => {
-    const wrapper = shallow(
+  it("should render the capitalized name and the image", () => {
+    render(
       <DogDetailsView
-        name={name}
+        name="affenpinscher"
         image={image}
-        onScold={onScoldMock}
-        onBark={onBarkMock}
-        disabled={disabled}
+        onScold={vi.fn()}
+        onBark={vi.fn()}
+        disabled={false}
       />
     );
 
-    expect(
-      wrapper.matchesElement(
-        <Card className="card">
-          <CardContent className="cardContent">
-            <Typography variant="h5" component="h1" className="typography">
-              {capitalize(name) ? capitalize(name) : "Name of breed"}
-            </Typography>
-          </CardContent>
-          <Avatar className="avatar" alt={name} src={image}>
-            <PetsIcon className="icon" />
-          </Avatar>
-          <CardActions className="cardActions">
-            <Button label="Scold!" onClick={onScoldMock} disabled={disabled} />
-            <Button label="Bark!" onClick={onBarkMock} disabled={disabled} />
-          </CardActions>
-        </Card>
-      )
-    ).toBe(true);
+    expect(screen.getByRole("heading", { name: "Affenpinscher" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "affenpinscher" })).toHaveAttribute("src", image);
   });
 
-  it('should render in Typography "Name of breed" if breed is not selected', () => {
-    const wrapper = shallow(
+  it('should render "Name of breed" when no breed is selected', () => {
+    render(
+      <DogDetailsView name="" image="" onScold={vi.fn()} onBark={vi.fn()} disabled />
+    );
+
+    expect(screen.getByRole("heading", { name: "Name of breed" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Scold!" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Bark!" })).toBeDisabled();
+  });
+
+  it("should call onScold and onBark when the buttons are clicked", async () => {
+    const user = userEvent.setup();
+    const onScoldMock = vi.fn();
+    const onBarkMock = vi.fn();
+    render(
       <DogDetailsView
-        name=""
+        name="affenpinscher"
         image={image}
         onScold={onScoldMock}
         onBark={onBarkMock}
-        disabled={disabled}
+        disabled={false}
       />
     );
 
-    expect(wrapper.find(Typography).first().text()).toBe("Name of breed");
+    await user.click(screen.getByRole("button", { name: "Scold!" }));
+    await user.click(screen.getByRole("button", { name: "Bark!" }));
+
+    expect(onScoldMock).toHaveBeenCalledTimes(1);
+    expect(onBarkMock).toHaveBeenCalledTimes(1);
   });
 });

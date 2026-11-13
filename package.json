@@ -12,11 +12,9 @@
     "@types/node": "^22.20.5",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "axios": "^1.20.0",
     "effector": "^22.8.7",
     "effector-react": "^22.5.4",
-    "enzyme": "^3.11.0",
     "formik": "^2.4.5",
     "lodash": "^4.18.1",
     "notistack": "^3.0.1",
@@ -47,7 +45,6 @@
     ]
   },
   "devDependencies": {
-    "@types/enzyme": "^3.10.16",
     "@types/lodash": "^4.14.201",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "5.1.0",
@@ -55,8 +52,5 @@
     "vite": "^7.3.7",
     "vitest": "5.1.0",
     "whatwg-fetch": "3.6.20"
-  },
-  "resolutions": {
-    "cheerio": "1.0.0-rc.12"
   }
 }

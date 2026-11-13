@@ -1,58 +1,53 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import DogListItemView from "./DogListItemView";
-import Avatar from "@material-ui/core/Avatar";
-import Chip from "@material-ui/core/Chip";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import { capitalize } from "lodash";
 
 describe("DogListItemView", () => {
   const name = "affenpinscher";
   const image = "image url";
-  const scolded = 0;
-  const selected = false;
-  const onClickMock = vi.fn();
 
-  it("should render correctly", () => {
-    const wrapper = shallow(
+  it("should render the avatar, the capitalized name and the scolded counter", () => {
+    render(
       <DogListItemView
         name={name}
         image={image}
-        scolded={scolded}
-        selected={selected}
-        onClick={onClickMock}
+        scolded={5}
+        selected={false}
+        onClick={vi.fn()}
       />
     );
 
-    expect(
-      wrapper.matchesElement(
-        <ListItem button selected={selected}>
-          <ListItemAvatar>
-            <Avatar alt={name} src={image} />
-          </ListItemAvatar>
-          <ListItemText primary={capitalize(name)} />
-          <ListItemSecondaryAction>
-            <Chip label={scolded} />
-          </ListItemSecondaryAction>
-        </ListItem>
-      )
-    ).toBe(true);
+    expect(screen.getByRole("img", { name })).toHaveAttribute("src", image);
+    expect(screen.getByText("Affenpinscher")).toBeInTheDocument();
+    expect(screen.getByText("5")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Affenpinscher/ })).not.toHaveClass(
+      "Mui-selected"
+    );
   });
 
-  it("should handle the onClick event", () => {
-    const wrapper = shallow(
+  it("should be highlighted when selected", () => {
+    render(
+      <DogListItemView name={name} image={image} scolded={0} selected onClick={vi.fn()} />
+    );
+
+    expect(screen.getByRole("button", { name: /Affenpinscher/ })).toHaveClass("Mui-selected");
+  });
+
+  it("should call onClick when clicked", async () => {
+    const user = userEvent.setup();
+    const onClickMock = vi.fn();
+    render(
       <DogListItemView
         name={name}
         image={image}
-        scolded={scolded}
-        selected={selected}
+        scolded={0}
+        selected={false}
         onClick={onClickMock}
       />
     );
 
-    wrapper.find(ListItem).first().simulate("click");
-    expect(onClickMock).toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: /Affenpinscher/ }));
+
+    expect(onClickMock).toHaveBeenCalledTimes(1);
   });
 });
