@@ -2,6 +2,19 @@
 
 This project uses **Vite** for development and build.
 
+## Stack
+
+- React 18 + TypeScript
+- [MUI](https://mui.com/) v9 (Material UI) for the components
+- [effector](https://effector.dev/) for state management
+- Formik + yup for the "Beer Formik" form
+- [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for tests
+
+## Requirements
+
+- Node.js `22.12` or newer (required by Vitest 5)
+- Yarn 1 (`yarn install`)
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -16,8 +29,10 @@ You will also see any runtime errors in the console.
 
 ### `yarn test`
 
-Runs tests via **Jest standalone** (with coverage and thresholds).\
-If you want watch mode, you can pass Jest flags, for example: `yarn test --watch`.
+Runs the tests once via **Vitest** (jsdom environment), with coverage.\
+Coverage must stay at **100%** (statements, branches, functions and lines), otherwise the command fails.
+
+For watch mode, run `yarn vitest`. To run a single file: `yarn vitest src/App.test.tsx`.
 
 ### `yarn build`
 
@@ -38,4 +53,7 @@ Runs TypeScript (`tsc`) without emitting files.
 ## Structure (quick)
 
 - App entry: `index.html` (root) → `src/index.tsx`
-- Vite config: `vite.config.ts` (port `3000`, output in `build/`)
+- Vite config: `vite.config.ts` (port `3000`, output in `build/`); it also holds the Vitest config (`test` block)
+- Components: `src/components/<name>/`, split into a container (`Name.tsx`), a view (`NameView.tsx`) and the view styles as MUI `sx` objects (`NameView.styles.ts`)
+- State: `src/stores/` (effector stores, events and effects)
+- Tests: next to each file as `*.test.ts(x)`; global setup in `src/setupTests.ts` and shared helpers in `src/test-utils/`
